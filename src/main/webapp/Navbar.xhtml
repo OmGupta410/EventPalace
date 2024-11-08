@@ -1,0 +1,62 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <h:head>
+        <title>Facelet Title</title>
+        
+         <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      href="https://cdn.jsdelivr.net/npm/flowbite@2.5.2/dist/flowbite.min.css"
+      rel="stylesheet"
+    />
+    </h:head>
+    <h:body>
+        <header class="body-font">
+  <div
+    class="container mx-auto flex flex-wrap p-4 flex-col md:flex-row items-center shadow"
+  >
+    <!-- logo  -->
+    <a class="flex title-font font-medium items-center mb-4 md:mb-0">
+      
+      <span class="ml-8 text-xl">EventPalace</span>
+    </a>
+
+    <!-- nav menu -->
+    <nav
+      class="md:ml-auto flex flex-wrap items-center text-base justify-center"
+    >
+      <a class="mr-8 hover:text-grey hover:underline duration-500 transition-all " href="index.xhtml">Home</a>
+      <a class="mr-8 hover:text-grey hover:underline duration-500 transition-all " href="BrowseVenue.xhtml">Browse Venues</a>
+      <a class="mr-8 hover:text-grey hover:underline duration-500 transition-all " href="Contactus.xhtml">Contact Us</a>
+      <a class="mr-8 hover:text-grey hover:underline duration-500 transition-all " >About us</a>
+    </nav>
+
+    <!-- button -->
+    <a href="Login.xhtml">
+    <button onclick=""
+      class="inline-flex items-center bg-black text-white border-0 py-1 px-3 mr-12 focus:outline-none rounded text-base mt-4 md:mt-0"
+      jf-ext-button-ct="button"
+      
+    >
+      Login/SignUp
+      <svg
+        fill="none"
+        stroke="currentColor"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        stroke-width="2"
+        class="w-4 h-4 ml-1"
+        viewBox="0 0 24 24"
+      >
+        <path d="M5 12h14M12 5l7 7-7 7"></path>
+      </svg>
+   
+    </button>
+     </a>
+  </div>
+</header>
+
+    </h:body>
+</html>

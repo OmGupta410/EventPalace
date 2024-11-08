@@ -1,0 +1,150 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html
+  xmlns="http://www.w3.org/1999/xhtml"
+  xmlns:h="http://xmlns.jcp.org/jsf/html"
+  xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+>
+  <h:head>
+    <title>Facelet Title</title>
+  </h:head>
+  <h:body>
+    <ui:include src="Navbar.xhtml"> </ui:include>
+    <div class="py-20">
+      <div class="flex h-full items-center justify-center">
+        <div
+          class="rounded-lg border border-gray-200 bg-white shadow-md dark:border-gray-700 dark:bg-gray-900 flex-col flex h-full items-center justify-center sm:px-4"
+        >
+          <div class="flex h-full flex-col justify-center gap-4 p-6">
+            <div
+              class="left-0 right-0 inline-block border-gray-200 px-2 py-2.5 sm:px-4"
+            >
+              <form class="flex flex-col gap-4 pb-4">
+                <h1 class="mb-4 text-2xl font-bold text-center">
+                  Registration
+                </h1>
+
+                <!-- Name  -->
+                <div>
+                  <div class="mb-2">
+                    <label
+                      class="text-sm font-medium text-gray-900 dark:text-gray-300"
+                      for="email"
+                      >Name:</label
+                    >
+                  </div>
+                  <div class="flex w-full rounded-lg pt-1">
+                    <div class="relative w-full">
+                      <input
+                        class="block w-full border disabled:cursor-not-allowed disabled:opacity-50 bg-gray-50 border-gray-300 text-gray-900 focus:border-cyan-500 focus:ring-cyan-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-cyan-500 dark:focus:ring-cyan-500 p-2.5 text-sm rounded-lg"
+                        id="text"
+                        type="text"
+                        name="email"
+                        placeholder="Enter your name"
+                        required="true"
+                      />
+                    </div>
+                  </div>
+                </div>
+
+                <!-- email -->
+                <div>
+                  <div class="mb-2">
+                    <label
+                      class="text-sm font-medium text-gray-900 dark:text-gray-300"
+                      for="email"
+                      >Email:</label
+                    >
+                  </div>
+                  <div class="flex w-full rounded-lg pt-1">
+                    <div class="relative w-full">
+                      <input
+                        class="block w-full border disabled:cursor-not-allowed disabled:opacity-50 bg-gray-50 border-gray-300 text-gray-900 focus:border-cyan-500 focus:ring-cyan-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-cyan-500 dark:focus:ring-cyan-500 p-2.5 text-sm rounded-lg"
+                        id="email"
+                        type="email"
+                        name="email"
+                        placeholder="email@example.com"
+                        required=""
+                      />
+                    </div>
+                  </div>
+                </div>
+
+                 <!-- contact number  -->
+                 <div>
+                  <div class="mb-2">
+                    <label
+                      class="text-sm font-medium text-gray-900 dark:text-gray-300"
+                      for="contact"
+                      >Contact:</label
+                    >
+                  </div>
+                  <div class="flex w-full rounded-lg pt-1">
+                    <div class="relative w-full">
+                      <input
+                        class="block w-full border disabled:cursor-not-allowed disabled:opacity-50 bg-gray-50 border-gray-300 text-gray-900 focus:border-cyan-500 focus:ring-cyan-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-cyan-500 dark:focus:ring-cyan-500 p-2.5 text-sm rounded-lg"
+                        id="contact"
+                        type="number"
+                        name="contact"
+                        placeholder="Enter your Contact number"
+                        required="true"
+                      />
+                    </div>
+                  </div>
+                </div>
+
+                <!-- password -->
+                <div>
+                  <div class="mb-2">
+                    <label
+                      class="text-sm font-medium text-gray-900 dark:text-gray-300"
+                      data-testid="flowbite-label"
+                      for="password"
+                      >Password</label
+                    >
+                  </div>
+                  <div class="flex w-full rounded-lg pt-1">
+                    <div class="relative w-full">
+                      <input
+                        class="block w-full border disabled:cursor-not-allowed disabled:opacity-50 bg-gray-50 border-gray-300 text-gray-900 focus:border-cyan-500 focus:ring-cyan-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-cyan-500 dark:focus:ring-cyan-500 p-2.5 text-sm rounded-lg"
+                        id="password"
+                        type="password"
+                        name="password"
+                        required="true"
+                        placeholder="enter your password"
+                      />
+                    </div>
+                  </div>
+                <br/>
+                </div>
+                <div class="flex flex-col gap-2">
+                  <button
+                    type="submit"
+                    class="border transition-colors focus:ring-2 p-0.5 disabled:cursor-not-allowed border-2 bg-sky-600 hover:bg-sky-700 active:bg-sky-800 hover:text-white disabled:bg-gray-300 disabled:text-black-700 rounded-lg"
+                  >
+                    <span
+                      class="flex items-center justify-center gap-1 font-medium py-1 px-2.5 text-base false"
+                    >
+                      Register
+                    </span>
+                  </button>
+                </div>
+              </form>
+              <div class="min-w-[270px]">
+                <div class="mt-4 text-center dark:text-gray-400">
+                  Already a user? 
+                  <a
+                    class="text-blue-500 underline hover:text-blue-600"
+                    href="Login.xhtml"
+                    >Login here !</a
+                  >
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <ui:include src="footer.xhtml" />
+  </h:body>
+</html>
