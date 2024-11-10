@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://xmlns.jcp.org/jsf/html"
+  xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+<h:head>
+  <title>Facelet Title</title>
+  <h:outputStylesheet name="styles.css" />
+</h:head>
+<h:body>
+  <!-- Including Navbar -->
+  <ui:include src="Navbar.xhtml" />
+
+  <!-- Main Content -->
+  <section class="text-gray-600 body-font">
+    <div class="container px-5 py-24 mx-auto flex flex-wrap">
+      <div class="flex w-full mb-20 flex-wrap">
+        <h1 class="sm:text-3xl text-2xl font-medium title-font text-gray-900 lg:w-1/3 lg:mb-0 mb-4">Master Cleanse
+          Reliac Heirloom</h1>
+        <p class="lg:pl-6 lg:w-2/3 mx-auto leading-relaxed text-base">
+          Whatever cardigan tote bag tumblr hexagon brooklyn asymmetrical gentrify, subway tile poke farm-to-table.
+          Franzen you probably haven't heard of them man bun deep jianbing selfies heirloom.
+        </p>
+      </div>
+
+      <div class="flex flex-wrap md:-m-2 -m-1">
+        <!-- Image Gallery -->
+        <div class="flex flex-wrap w-1/2">
+          <div class="md:p-2 p-1 w-1/2">
+            <img alt="gallery" class="w-full object-cover h-full object-center block cursor-pointer"
+              src="./resource/images/1.jpg" onclick="openModal(this.src, 0)" />
+          </div>
+          <div class="md:p-2 p-1 w-1/2">
+            <img alt="gallery" class="w-full object-cover h-full object-center block cursor-pointer"
+              src="./resource/images/2.jpg" onclick="openModal(this.src, 1)" />
+          </div>
+          <div class="md:p-2 p-1 w-full">
+            <img alt="gallery" class="w-full h-full object-cover object-center block cursor-pointer"
+              src="./resource/images/3.jpg" onclick="openModal(this.src, 2)" />
+          </div>
+        </div>
+        <div class="flex flex-wrap w-1/2">
+          <div class="md:p-2 p-1 w-full">
+            <img alt="gallery" class="w-full h-full object-cover object-center block cursor-pointer"
+              src="./resource/images/4.jpg" onclick="openModal(this.src, 3)" />
+          </div>
+          <div class="md:p-2 p-1 w-1/2">
+            <img alt="gallery" class="w-full object-cover h-full object-center block cursor-pointer"
+              src="./resource/images/2.jpg" onclick="openModal(this.src, 4)" />
+          </div>
+          <div class="md:p-2 p-1 w-1/2">
+            <img alt="gallery" class="w-full object-cover h-full object-center block cursor-pointer"
+              src="./resource/images/4.jpg" onclick="openModal(this.src, 5)" />
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Modal Section -->
+  <div id="imageModal" class="fixed inset-0 z-50 hidden flex items-center justify-center bg-black bg-opacity-75">
+    <div class="overflow-hidden max-w-3xl mx-auto bg-white rounded-lg shadow-xl">
+      <!-- Close Button -->
+      <button onclick="closeModal()" class="absolute top-2 right-2 text-white text-2xl font-bold">&times;</button>
+
+      <!-- Previous Button -->
+      <button onclick="changeImage(-1)"
+        class="absolute left-0 text-white text-4xl font-bold top-1/2 transform -translate-y-1/2">&lt;</button>
+
+      <!-- Next Button -->
+      <button onclick="changeImage(1)"
+        class="absolute right-0 text-white text-4xl font-bold top-1/2 transform -translate-y-1/2">&gt;</button>
+
+      <!-- Image -->
+      <img id="modalImage" src="" alt="some image"
+        class="rounded-lg max-h-[75vh] max-w-[90vw] mx-auto object-contain" />
+    </div>
+  </div>
+
+  <script>
+    // Image Sources Array
+    const images = [
+      "./resource/images/1.jpg",
+      "./resource/images/2.jpg",
+      "./resource/images/3.jpg",
+      "./resource/images/3.jpg",
+      "./resource/images/4.jpg",
+      "./resource/images/2.jpg"
+    ];
+
+    let currentIndex = 0; // To keep track of the current image index
+
+    function openModal(src, index) {
+      currentIndex = index; // Set the index of the clicked image
+      document.getElementById('modalImage').src = src;
+      document.getElementById('imageModal').classList.remove('hidden');
+    }
+
+    function closeModal() {
+      document.getElementById('imageModal').classList.add('hidden');
+    }
+
+    // Function to change image when Next or Previous is clicked
+    function changeImage(direction) {
+      currentIndex += direction;
+
+      // Update the modal image source
+      document.getElementById('modalImage').src = images[currentIndex];
+    }
+
+    // Event listener for keyboard arrow keys
+    document.addEventListener('keydown', function (event) {
+      if (event.key === 'ArrowLeft') {
+        changeImage(-1); // Previous image
+      } else if (event.key === 'ArrowRight') {
+        changeImage(1); // Next image
+      }
+    });
+  </script>
+
+  <!-- Including Footer -->
+  <ui:include src="footer.xhtml" />
+</h:body>
+
+</html>
