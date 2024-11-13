@@ -1,4 +1,4 @@
-package com.mycompany.venueroyale;
+package com.mycompany.eventpalace;
 
 import javax.ws.rs.ApplicationPath;
 import javax.ws.rs.core.Application;

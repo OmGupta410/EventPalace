@@ -1,4 +1,4 @@
-package com.mycompany.venueroyale.resources;
+package com.mycompany.eventpalace.resources;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
