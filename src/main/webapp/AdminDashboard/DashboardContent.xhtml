@@ -4,16 +4,83 @@
 
 <head>
     <title>EventPalece Dashboard</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" />
+   
 </head>
 
 <h:body class="bg-gray-100">
     <h:form>
+  <section id="main">
+                        <div class="container mx-auto p-6">
+                            <!-- Statistics Overview -->
+                            <div class="flex flex-wrap -mx-4 mb-6">
+                                <div class="w-full md:w-1/2 lg:w-1/4 px-4 mb-4">
+                                    <div class="bg-orange-100 p-6 rounded-lg shadow-lg">
+                                        <h3 class="text-xl font-semibold">Bookings</h3>
+                                        <div class="mt-4">
+                                            <div class="h-24 bg-yellow-300 rounded-md"></div> <!-- Placeholder for chart -->
+                                        </div>
+                                    </div>
+                                </div>
 
-        main dashboard
+                                <div class="w-full md:w-1/2 lg:w-1/4 px-4 mb-4">
+                                    <div class="bg-gray-200 p-6 rounded-lg shadow-lg">
+                                        <h3 class="text-xl font-semibold">Revenue</h3>
+                                        <div class="mt-4">
+                                            <div class="h-24 bg-green-300 rounded-md"></div> <!-- Placeholder for chart -->
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="w-full md:w-1/2 lg:w-1/4 px-4 mb-4">
+                                    <div class="bg-orange-200 p-6 rounded-lg shadow-lg">
+                                        <h3 class="text-xl font-semibold">User Registrations</h3>
+                                        <div class="mt-4">
+                                            <div class="h-24 bg-blue-300 rounded-md"></div> <!-- Placeholder for chart -->
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="w-full md:w-1/2 lg:w-1/4 px-4 mb-4">
+                                    <div class="bg-yellow-100 p-6 rounded-lg shadow-lg">
+                                        <h3 class="text-xl font-semibold">Feedback</h3>
+                                        <div class="mt-4">
+                                            <div class="h-24 bg-red-300 rounded-md"></div> <!-- Placeholder for chart -->
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Recent Activity -->
+                            <div class="flex justify-between items-center">
+                                <h2 class="text-2xl font-bold mb-4">Recent Activity</h2>
+                                <div class="flex items-center">
+                                    <a href="ManageVenue.xhtml"> <button onclick="" class="bg-orange-500 text-white px-4 py-2 rounded mr-4">Manage Venues</button></a>
+                                    <button class="text-gray-600 border px-4 py-2 rounded">Settings</button>
+                                </div>
+                            </div>
+
+                            <div class="space-y-4">
+                                <div class="bg-white p-4 shadow-lg rounded-lg">
+                                    <p class="font-semibold">Updated venue details for 'Grand Hall'</p>
+                                    <p class="text-gray-500 text-sm">2 hours ago</p>
+                                </div>
+
+                                <div class="bg-white p-4 shadow-lg rounded-lg">
+                                    <p class="font-semibold">New booking for 'Conference Room A'</p>
+                                    <p class="text-gray-500 text-sm">3 hours ago</p>
+                                </div>
+
+                                <div class="bg-white p-4 shadow-lg rounded-lg">
+                                    <p class="font-semibold">User 'John Smith' registered</p>
+                                    <p class="text-gray-500 text-sm">5 hours ago</p>
+                                </div>
+                            </div>
+                        </div>
+
+
+
+                    </section>
+
     </h:form>
 </h:body>
 

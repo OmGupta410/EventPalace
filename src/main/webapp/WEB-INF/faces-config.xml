@@ -40,4 +40,12 @@
         </navigation-case>
     </navigation-rule>
     
+    
+<!--     <navigation-rule>
+        <from-view-id>/AdminDashboard/index.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>LoginPage</from-outcome>
+            <to-view-id>/EventPalace/Login.xhtml</to-view-id>
+        </navigation-case>
+     </navigation-rule>-->
 </faces-config>

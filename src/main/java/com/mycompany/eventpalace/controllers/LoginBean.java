@@ -4,7 +4,6 @@
  */
 package com.mycompany.eventpalace.controllers;
 
-
 import com.mycompany.entity.UserRegistrationTable;
 import com.mycompany.sessionBeans.UserRegistrationTableFacadeLocal;
 import java.io.IOException;
@@ -20,6 +19,7 @@ import javax.servlet.http.HttpSession;
 @Named
 @RequestScoped
 public class LoginBean {
+
     private String email;
     private String password;
     private String role;
@@ -31,8 +31,7 @@ public class LoginBean {
 //        System.out.println(email);
 //        System.out.println(role);
 //        System.out.println(password);
-        
-        
+
         // Check if email and password are not empty
         if (email == null || email.trim().isEmpty() || password == null || password.trim().isEmpty()) {
             return "login?faces-redirect=true&error=emptyFields"; // Optional error handling
@@ -53,20 +52,18 @@ public class LoginBean {
         this.role = user.getRoleid().getRolename(); // Assuming `RoleTable` has a `roleName` field
 
         // Check user role and navigate to the appropriate page
-       if ("Admin".equalsIgnoreCase(role)) {
-        return "adminDashboard"; // Matches faces-config.xml navigation case
-    } else if ("Owner".equalsIgnoreCase(role)) {
-        return "ownerDashboard";
-    } else if ("Client".equalsIgnoreCase(role)) {
-        return "clientDashboard";
-    } else {
-        return "login?faces-redirect=true&error=invalidCredentials";
-    }
+        if ("Admin".equalsIgnoreCase(role)) {
+            return "adminDashboard"; // Matches faces-config.xml navigation case
+        } else if ("Owner".equalsIgnoreCase(role)) {
+            return "ownerDashboard";
+        } else if ("Client".equalsIgnoreCase(role)) {
+            return "clientDashboard";
+        } else {
+            return "login?faces-redirect=true&error=invalidCredentials";
+        }
 
     }
 
-    
-    
     @PostConstruct
     public void init() {
         ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
@@ -85,19 +82,38 @@ public class LoginBean {
         }
     }
 
+//    public String logout() {
+//        ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
+//        HttpSession session = (HttpSession) externalContext.getSession(false);
+//        if (session != null) {
+//            session.invalidate(); // This invalidates the session
+//            FacesContext.getCurrentInstance().addMessage(null,
+//                    new FacesMessage("Session invalidated successfully"));
+//            System.out.println("Session invalidated successfully.");
+//        }
+//        return "/Login.xhtml";  // Redirect to login page
+////        return "/Login.xhtml";
+//    }
     public String logout() {
+        // Get the external context from the current FacesContext
         ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
+
+        // Retrieve the current HTTP session
         HttpSession session = (HttpSession) externalContext.getSession(false);
+
+        // Check if the session exists
         if (session != null) {
-            session.invalidate(); // This invalidates the session
-            FacesContext.getCurrentInstance().addMessage(null,
-                    new FacesMessage("Session invalidated successfully"));
+            session.invalidate(); // Invalidate the session to log out the user
             System.out.println("Session invalidated successfully.");
         }
-        return "/Login.xhtml?faces-redirect=true";  // Redirect to login page
-//        return "/Login.xhtml";
-    }
 
+        // Optionally display a message indicating the user has been logged out
+        FacesContext.getCurrentInstance().addMessage(null,
+                new FacesMessage(FacesMessage.SEVERITY_INFO, "You have been logged out.", null));
+
+        // Redirect to the login page
+        return "/LoginPagel?faces-redirect=true";
+    }
 
     // Getters and Setters
     public String getEmail() {
@@ -131,10 +147,5 @@ public class LoginBean {
     public void setUserFacade(UserRegistrationTableFacadeLocal userFacade) {
         this.userFacade = userFacade;
     }
-    
-    
-    
-  
 
 }
-

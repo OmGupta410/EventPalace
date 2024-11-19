@@ -28,4 +28,5 @@ public class VenueTableFacade extends AbstractFacade<VenueTable> implements Venu
         super(VenueTable.class);
     }
     
+    
 }

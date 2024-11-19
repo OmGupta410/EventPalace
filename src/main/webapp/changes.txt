@@ -1,3 +1,9 @@
 sort menu in browse venu page
 Login /signUp
 gallery
+
+login with rest
+
+signup me role id insert krwana , and default status 0 and later for owner it can be changed to 1 
+change in databse assign default role as user and in registration table set default 0 
+

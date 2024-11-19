@@ -18,18 +18,30 @@ import javax.ejb.EJB;
  */
 @Named(value = "showVenue")
 @SessionScoped
+
 public class showVenue implements Serializable {
+    
 
     @EJB
     private VenueTableFacadeLocal venueTableFacade;
 
+    
     /**
      * Creates a new instance of showVenue
      */
     public showVenue() {
     }
     
+
+
+    
     public List<VenueTable> findAll(){
         return this.venueTableFacade.findAll();
     }
+    
+   
+  
+
 }
+ 
+

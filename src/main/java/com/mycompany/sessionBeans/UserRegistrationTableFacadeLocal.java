@@ -6,6 +6,7 @@ package com.mycompany.sessionBeans;
 
 import com.mycompany.entity.UserRegistrationTable;
 import java.util.List;
+import java.util.Optional;
 import javax.ejb.Local;
 
 /**
@@ -28,8 +29,8 @@ public interface UserRegistrationTableFacadeLocal {
     List<UserRegistrationTable> findRange(int[] range);
 
     int count();
-
-
-    UserRegistrationTable findByEmailAndPassword(String email, String password);
-
+        UserRegistrationTable findByEmailAndPassword(String email, String password);
+    
+         public UserRegistrationTable signup(UserRegistrationTable user);
+        
 }

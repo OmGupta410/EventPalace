@@ -10,6 +10,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 
+
 /**
  *
  * @author Om Gupta
@@ -28,9 +29,8 @@ public class RoleTableFacade extends AbstractFacade<RoleTable> implements RoleTa
     public RoleTableFacade() {
         super(RoleTable.class);
     }
- 
     
-       public RoleTable findByUsernameAndPassword(String username, String password) {
+      public RoleTable findByUsernameAndPassword(String username, String password) {
         TypedQuery<RoleTable> query = em.createQuery(
                 "SELECT r FROM RoleTable r WHERE r.username = :username AND r.password = :password", RoleTable.class);
         query.setParameter("username", username);
@@ -44,4 +44,6 @@ public class RoleTableFacade extends AbstractFacade<RoleTable> implements RoleTa
         }
     }
 
+
+    
 }

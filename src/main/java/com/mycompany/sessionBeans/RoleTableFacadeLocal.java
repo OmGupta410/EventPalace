@@ -30,6 +30,3 @@ public interface RoleTableFacadeLocal {
     int count();
     
 }
-
-
-
