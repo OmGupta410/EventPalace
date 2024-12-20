@@ -5,6 +5,8 @@
 package com.mycompany.sessionBeans;
 
 import com.mycompany.entity.UserBookingTable;
+import java.time.LocalDate;
+import java.util.Date;
 import java.util.List;
 import javax.ejb.Local;
 
@@ -29,4 +31,7 @@ public interface UserBookingTableFacadeLocal {
 
     int count();
     
+    
+    //maybe use timestamp 
+    boolean isVenueAvailable(Integer venueId, Date eventDate, String shift);
 }

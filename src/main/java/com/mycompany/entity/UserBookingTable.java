@@ -48,7 +48,7 @@ public class UserBookingTable implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Column(name = "Booking_date")
-    @Temporal(TemporalType.DATE)
+    @Temporal(TemporalType.TIMESTAMP)
     private Date bookingdate;
     @Basic(optional = false)
     @NotNull
@@ -69,7 +69,7 @@ public class UserBookingTable implements Serializable {
     @ManyToOne
     private UserRegistrationTable userId;
     @JoinColumn(name = "VenueId", referencedColumnName = "VenueId")
-    @ManyToOne
+    @ManyToOne  
     private VenueTable venueId;
     @OneToMany(mappedBy = "bookingId")
     private Collection<PaymentTable> paymentTableCollection;

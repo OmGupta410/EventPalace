@@ -14,5 +14,5 @@ import javax.ws.rs.core.Application;
 
 @ApplicationPath("/resources") // This is the base path for all REST services
 public class ApplicationConfig extends Application {
-    // No additional configuration required
+    // No additional configuration required 
 }

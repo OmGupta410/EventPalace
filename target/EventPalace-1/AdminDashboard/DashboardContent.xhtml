@@ -1,89 +1,178 @@
-<!DOCTYPE html>
+    <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://xmlns.jcp.org/jsf/html"
-    xmlns:ui="http://xmlns.jcp.org/jsf/facelets" xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets" xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
 
-<head>
-    <title>EventPalece Dashboard</title>
-   
-</head>
+    <head>
+        <title>EventPalace Dashboard</title>
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+        <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
+        <style>
+            /* Ensure correct stacking context */
+            .navbar,
+            .chart-container,
+            .bg-white {
+                position: relative;
+            }
 
-<h:body class="bg-gray-100">
-    <h:form>
-  <section id="main">
-                        <div class="container mx-auto p-6">
-                            <!-- Statistics Overview -->
-                            <div class="flex flex-wrap -mx-4 mb-6">
-                                <div class="w-full md:w-1/2 lg:w-1/4 px-4 mb-4">
-                                    <div class="bg-orange-100 p-6 rounded-lg shadow-lg">
-                                        <h3 class="text-xl font-semibold">Bookings</h3>
-                                        <div class="mt-4">
-                                            <div class="h-24 bg-yellow-300 rounded-md"></div> <!-- Placeholder for chart -->
-                                        </div>
-                                    </div>
-                                </div>
+            /* Ensure z-index stacking order */
+            .navbar {
+                z-index: 10; /* Navbar stays on top */
+            }
 
-                                <div class="w-full md:w-1/2 lg:w-1/4 px-4 mb-4">
-                                    <div class="bg-gray-200 p-6 rounded-lg shadow-lg">
-                                        <h3 class="text-xl font-semibold">Revenue</h3>
-                                        <div class="mt-4">
-                                            <div class="h-24 bg-green-300 rounded-md"></div> <!-- Placeholder for chart -->
-                                        </div>
-                                    </div>
-                                </div>
+            .chart-container {
+                z-index: 1; /* Divs stay below navbar */
+            }
 
-                                <div class="w-full md:w-1/2 lg:w-1/4 px-4 mb-4">
-                                    <div class="bg-orange-200 p-6 rounded-lg shadow-lg">
-                                        <h3 class="text-xl font-semibold">User Registrations</h3>
-                                        <div class="mt-4">
-                                            <div class="h-24 bg-blue-300 rounded-md"></div> <!-- Placeholder for chart -->
-                                        </div>
-                                    </div>
-                                </div>
+            #feedbackChart,
+            #revenueChart {
+                max-width: 400px;
+                max-height: 300px;
+            }
 
-                                <div class="w-full md:w-1/2 lg:w-1/4 px-4 mb-4">
-                                    <div class="bg-yellow-100 p-6 rounded-lg shadow-lg">
-                                        <h3 class="text-xl font-semibold">Feedback</h3>
-                                        <div class="mt-4">
-                                            <div class="h-24 bg-red-300 rounded-md"></div> <!-- Placeholder for chart -->
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+            .chart-container {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                width: 100%;
+                height: 300px;
+                max-width: 400px;
+                margin: auto;
+            }
 
-                            <!-- Recent Activity -->
-                            <div class="flex justify-between items-center">
-                                <h2 class="text-2xl font-bold mb-4">Recent Activity</h2>
-                                <div class="flex items-center">
-                                    <a href="ManageVenue.xhtml"> <button onclick="" class="bg-orange-500 text-white px-4 py-2 rounded mr-4">Manage Venues</button></a>
-                                    <button class="text-gray-600 border px-4 py-2 rounded">Settings</button>
-                                </div>
-                            </div>
+            /* Adjust scaling and prevent overlap */
+            .chart-container:hover {
+                transform: scale(1.05);
+                margin-top: 10px; /* Adjust this as needed */
+            }
 
-                            <div class="space-y-4">
-                                <div class="bg-white p-4 shadow-lg rounded-lg">
-                                    <p class="font-semibold">Updated venue details for 'Grand Hall'</p>
-                                    <p class="text-gray-500 text-sm">2 hours ago</p>
-                                </div>
+            /* Add padding to navbar or ensure navbar has higher z-index */
+            .navbar {
+                position: sticky;
+                top: 0;
+                background-color: #333;
+                color: white;
+                padding: 10px 20px;
+                z-index: 20; /* Ensure navbar stays on top */
+            }
+        </style>
+    </head>
 
-                                <div class="bg-white p-4 shadow-lg rounded-lg">
-                                    <p class="font-semibold">New booking for 'Conference Room A'</p>
-                                    <p class="text-gray-500 text-sm">3 hours ago</p>
-                                </div>
+    <h:body class="bg-gray-100">
+        <h:form>
+            <section id="main">
+                <div class="container mx-auto p-6">
+                   
 
-                                <div class="bg-white p-4 shadow-lg rounded-lg">
-                                    <p class="font-semibold">User 'John Smith' registered</p>
-                                    <p class="text-gray-500 text-sm">5 hours ago</p>
-                                </div>
+                    <!-- Statistics Overview -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-10">
+                        <!-- Bookings -->
+                        <div class="bg-white border p-4 rounded-lg shadow-sm transform transition-transform duration-200 hover:scale-105 z-0">
+                            <h4 class="text-lg font-medium mb-2">Total Bookings</h4>
+                            <p class="text-2xl font-bold">120</p>
+                            <p class="text-sm text-gray-500">Pending: <span class="text-orange-600">10</span></p>
+                            <p class="text-sm text-gray-500">Confirmed: <span class="text-green-600">110</span></p>
+                        </div>
+
+                        <!-- Revenue -->
+                        <div class="bg-white border p-4 rounded-lg shadow-sm transform transition-transform duration-200 hover:scale-105 z-0">
+                            <h4 class="text-lg font-medium mb-2">Revenue</h4>
+                            <p class="text-2xl font-bold">$12,500</p>
+                            <p class="text-sm text-gray-500">This Month</p>
+                            <p class="text-sm text-green-600 mt-1">+15% from last month</p>
+                        </div>
+
+                        <!-- User Registrations -->
+                        <div class="bg-white border p-4 rounded-lg shadow-sm transform transition-transform duration-200 hover:scale-105 z-0">
+                            <h4 class="text-lg font-medium mb-2">User Registrations</h4>
+                            <p class="text-2xl font-bold">520</p>
+                            <p class="text-sm text-gray-500">New This Month: <span class="text-blue-600">35</span></p>
+                            <p class="text-sm text-gray-500">Inactive Users: <span class="text-gray-600">50</span></p>
+                        </div>
+
+                        <!-- Feedback -->
+                        <div class="bg-white border p-4 rounded-lg shadow-sm transform transition-transform duration-200 hover:scale-105 z-0">
+                            <h4 class="text-lg font-medium mb-2">Feedback</h4>
+                            <p class="text-2xl font-bold">85</p>
+                            <p class="text-sm text-gray-500">Positive: <span class="text-green-600">70</span></p>
+                            <p class="text-sm text-gray-500">Negative: <span class="text-red-600">15</span></p>
+                        </div>
+                    </div>
+
+
+                    <!-- Graphs Section -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <!-- Revenue Chart -->
+                        <div class="bg-white p-8 rounded-lg shadow-lg transition-transform duration-200 hover:scale-105 z-0">
+                            <h3 class="text-2xl font-semibold mb-4">Revenue Chart</h3>
+                            <div class="chart-container">
+                                <canvas id="revenueChart"></canvas>
                             </div>
                         </div>
 
+                        <!-- Feedback Chart -->
+                        <div class="bg-white p-8 rounded-lg shadow-lg transition-transform duration-200 hover:scale-105 z-0">
+                            <h3 class="text-2xl font-semibold mb-4">Feedback Breakdown</h3>
+                            <div class="chart-container">
+                                <canvas id="feedbackChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </h:form>
 
+        <script>
+            // Revenue Chart
+            const revenueCtx = document.getElementById('revenueChart').getContext('2d');
+            new Chart(revenueCtx, {
+                type: 'bar',
+                data: {
+                    labels: ['Week 1', 'Week 2', 'Week 3', 'Week 4'],
+                    datasets: [{
+                            label: 'Revenue',
+                            data: [3000, 4500, 4000, 3500],
+                            backgroundColor: 'rgba(75, 192, 192, 0.6)',
+                            borderColor: 'rgba(75, 192, 192, 1)',
+                            borderWidth: 1
+                        }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {display: true}
+                    },
+                    scales: {
+                        x: {
+                            ticks: {padding: 5}
+                        },
+                        y: {
+                            ticks: {padding: 5}
+                        }
+                    }
+                }
+            });
 
-                    </section>
-
-    </h:form>
-</h:body>
-
-
+            // Feedback Pie Chart
+            const feedbackCtx = document.getElementById('feedbackChart').getContext('2d');
+            new Chart(feedbackCtx, {
+                type: 'pie',
+                data: {
+                    labels: ['Positive', 'Negative', 'Neutral'],
+                    datasets: [{
+                            data: [70, 15, 10],
+                            backgroundColor: ['#4CAF50', '#F44336', '#2196F3']
+                        }]
+                },
+                options: {
+                    responsive: false,
+                    maintainAspectRatio: true,
+                    plugins: {
+                        legend: {position: 'top'}
+                    }
+                }
+            });
+        </script>
+    </h:body>
 
 </html>

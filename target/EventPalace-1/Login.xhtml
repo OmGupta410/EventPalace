@@ -23,7 +23,7 @@
                                     <h:selectOneMenu id="role" value="#{loginBean.role}">
                                         <f:selectItem itemValue="Admin" itemLabel="Admin" />
                                         <f:selectItem itemValue="Owner" itemLabel="Owner" />
-                                        <f:selectItem itemValue="Client" itemLabel="Client" />
+                                        <f:selectItem itemValue="User" itemLabel="User" />
                                     </h:selectOneMenu>
 
                                     <h:message for="role" styleClass="text-red-500 text-sm" />
@@ -58,7 +58,7 @@
                                 <div class="flex flex-col gap-2">
                                     <h:commandButton
                                         value="Login"
-                                        action="#{loginBean.login}"
+                                        action="#{loginBean.login(request)}"
                                         styleClass="border transition-colors focus:ring-2 p-0.5 bg-sky-600 hover:bg-sky-700 active:bg-sky-800 hover:text-white rounded-lg" />
                                 </div>
 

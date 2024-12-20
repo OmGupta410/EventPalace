@@ -1,214 +1,243 @@
-<?xml version='1.0' encoding='UTF-8' ?>
-<!DOCTYPE html
-  PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://xmlns.jcp.org/jsf/html"
-  xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
-<h:head>
-  <title>Facelet Title</title>
-</h:head>
-<h:body>
-  <ui:include src="Navbar.xhtml"></ui:include>
-  <section class="bg-white p-6 max-w-6xl mx-auto space-y-6">
-    <!-- Venue Details -->
-    <div class="flex flex-col lg:flex-row gap-6">
-      <!-- Left Section: Venue Info -->
-      <div class="lg:w-2/3">
-        <h2 class="text-2xl font-semibold text-gray-800">Pai Vista Convention Hall, Banashankari, Bangalore</h2>
-        <p class="text-gray-500 text-sm mt-1">#3/1, 27th Cross End of K.R Road, 2nd Stage Canara Bank, Banashankari, Bangalore, 560070</p>
-        <div class="flex items-center gap-2 mt-2">
-          <span class="text-orange-500 text-lg">&#9733;&#9733;&#9733;&#9733;&#9734;</span>
-          <span class="text-sm text-gray-600">Rated  reviewed by 64 guests,</span>
-          <a href="#" class="text-red-500 underline text-sm">read all reviews</a>
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://xmlns.jcp.org/jsf/html" xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core" xmlns:pt="http://xmlns.jcp.org/jsf/core" 
+      xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+
+      >
+    <h:head>
+        <title>Venue Details</title>
+        <link rel="stylesheet" href="styles.css" />
+        <script type="text/javascript">
+            var currentImageIndex = 0;
+            var images = ['./resource/images/1.jpg', './resource/images/2.jpg', './resource/images/3.jpg'];
+
+            function openModal(src, index) {
+                currentImageIndex = index;
+                document.getElementById('modalImage').src = src;
+                document.getElementById('imageModal').style.display = 'flex';
+            }
+
+            function closeModal() {
+                document.getElementById('imageModal').style.display = 'none';
+            }
+
+            function changeImage(direction) {
+                currentImageIndex = (currentImageIndex + direction + images.length) % images.length;
+                document.getElementById('modalImage').src = images[currentImageIndex];
+            }
+
+
+            document.getElementById('eventdate').setAttribute('type', 'date');
+        </script>
+    </h:head>
+    <h:body>
+        <!-- Navbar -->
+        <ui:include src="Navbar.xhtml" />
+
+        <section class="bg-white p-6 max-w-6xl mx-auto space-y-6">
+            <!-- Venue Details -->
+            <div class="flex flex-col lg:flex-row gap-6">
+                <!-- Left Section: Venue Info -->
+                <div class="lg:w-2/3">
+                    <!--passing parameter venue in venue id-->
+                    <h:link value="View Details" outcome="venueDetail">
+                        <f:param name="venueId" value="#{venue.venueId}" />
+                    </h:link>
+
+
+                    <h2 class="text-2xl font-semibold text-gray-800"><h:outputText value="#{venueDetailController.venue.venuename}" /></h2>
+                    <h:outputText value="#{venueDetailController.venue.venueId}" />
+                    <p class="text-gray-500 text-sm mt-1"><h:outputText value="#{venueDetailController.venue.description}" /></p>
+                    <div class="flex items-center gap-2 mt-2">
+                        <span class="text-orange-500 text-lg">&#9733;&#9733;&#9733;&#9733;&#9734;</span>
+                        <span class="text-sm text-gray-600">Rated and reviewed by 64 guests,</span>
+                        <a href="Review.xhtml" class="text-red-500 underline text-sm">read all reviews</a>
+                        <h:outputText value="#{venueDetailBean.venue.description}" />
+                    </div>
+                    <!-- Image Section -->
+                    <div class="relative mt-4">
+                        <img src="./resource/images/2.jpg" alt="Venue Image" class="rounded-lg shadow-md w-full" />
+                        <div class="absolute top-4 left-4 bg-red-600 text-white px-4 py-1 rounded-md font-semibold text-sm">
+                            Package per person starts from ₹675
+                        </div>
+                    </div>
+                </div>
+
+
+                <!-- Right Section: Availability Form -->
+                <div class="lg:w-1/3 bg-gray-100 p-6 rounded-lg shadow-md">
+                    <!-- Venue Booking Form -->
+                    <h:form class="space-y-4">
+
+                        <!--userid--> 
+
+                        <div>
+                            <h:outputLabel for="userId" value="UserID:" class="text-sm text-gray-600" />
+                            <h:inputText id="userId" value="#{venueBookingBean.userId}" styleClass="w-full border border-gray-300 rounded-md p-2 text-sm" pt:placeholder="Enter userid" />
+                        </div>
+
+
+                        <!-- venueId -->
+
+                        <div>
+                            <h:outputLabel for="venueId" value="VenueId:" class="text-sm text-gray-600" />
+                            <h:inputText id="venueId" value="#{venueBookingBean.venueId}" styleClass="w-full border border-gray-300 rounded-md p-2 text-sm"/>
+                        </div>
+
+
+
+
+                        <!-- Event Type -->
+                        <div>
+                            <h:outputLabel for="eventType" value="Event Type:" class="text-sm text-gray-600" />
+                            <h:selectOneMenu id="eventType" value="#{venueBookingBean.eventType}" styleClass="w-full border border-gray-300 rounded-md p-2 text-sm">
+                                <f:selectItem itemValue="" itemLabel="Select Event Type" noSelectionOption="true" />
+                                <f:selectItem itemValue="Birthday" itemLabel="Birthday" />
+                                <f:selectItem itemValue="Wedding" itemLabel="Wedding" />
+                            </h:selectOneMenu>
+                        </div>
+
+
+
+
+                        <!-- Event Date -->
+                        <div>
+
+                            <!--4.0.0 , 12.0.0, html ya phir html se --> 
+
+                            <h:outputLabel for="eventdate" value="Select Date:" />
+                            <h:inputText id="eventdate" value="#{venueBookingBean.eventDate}">
+                                <f:convertDateTime pattern="yyyy-MM-dd" />
+                            </h:inputText>
+
+
+                        </div>
+
+                        <!-- Event Session -->
+                        <div>
+                            <h:outputLabel for="shift" value="Event Session:" class="text-sm text-gray-600" />
+                            <h:selectOneMenu id="shift" value="#{venueBookingBean.shift}" styleClass="w-full border border-gray-300 rounded-md p-2 text-sm">
+                                <f:selectItem itemValue="" itemLabel="Select Event Session" noSelectionOption="true" />
+                                <f:selectItem itemValue="Morning" itemLabel="Morning" />
+                                <f:selectItem itemValue="Afternoon" itemLabel="Afternoon" />
+                                <f:selectItem itemValue="Evening" itemLabel="Evening" />
+                            </h:selectOneMenu>
+                        </div>
+
+                        <!-- Details -->
+                        <div>
+                            <h:outputLabel for="details" value="Details:" class="text-sm text-gray-600" />
+                            <h:inputText id="details" value="#{venueBookingBean.details}" styleClass="w-full border border-gray-300 rounded-md p-2 text-sm" pt:placeholder="Enter Details" />
+                        </div>
+
+                        <!-- Mobile Number -->
+                        <div>
+                            <h:outputLabel for="mobileNumber" value="Mobile Number:" class="text-sm text-gray-600" />
+                            <h:inputText id="mobileNumber" value="#{venueBookingBean.mobileNumber}" styleClass="w-full border border-gray-300 rounded-md p-2 text-sm" pt:placeholder="Enter Mobile Number" />
+                        </div>
+
+                        <!-- Submit Button -->
+                        <h:commandButton value="BookVenue" action="#{venueBookingBean.clickBookVenue()}" styleClass="w-full bg-red-600 text-white py-2 rounded-md font-semibold hover:bg-red-700"/>
+
+
+
+
+
+
+
+                    </h:form>
+
+                    <div class="mt-4 text-center text-gray-600">
+                        <p><span class="font-semibold text-green-700">7454</span> people checked availability of this venue</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Highlights Section -->
+            <div class="bg-gray-50 p-4 rounded-lg grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                <div class="flex items-center space-x-2">
+                    <p class="text-gray-600 text-sm">Food Type:</p>
+                    <span class="text-green-500 text-sm">Only Veg</span>
+                </div>
+                <div class="flex items-center space-x-2">
+                    <p class="text-gray-600 text-sm">Outside Food:</p>
+                    <span class="text-red-500 text-sm">Not Allowed</span>
+                </div>
+                <div class="flex items-center space-x-2">
+                    <p class="text-gray-600 text-sm">Rooms:</p>
+                    <span class="text-gray-800 text-sm">24</span>
+                </div>
+                <div class="flex items-center space-x-2">
+                    <p class="text-gray-600 text-sm">Total Halls:</p>
+                    <span class="text-gray-800 text-sm">3</span>
+                </div>
+                <div class="flex items-center space-x-2">
+                    <p class="text-gray-600 text-sm">Venue Capacity:</p>
+                    <span class="text-gray-800 text-sm">Upto 800 People</span>
+                </div>
+                <div class="flex items-center space-x-2">
+                    <p class="text-gray-600 text-sm">Car Parking:</p>
+                    <span class="text-gray-800 text-sm">40</span>
+                </div>
+            </div>
+
+            <!-- Photos Section -->
+            <div class="space-y-2">
+                <h3 class="text-lg font-semibold text-gray-800">Photos <a href="gallery.xhtml" class="text-red-500 underline text-sm">(View All Photos)</a></h3>
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                    <img src="./resource/images/1.jpg" alt="Photo 1" class="rounded-lg cursor-pointer" onclick="openModal(this.src, 0)" />
+                    <img src="./resource/images/1.jpg" alt="Photo 2" class="rounded-lg cursor-pointer" onclick="openModal(this.src, 1)" />
+                </div>
+            </div>
+
+            <!-- Rating Section -->
+            <div class="bg-gray-100 p-4 rounded-lg">
+                <h3 class="text-lg font-semibold text-gray-800">Rating</h3>
+                <div class="flex items-center mt-2 space-x-2">
+                    <p class="text-4xl font-bold text-orange-500">4.2</p>
+                    <div class="text-sm">
+                        <p class="text-yellow-500">&#9733;&#9733;&#9733;&#9733;&#9734;</p>
+                        <p class="text-gray-600">Based on 64 ratings</p>
+                    </div>
+                </div>
+                <div class="grid grid-cols-2 gap-2 mt-4">
+                    <div class="space-y-1">
+                        <p class="text-sm font-semibold text-gray-800">Ambience</p>
+                        <div class="w-full bg-gray-200 rounded-full h-2">
+                            <div class="bg-orange-500 h-2 rounded-full" style="width: 80%"></div>
+                        </div>
+                    </div>
+                    <div class="space-y-1">
+                        <p class="text-sm font-semibold text-gray-800">Food</p>
+                        <div class="w-full bg-gray-200 rounded-full h-2">
+                            <div class="bg-orange-500 h-2 rounded-full" style="width: 90%"></div>
+                        </div>
+                    </div>
+                    <div class="space-y-1">
+                        <p class="text-sm font-semibold text-gray-800">Service</p>
+                        <div class="w-full bg-gray-200 rounded-full h-2">
+                            <div class="bg-orange-500 h-2 rounded-full" style="width: 85%"></div>
+                        </div>
+                    </div>
+                    <div class="space-y-1">
+                        <p class="text-sm font-semibold text-gray-800">Cleanliness</p>
+                        <div class="w-full bg-gray-200 rounded-full h-2">
+                            <div class="bg-orange-500 h-2 rounded-full" style="width: 80%"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Modal Section -->
+        <div id="imageModal" class="fixed inset-0 z-50 hidden flex items-center justify-center bg-black bg-opacity-75">
+            <img id="modalImage" src="" alt="Modal Image" class="rounded-lg shadow-lg" />
+            <button onclick="closeModal()" class="absolute top-4 right-4 text-white text-2xl font-bold">&times;</button>
+            <button onclick="changeImage(-1)" class="absolute left-4 text-white text-4xl font-bold top-1/2">&lt;</button>
+            <button onclick="changeImage(1)" class="absolute right-4 text-white text-4xl font-bold top-1/2">&gt;</button>
         </div>
-        <!-- Image Section -->
-        <div class="relative mt-4">
-          <img src="./resource/images/2.jpg" alt="Venue Image" class="rounded-lg shadow-md w-full"/>
-          <div class="absolute top-4 left-4 bg-red-600 text-white px-4 py-1 rounded-md font-semibold text-sm">
-            Package per person starts from ₹675
-          </div>
-        </div>
-      </div>
-  
-      <!-- Right Section: Availability Form -->
-      <div class="lg:w-1/3 bg-gray-100 p-6 rounded-lg shadow-md">
-        <div class="flex items-center justify-between mb-4">
-          <p class="text-green-600 font-semibold">Availability checked 5 hr back</p>
-        </div>
-        <form class="space-y-4">
-          <div>
-            <label class="text-sm text-gray-600">Event Type</label>
-            <select class="w-full border border-gray-300 rounded-md p-2 text-sm">
-              <option>Select Event Type</option>
-              <option>Birthday</option>
-              <option>Wedding</option>
-            </select>
-          </div>
-          <div>
-            <label for="edate" class="text-sm text-gray-600">Event Date</label>
-            <input type="date" id="edate" class="w-full border border-gray-300 rounded-md p-2 text-sm"/>
-          </div>
-          <div>
-            <label class="text-sm text-gray-600">Event Session</label>
-            <select class="w-full border border-gray-300 rounded-md p-2 text-sm">
-              <option>Select Event Session</option>
-              <option>morning</option>
-              <option>Evening</option>
-            </select>
-          </div>
-          <div>
-            <input type="text" placeholder="Enter Details" class="w-full border border-gray-300 rounded-md p-2 text-sm"/>
-          </div>
-          <div>
-            <input type="text" placeholder="Enter Mobile Number" class="w-full border border-gray-300 rounded-md p-2 text-sm"/>
-          </div>
-          <button class="w-full bg-red-600 text-white py-2 rounded-md font-semibold hover:bg-red-700">Check Availability</button>
-        </form>
-        <div class="mt-4 text-center text-gray-600">
-          <p><span class="font-semibold text-green-700">7454</span> people checked availability of this venue</p>
-        </div>
-      </div>
-    </div>
-  
-    <!-- Highlights Section -->
-    <div class="bg-gray-50 p-4 rounded-lg grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-      <div class="flex items-center space-x-2">
-        <p class="text-gray-600 text-sm">Food Type:</p>
-        <span class="text-green-500 text-sm">Only Veg</span>
-      </div>
-      <div class="flex items-center space-x-2">
-        <p class="text-gray-600 text-sm">Outside Food:</p>
-        <span class="text-red-500 text-sm">Not Allowed</span>
-      </div>
-      <div class="flex items-center space-x-2">
-        <p class="text-gray-600 text-sm">Rooms:</p>
-        <span class="text-gray-800 text-sm">24</span>
-      </div>
-      <div class="flex items-center space-x-2">
-        <p class="text-gray-600 text-sm">Total Halls:</p>
-        <span class="text-gray-800 text-sm">3</span>
-      </div>
-      <div class="flex items-center space-x-2">
-        <p class="text-gray-600 text-sm">Venue Capacity:</p>
-        <span class="text-gray-800 text-sm">Upto 800 People</span>
-      </div>
-      <div class="flex items-center space-x-2">
-        <p class="text-gray-600 text-sm">Car Parking:</p>
-        <span class="text-gray-800 text-sm">40</span>
-      </div>
-    </div>
-  
-    <!-- Photos Section -->
-    <div class="space-y-2 cursor-pointer">
-      <h3 class="text-lg font-semibold text-gray-800">Photos <a href="gallery.xhtml" class="text-red-500 underline text-sm">(View All Photos)</a></h3>
-      <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-        <img src="./resource/images/1.jpg" alt="Photo 1" class="rounded-lg" onclick="openModal(this.src, 0)"/>
-        <img src="./resource/images/1.jpg" alt="Photo 2" class="rounded-lg" onclick="openModal(this.src, 1)"/>
-        <img src="./resource/images/1.jpg" alt="Photo 3" class="rounded-lg" onclick="openModal(this.src, 2)"/>
-        <img src="./resource/images/1.jpg" alt="Photo 4" class="rounded-lg" onclick="openModal(this.src, 3)"/>
-      </div>
-    </div>
-  
-    <!-- Rating Section -->
-    <div class="bg-gray-100 p-4 rounded-lg">
-      <h3 class="text-lg font-semibold text-gray-800">Rating</h3>
-      <div class="flex items-center mt-2 space-x-2">
-        <p class="text-4xl font-bold text-orange-500">4.2</p>
-        <div class="text-sm">
-          <p class="text-yellow-500">&#9733;&#9733;&#9733;&#9733;&#9734;</p>
-          <p class="text-gray-600">Based on 64 ratings</p>
-        </div>
-      </div>
-      <div class="grid grid-cols-2 gap-2 mt-4">
-        <div class="space-y-1">
-          <p class="text-sm font-semibold text-gray-800">Ambience</p>
-          <div class="w-full bg-gray-200 rounded-full h-2">
-            <div class="bg-orange-500 h-2 rounded-full" style="width: 80%"></div>
-          </div>
-        </div>
-        <div class="space-y-1">
-          <p class="text-sm font-semibold text-gray-800">Food</p>
-          <div class="w-full bg-gray-200 rounded-full h-2">
-            <div class="bg-orange-500 h-2 rounded-full" style="width: 90%"></div>
-          </div>
-        </div>
-        <div class="space-y-1">
-          <p class="text-sm font-semibold text-gray-800">Service</p>
-          <div class="w-full bg-gray-200 rounded-full h-2">
-            <div class="bg-orange-500 h-2 rounded-full" style="width: 85%"></div>
-          </div>
-        </div>
-        <div class="space-y-1">
-          <p class="text-sm font-semibold text-gray-800">Cleanliness</p>
-          <div class="w-full bg-gray-200 rounded-full h-2">
-            <div class="bg-orange-500 h-2 rounded-full" style="width: 80%"></div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-<!-- Modal Section -->
-<div id="imageModal" class="fixed inset-0 z-50 hidden flex items-center justify-center bg-black bg-opacity-75">
-  <div class="overflow-hidden max-w-3xl mx-auto bg-white rounded-lg shadow-xl">
-    <!-- Close Button -->
-    <button onclick="closeModal()" class="absolute top-2 right-2 text-white text-2xl font-bold">&times;</button>
-
-    <!-- Previous Button -->
-    <button onclick="changeImage(-1)"
-      class="absolute left-0 text-white text-4xl font-bold top-1/2 transform -translate-y-1/2">&lt;</button>
-
-    <!-- Next Button -->
-    <button onclick="changeImage(1)"
-      class="absolute right-0 text-white text-4xl font-bold top-1/2 transform -translate-y-1/2">&gt;</button>
-
-    <!-- Image -->
-    <img id="modalImage" src="./resource/images/1.jpg" alt="some image"
-      class="rounded-lg max-h-[75vh] max-w-[90vw] mx-auto object-contain" />
-  </div>
-</div>
-
-  <script>
-    // Image Sources Array
-    const images = [
-      "./resource/images/1.jpg",
-      "./resource/images/2.jpg",
-      "./resource/images/3.jpg",
-      "./resource/images/4.jpg"
-    ];
-
-    let currentIndex = 0; // To keep track of the current image index
-
-    function openModal(src, index) {
-      currentIndex = index; // Set the index of the clicked image
-      document.getElementById('modalImage').src = src;
-      document.getElementById('imageModal').classList.remove('hidden');
-    }
-
-    function closeModal() {
-      document.getElementById('imageModal').classList.add('hidden');
-    }
-
-    // Function to change image when Next or Previous is clicked
-    function changeImage(direction) {
-      currentIndex += direction;
-
-      // Update the modal image source
-      document.getElementById('modalImage').src = images[currentIndex];
-    }
-
-    // Event listener for keyboard arrow keys
-    document.addEventListener('keydown', function (event) {
-      if (event.key === 'ArrowLeft') {
-        changeImage(-1); // Previous image
-      } else if (event.key === 'ArrowRight') {
-        changeImage(1); // Next image
-      }
-    });
-  </script>
-
-  
-  <ui:include src="footer.xhtml"></ui:include>
-
-</h:body>
+    </h:body>
 
 </html>

@@ -1,11 +1,90 @@
-<?xml version='1.0' encoding='UTF-8' ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://xmlns.jcp.org/jsf/html">
-    <h:head>
-        <title>Facelet Title</title>
-    </h:head>
-    <h:body>
-        client dashboard
-    </h:body>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets" xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+
+<head>
+    <title>EventPalace User Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" />
+</head>
+
+<h:body class="bg-gray-100">
+    <h:form>
+        <!-- Dashboard Wrapper -->
+        <div class="min-h-screen flex flex-col antialiased">
+
+            <!-- Navbar -->
+            <nav class="flex justify-between items-center w-full bg-white shadow-lg px-8 py-4 fixed h-[10%]">
+                <div class="flex items-center space-x-4">
+                    <img src="#{request.contextPath}/Image/eventPalace.jpg" class="w-10 h-10 rounded-full"
+                         alt="EventPalace Logo" />
+                    <span class="text-2xl font-semibold text-gray-800">EventPalace</span>
+                </div>
+                <ul id="navbar-menu" class="flex space-x-6 text-gray-700">
+                    <li id="btn2" onclick="showContent('content2', 'btn2')" class="cursor-pointer hover:text-gray-900">
+                        <span class="flex items-center space-x-2">
+                            <i class="fas fa-calendar-check text-lg"></i><span>My Bookings</span>
+                        </span>
+                    </li>
+                    <li id="btn3" onclick="showContent('content3', 'btn3')" class="cursor-pointer hover:text-gray-900">
+                        <span class="flex items-center space-x-2">
+                            <i class="fas fa-user text-lg"></i><span>My Account</span>
+                        </span>
+                    </li>
+                </ul>
+                <div class="flex items-center space-x-4">
+                    <input type="text" placeholder="Search..."
+                           class="hidden md:block p-2 rounded-lg bg-gray-200 text-gray-700 focus:outline-none" />
+                    <h:commandLink value="Logout" action="#{loginBean.logout}" class="hover:text-gray-500">
+                        <i class="ri-logout-circle-r-line text-xl"></i>
+                    </h:commandLink>
+                </div>
+            </nav>
+
+            <!-- Content Area -->
+            <main class="p-8 pt-24 bg-gray-100 h-[90%]">
+                <header class="flex items-center mb-8 p-4 bg-white shadow rounded-lg">
+                    <h1 class="text-2xl font-semibold text-gray-700">Welcome to EventPalace User Dashboard</h1>
+                </header>
+
+                <!-- My Bookings Section -->
+                <div id="content2" class="content h-full mb-10 p-6 bg-white rounded-lg shadow-lg hidden">
+                    <ui:include src="./MyBookings.xhtml"></ui:include>
+                </div>
+
+                <!-- My Account Section -->
+                <div id="content3" class="content h-full mb-10 p-6 bg-white rounded-lg shadow-lg hidden">
+                    <ui:include src="./MyAccount.xhtml"></ui:include>
+                </div>
+            </main>
+        </div>
+    </h:form>
+
+    <!-- JavaScript for Tab Functionality -->
+    <script>
+        function showContent(contentId, btnId) {
+            // Hide all content sections
+            document.querySelectorAll('.content').forEach(content => content.classList.add('hidden'));
+            document.getElementById(contentId).classList.remove('hidden');
+
+            // Remove active styles from all navbar items, then add to the clicked item
+            document.querySelectorAll('#navbar-menu li').forEach(btn => btn.classList.remove('text-gray-900', 'font-semibold'));
+            document.getElementById(btnId).classList.add('text-gray-900', 'font-semibold');
+
+            // Save the current selection in localStorage
+            localStorage.setItem('selectedContentId', contentId);
+            localStorage.setItem('selectedBtnId', btnId);
+        }
+
+        // Restore saved state on page load
+        window.onload = function () {
+            const savedContentId = localStorage.getItem('selectedContentId') || 'content2';
+            const savedBtnId = localStorage.getItem('selectedBtnId') || 'btn2';
+            showContent(savedContentId, savedBtnId);
+        };
+    </script>
+</h:body>
+
 </html>

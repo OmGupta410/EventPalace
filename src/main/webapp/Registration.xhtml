@@ -4,7 +4,7 @@
     xmlns="http://www.w3.org/1999/xhtml"
     xmlns:h="http://xmlns.jcp.org/jsf/html"
     xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-        
+
     xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head>
         <title>Facelet Title</title>
@@ -26,7 +26,30 @@
                                 </h1>
 
                                 <!-- Name -->
+
+                                <!--status-->
                                 <div>
+                                    <div class="mb-2">
+                                        <label
+                                            class="text-sm font-medium text-gray-900 dark:text-gray-300"
+                                            for="role"
+                                            >Role</label>
+                                    </div>
+                                    <div class="flex w-full rounded-lg pt-1">
+                                        <div class="relative w-full">
+                                            <!-- Dropdown for selecting role -->
+                                            <h:selectOneMenu id="role" value="#{RegistrationBean.role}">
+                                                <f:selectItem itemValue="user" itemLabel="User" />
+                                                <f:selectItem itemValue="owner" itemLabel="Venue Owner" />
+                                              
+                                            </h:selectOneMenu>
+
+                                            <h:message for="role" styleClass="text-red-500 text-sm" />
+                                        </div>
+                                    </div>
+
+
+
                                     <div class="mb-2">
                                         <label
                                             class="text-sm font-medium text-gray-900 dark:text-gray-300"

@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://xmlns.jcp.org/jsf/html"
-    xmlns:ui="http://xmlns.jcp.org/jsf/facelets" xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets" xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
 
 <head>
     <title>EventPalece Dashboard</title>
@@ -11,10 +12,55 @@
 </head>
 
 <h:body class="bg-gray-100">
-    <h:form>
-        
-    customer
-    </h:form>
+    <f:view>
+        <h:form>
+            <h:dataTable value="" var="item"  styleClass="min-w-full table-auto border border-collapse" 
+                         headerClass="bg-orange-100" 
+                         rowClasses="hover:bg-gray-100 border" >
+                
+                    <h:column>
+                    <f:facet name="header">
+                        <h:outputText value="ID" />
+                    </f:facet>
+                    <h:outputText value="id here" />
+                </h:column>
+                  <h:column>
+                    <f:facet name="header">
+                        <h:outputText value="name" />
+                    </f:facet>
+                    <h:outputText value="name here" />
+                </h:column>
+                  <h:column>
+                    <f:facet name="header">
+                        <h:outputText value="email" />
+                    </f:facet>
+                    <h:outputText value="email here" />
+                </h:column>
+                  <h:column>
+                    <f:facet name="header">
+                        <h:outputText value="dob" />
+                    </f:facet>
+                    <h:outputText value="contact" />
+                </h:column>
+                  <h:column>
+                    <f:facet name="header">
+                        <h:outputText value="city" />
+                    </f:facet>
+                    <h:outputText value="city" />
+                </h:column>
+                  <h:column>
+                    <f:facet name="header">
+                        <h:outputText value="Actions" />
+                    </f:facet>
+                    <h:commandButton value="Edit" 
+                                     styleClass="bg-orange-500 text-black px-4 py-1 rounded  " />
+                    <h:commandButton value="Delete" 
+                                     styleClass="bg-gray-100 text-gray-600 px-4 py-1 rounded ml-10" />
+                </h:column>
+            </h:dataTable>
+        </h:form>
+    </f:view>
+
 </h:body>
 
 

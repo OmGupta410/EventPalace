@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+
+<head>
+    <title>My Bookings</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
+</head>
+
+<h:body class="bg-gray-100 min-h-screen flex flex-col items-center">
+    <!-- Header -->
+    <header class="bg-blue-600 w-full p-4 text-white text-center">
+        <h1 class="text-2xl font-bold">My Bookings</h1>
+    </header>
+
+    <!-- Booking List -->
+    <main class="w-full  bg-white mt-6 p-6 rounded-lg shadow-md">
+        <h2 class="text-xl font-semibold mb-4">Bookings</h2>
+        <ul class="list-disc pl-6 w-full">
+            <li>
+                <p><strong>Event:</strong> Wedding Reception</p>
+                <p><strong>Date:</strong> 12th Dec 2024</p>
+                <p><strong>Venue:</strong> Grand Palace</p>
+                <button class="mt-2 bg-red-500 text-white px-4 py-2 rounded hover:bg-red-700">Cancel Booking</button>
+            </li>
+            <li class="mt-4">
+                <p><strong>Event:</strong> Birthday Party</p>
+                <p><strong>Date:</strong> 25th Dec 2024</p>
+                <p><strong>Venue:</strong> Star Banquet Hall</p>
+                <button class="mt-2 bg-red-500 text-white px-4 py-2 rounded hover:bg-red-700">Cancel Booking</button>
+            </li>
+        </ul>
+    </main>
+</h:body>
+
+</html>

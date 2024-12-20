@@ -22,9 +22,10 @@
 <faces-config version="2.3"
               xmlns="http://xmlns.jcp.org/xml/ns/javaee"
               xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-              xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-facesconfig_2_3.xsd">
+              xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-facesconfig_2_3.xsd"
+>
 
-     <navigation-rule>
+    <navigation-rule>
         <from-view-id>/Login.xhtml</from-view-id>
         <navigation-case>
             <from-outcome>adminDashboard</from-outcome>
@@ -39,13 +40,42 @@
             <to-view-id>/ClientDashboard/ClientDashboard.xhtml</to-view-id>
         </navigation-case>
     </navigation-rule>
-    
-    
-<!--     <navigation-rule>
-        <from-view-id>/AdminDashboard/index.xhtml</from-view-id>
+    <navigation-rule>
+        <from-view-id>*</from-view-id>
         <navigation-case>
-            <from-outcome>LoginPage</from-outcome>
-            <to-view-id>/EventPalace/Login.xhtml</to-view-id>
+            <from-outcome>Login</from-outcome>
+            <to-view-id>/Login.xhtml</to-view-id>
+            <redirect />
         </navigation-case>
-     </navigation-rule>-->
+    </navigation-rule>
+    <navigation-rule>
+    <from-view-id>/BrowseVenue.xhtml</from-view-id>
+    <navigation-case>
+        <from-outcome>venuDetail</from-outcome>
+        <to-view-id>/venuDetail.xhtml</to-view-id>
+    </navigation-case>
+</navigation-rule>
+<navigation-rule>
+    <from-view-id>/currentView.xhtml</from-view-id>
+    <navigation-case>
+        <from-outcome>venueDetail</from-outcome>
+        <to-view-id>/venuDetail.xhtml</to-view-id>
+    </navigation-case>
+</navigation-rule>
+
+
+    
+    
+    <!--     <navigation-rule>
+       <from-view-id>/AdminDashboard/index.xhtml</from-view-id>
+       <navigation-case>
+           <from-outcome>LoginPage</from-outcome>
+           <to-view-id>/EventPalace/Login.xhtml</to-view-id>
+       </navigation-case>
+    </navigation-rule>-->
+    <converter>
+        <converter-id>localDateConverter</converter-id>
+        <converter-class>com.mycompany.eventpalace.controllers.LocalDateConverter</converter-class>
+    </converter>
+
 </faces-config>

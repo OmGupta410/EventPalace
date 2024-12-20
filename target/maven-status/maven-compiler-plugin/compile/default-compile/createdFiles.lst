@@ -3,6 +3,7 @@ com\mycompany\sessionBeans\RoleTableFacadeLocal.class
 com\mycompany\sessionBeans\VenueTableFacade.class
 com\mycompany\sessionBeans\UserRegistrationTableFacadeLocal.class
 com\mycompany\sessionBeans\VenueTableFacadeLocal.class
+com\mycompany\eventpalace\controllers\VenueDetailController.class
 com\mycompany\sessionBeans\PaymentMethodFacadeLocal.class
 com\mycompany\eventpalace\JakartaRestConfiguration.class
 com\mycompany\eventpalace\controllers\RegistrationBean.class
@@ -10,10 +11,12 @@ com\mycompany\entity\UserBookingTable.class
 com\mycompany\entity\UserRegistrationTable.class
 com\mycompany\entity\VenueGallery.class
 com\mycompany\sessionBeans\VenueFacilityFacadeLocal.class
+com\mycompany\eventpalace\controllers\LocalDateConverter.class
 com\mycompany\sessionBeans\VenueGalleryFacade.class
 com\mycompany\sessionBeans\PaymentTableFacadeLocal.class
 com\mycompany\sessionBeans\PaymentTableFacade.class
 com\mycompany\sessionBeans\AbstractFacade.class
+com\mycompany\eventpalace\controllers\VenueBean.class
 com\mycompany\sessionBeans\UserRegistrationTableFacade.class
 com\mycompany\sessionBeans\VenueFacilityFacade.class
 com\mycompany\eventpalace\controllers\LoginBean.class
@@ -32,3 +35,4 @@ com\mycompany\sessionBeans\UserBookingTableFacade.class
 com\mycompany\entity\RoleTable.class
 com\mycompany\entity\VenueFacility.class
 com\mycompany\sessionBeans\ReviewTableFacade.class
+com\mycompany\eventpalace\controllers\VenueBookingBean.class

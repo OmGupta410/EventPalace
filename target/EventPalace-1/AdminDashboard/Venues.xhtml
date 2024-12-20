@@ -3,82 +3,211 @@
       xmlns:h="http://xmlns.jcp.org/jsf/html" 
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets" 
       xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
-       xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:a="http://xmlns.jcp.org/jsf/core"
-      >
-
+      xmlns:pt="http://xmlns.jcp.org/jsf/passthrough">
     <h:head>
         <title>Venue Management</title>
         <script src="https://cdn.tailwindcss.com"></script>
-    </h:head>
+         <script>
+            function openModal() {
+                document.getElementById('editModal').classList.remove('hidden');
+            }
+            function closeModal() {
+                document.getElementById('editModal').classList.add('hidden');
+            }
 
-<h:body class="bg-gray-100">
-    <h:form>
-        <div class="container mx-auto p-4">
-            <!-- Search and Button Controls -->
-            <div class="flex justify-between items-center mb-4">
-<!--                <h:outputText value="Search venues" />-->
-                 
-                <h:inputText value="#{dashboardBean.searchQuery}"
-                              pt:placeholder="Enter Search Value"
-                             styleClass="border p-2 rounded w-1/4" />
+            function openAddVenueModal() {
+                document.getElementById('addVenueModal').classList.remove('hidden');
+            }
+            function closeAddVenueModal() {
+                document.getElementById('addVenueModal').classList.add('hidden');
+            }
+        </script>
+    </h:head>   
+    <h:body class="bg-gray-100">
+        <h:form>
+            <div class="container mx-auto p-4">
+                <!-- Search and Button Controls -->
+                <div class="flex justify-between items-center mb-4">
+                    <h:inputText value="#{dashboardBean.searchQuery}"
+                                 pt:placeholder="Enter Search Value"
+                                 styleClass="border p-2 rounded w-1/4" />
 
-                <div>
-                    <h:commandLink action="ManageVenue">
-                        <button class="bg-orange-500 text-black px-4 py-2 rounded mr-4">Manage Venues</button>
-                    </h:commandLink>
 
-                    <h:commandButton value="Add Venue" 
-                                     action="#{dashboardBean.addVenue}" 
-                                     styleClass="bg-orange-500 text-black px-4 py-2 rounded " />
-
-                    <h:commandButton value="Filter" 
-                                     action="#{dashboardBean.filterVenues}" 
-                                     styleClass="ml-2 text-gray-600 border px-4 py-2 rounded" />
+                    <div>
+                        <h:commandButton value="Add Venue" 
+                                         action="#{dashboardBean.addVenue}"
+                                         onclick="openAddVenueModal()"
+                                         styleClass="bg-orange-500 text-black px-4 py-2 rounded " />
+                    </div>
                 </div>
-            </div>
 
-            <!-- Table -->
-            <h:dataTable value="#{showVenue.findAll()}" var="item" 
-                         styleClass="min-w-full table-auto border-collapse" 
-                         headerClass="bg-orange-100" 
-                         rowClasses="hover:bg-gray-100">
-                <h:column>
-                    <f:facet name="header">
-                        <h:outputText value="Name" />
-                    </f:facet>
-                    <h:outputText value="#{item.venuename}" />
-                </h:column>
-                <h:column>
-                    <f:facet name="header">
-                        <h:outputText value="Location" />
-                    </f:facet>
-                    <h:outputText value="#{item.location}" />
-                </h:column>
-                <h:column>
-                    <f:facet name="header">
-                        <h:outputText value="Capacity" />
-                    </f:facet>
-                    <h:outputText value="#{item.capacity}" />
-                </h:column>
-                <h:column>
-                    <f:facet name="header">
-                        <h:outputText value="Price" />
-                    </f:facet>
-                    <h:outputText value="#{item.finalprice}" />
-                </h:column>
-                <h:column>
-                    <f:facet name="header">
-                        <h:outputText value="Actions" />
-                    </f:facet>
-                    <h:commandButton value="Edit" 
-                                     styleClass="bg-orange-500 text-black px-4 py-1 rounded  " />
-                    <h:commandButton value="Delete" 
-                                     styleClass="bg-gray-100 text-gray-600 px-4 py-1 rounded ml-10" />
-                </h:column>
-            </h:dataTable>
+                <!-- Table -->
+                <h:dataTable value="#{showVenue.findAll()}" var="item" border="1"
+                             styleClass="min-w-full table-auto border-collapse"
+                             headerClass="bg-orange-100" rowClasses="hover:bg-gray-100">
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="Name" />
+                        </f:facet>
+                        <h:outputText value="#{item.venuename}" />
+                    </h:column>
+
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="Image" />
+                        </f:facet>
+                        <h:panelGroup>
+                            <c:if test="#{item.image.startsWith('http')}">
+                                <h:graphicImage value="#{item.image}" style="max-width: 100px; max-height: 100px;" />
+                            </c:if>
+                            <c:if test="#{!item.image.startsWith('http')}">
+                                <h:graphicImage value="../resources/images/#{item.image}" style="max-width: 100px; max-height: 100px;" />
+                            </c:if>
+                        </h:panelGroup>
+                    </h:column>
+
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="Location" />
+                        </f:facet>
+                        <h:outputText value="#{item.location}" />
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="Capacity" />
+                        </f:facet>
+                        <h:outputText value="#{item.capacity}" />
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="Price" />
+                        </f:facet>
+                        <h:outputText value="#{item.finalprice}" />
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="Edit" />
+                        </f:facet>
+                        <h:commandButton value="Edit"
+                                         styleClass="bg-orange-500 text-black px-4 py-1 rounded"
+                                         action="#{dashboardBean.loadVenue(item.id)}">
+                            <f:ajax render="editModalContent" onevent="openModal()" />
+                        </h:commandButton>
+                    </h:column>
+<!--                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="Delete" />
+                        </f:facet>
+                        <h:commandButton value="Delete" 
+                                         styleClass="bg-gray-100 text-gray-600 px-4 py-1 rounded ml-10"
+                                         action="#{dashboardBean.deleteVenue(item.id)}" />
+                    </h:column>-->
+                </h:dataTable>
+            </div>
+        </h:form>
+
+        <!-- Edit Modal -->
+       <div id="editModal" class="hidden fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+            <div class="bg-white p-8 rounded shadow-md w-1/2">
+                <h2 class="text-xl font-bold mb-4">Edit Venue</h2>
+                <h:form>
+                    <h:panelGroup id="editModalContent">
+                        <!-- Venue Name -->
+                        <div class="mb-4">
+                            <label class="block text-gray-700">Name</label>
+                            <h:inputText value="#{dashboardBean.selectedVenue.venuename}" 
+                                         styleClass="border p-2 rounded w-full" />
+                        </div>
+                        <!-- Venue Location -->
+                        <div class="mb-4">
+                            <label class="block text-gray-700">Location</label>
+                            <h:inputText value="#{dashboardBean.selectedVenue.location}" 
+                                         styleClass="border p-2 rounded w-full" />
+                        </div>
+                        <!-- Venue Price -->
+                        <div class="mb-4">
+                            <label class="block text-gray-700">Price</label>
+                            <h:inputText value="#{dashboardBean.selectedVenue.price}" 
+                                         styleClass="border p-2 rounded w-full" />
+                        </div>
+                        <!-- Venue Contact -->
+                        <div class="mb-4">
+                            <label class="block text-gray-700">Contact</label>
+                            <h:inputText value="#{dashboardBean.selectedVenue.contact}" 
+                                         styleClass="border p-2 rounded w-full" />
+                        </div>
+                    </h:panelGroup>
+                    <!-- Modal Actions -->
+                    <div class="flex justify-end">
+                        <button type="button" class="bg-gray-500 text-white px-4 py-2 rounded mr-4" 
+                                onclick="closeModal()">Cancel</button>
+                        <h:commandButton value="Save" action="#{dashboardBean.saveVenue}" 
+                                         styleClass="bg-orange-500 text-white px-4 py-2 rounded">
+                            <f:ajax execute="@form" render="@none" onevent="closeModal()" />
+                        </h:commandButton>
+                    </div>
+                </h:form>
+            </div>
         </div>
-    </h:form>
-</h:body>
+        
+        
+         <!-- Add Venue Modal -->
+        <div id="addVenueModal" class="hidden fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+            <div class="bg-white p-8 rounded shadow-md w-1/2">
+                <h2 class="text-xl font-bold mb-4">Add Venue</h2>
+                <h:form>
+                    <h:panelGroup id="addModalContent">
+                        <!-- Venue Name -->
+                        <div class="mb-4">
+                            <label class="block text-gray-700">Name</label>
+                            <h:inputText value="#{dashboardBean.newVenue.venuename}" 
+                                         styleClass="border p-2 rounded w-full" />
+                        </div>
+                        <!-- Venue Location -->
+                        <div class="mb-4">
+                            <label class="block text-gray-700">Location</label>
+                            <h:inputText value="#{dashboardBean.newVenue.location}" 
+                                         styleClass="border p-2 rounded w-full" />
+                        </div>
+                        <!-- Venue Price -->
+                        <div class="mb-4">
+                            <label class="block text-gray-700">Price</label>
+                            <h:inputText value="#{dashboardBean.newVenue.price}" 
+                                         styleClass="border p-2 rounded w-full" />
+                        </div>
+                        <!-- Venue Capacity -->
+                        <div class="mb-4">
+                            <label class="block text-gray-700">Capacity</label>
+                            <h:inputText value="#{dashboardBean.newVenue.capacity}" 
+                                         styleClass="border p-2 rounded w-full" />
+                        </div>
+                        <!-- Venue Image -->
+                        <div class="mb-4">
+                            <label class="block text-gray-700">Image URL</label>
+                            <h:inputText value="#{dashboardBean.newVenue.image}" 
+                                         styleClass="border p-2 rounded w-full" />
+                        </div>
+                        <!-- Venue Contact -->
+                        <div class="mb-4">
+                            <label class="block text-gray-700">Contact</label>
+                            <h:inputText value="#{dashboardBean.newVenue.contact}" 
+                                         styleClass="border p-2 rounded w-full" />
+                        </div>
+                    </h:panelGroup>
+
+                    <!-- Modal Actions -->
+                    <div class="flex justify-end">
+                        <button type="button" class="bg-gray-500 text-white px-4 py-2 rounded mr-4" 
+                                onclick="closeAddVenueModal()">Cancel</button>
+                        <h:commandButton value="Save" action="#{dashboardBean.saveVenue}" 
+                                         styleClass="bg-orange-500 text-white px-4 py-2 rounded">
+                            <f:ajax execute="@form" render="@none" onevent="closeAddVenueModal()" />
+                        </h:commandButton>
+                    </div>
+                </h:form>
+            </div>
+        </div>
+
+    </h:body>
 </html>

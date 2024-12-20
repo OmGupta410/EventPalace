@@ -14,6 +14,7 @@ import javax.faces.application.FacesMessage;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.inject.Named;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 @Named
@@ -24,42 +25,104 @@ public class LoginBean {
     private String password;
     private String role;
 
+//    HttpServletRequest request;
     @EJB
     private UserRegistrationTableFacadeLocal userFacade;
-
-    public String login() {
+//method-1
+//    public String login() {
 //        System.out.println(email);
 //        System.out.println(role);
 //        System.out.println(password);
+//
+//        // Check if email and password are not empty
+//        if (email == null || email.trim().isEmpty() || password == null || password.trim().isEmpty()) {
+//            return "login?faces-redirect=true&error=emptyFields"; // Optional error handling
+//        }
+//
+//        // Authenticate user based on email and password
+//        UserRegistrationTable user = userFacade.findByEmailAndPassword(email, password);
+//
+//        if (user == null) {
+//            return "login?faces-redirect=true&error=invalidCredentials"; // Handle invalid login credentials
+//        }
+//
+//        // Retrieve the user's role from the RoleTable
+//        if (user.getRoleid() == null) {
+//            return "login?faces-redirect=true&error=noRoleAssigned"; // Handle missing role error
+//        }
+//
+//        this.role = user.getRoleid().getRolename(); // Assuming `RoleTable` has a `roleName` field
+//
+//        // Check user role and navigate to the appropriate page
+//        if ("admin".equalsIgnoreCase(role)) {
+//            return "adminDashboard"; // Matches faces-config.xml navigation case
+//        } else if ("owner".equalsIgnoreCase(role)) {
+//            return "ownerDashboard  ";
+//        } else if ("user".equalsIgnoreCase(role)) {
+//            return "clientDashboard";
+//        } else {
+//            return "login?faces-redirect=true&error=invalidCredentials";
+//        }
+//
+//    }
 
-        // Check if email and password are not empty
-        if (email == null || email.trim().isEmpty() || password == null || password.trim().isEmpty()) {
+//    method-2
+    public String login(HttpServletRequest request) {
+        System.out.println("Email: " + email);
+        System.out.println("Role: " + role);
+        System.out.println("Password: " + password);
+
+        // Check if email, password, or role is empty
+        if (email == null || email.trim().isEmpty() || password == null || password.trim().isEmpty() || role == null || role.trim().isEmpty()) {
             return "login?faces-redirect=true&error=emptyFields"; // Optional error handling
+        }
+
+        // Ensure userFacade is initialized
+        if (userFacade == null) {
+            throw new IllegalStateException("UserFacade is not initialized");
         }
 
         // Authenticate user based on email and password
         UserRegistrationTable user = userFacade.findByEmailAndPassword(email, password);
-
         if (user == null) {
             return "login?faces-redirect=true&error=invalidCredentials"; // Handle invalid login credentials
         }
 
-        // Retrieve the user's role from the RoleTable
-        if (user.getRoleid() == null) {
-            return "login?faces-redirect=true&error=noRoleAssigned"; // Handle missing role error
+        // Check if the user's role matches the selected role
+        if (user.getRoleid() == null || user.getRoleid().getRolename() == null || !role.equalsIgnoreCase(user.getRoleid().getRolename())) {
+            return "login?faces-redirect=true&error=roleMismatch"; // Handle role mismatch
         }
 
-        this.role = user.getRoleid().getRolename(); // Assuming `RoleTable` has a `roleName` field
+        // Ensure HttpServletRequest is initialized
+        if (request == null) {
+            throw new IllegalStateException("HttpServletRequest is not initialized");
+        }
 
-        // Check user role and navigate to the appropriate page
-        if ("Admin".equalsIgnoreCase(role)) {
-            return "adminDashboard"; // Matches faces-config.xml navigation case
-        } else if ("Owner".equalsIgnoreCase(role)) {
-            return "ownerDashboard";
-        } else if ("Client".equalsIgnoreCase(role)) {
-            return "clientDashboard";
-        } else {
-            return "login?faces-redirect=true&error=invalidCredentials";
+        HttpSession session = request.getSession();
+        if (session == null) {
+            throw new IllegalStateException("Unable to create session");
+        }
+        System.out.println("Checking userFacade: " + (userFacade != null));
+        System.out.println("Checking request: " + (request != null));
+
+        // Set attributes in the session
+        session.setAttribute("userId", user.getUserid());
+//        session.setAttribute("venueid", Venue);
+        session.setAttribute("role", user.getRoleid());
+        System.out.println("Session ID after login: " + session.getId());
+        System.out.println("User ID set in session: " + session.getAttribute("userId"));
+        System.out.println("userId is: " + session.getAttribute("userId"));
+        System.out.println("role is: " + session.getAttribute("role"));
+//    String id =  session.getAttribute("id"); // Navigate to the appropriate page based on role
+        switch (role.toLowerCase()) {
+            case "admin":
+                return "adminDashboard";
+            case "owner":
+                return "ownerDashboard";
+            case "user":
+                return "clientDashboard";
+            default:
+                return "login?faces-redirect=true&error=invalidRole";
         }
 
     }
@@ -95,24 +158,24 @@ public class LoginBean {
 ////        return "/Login.xhtml";
 //    }
     public String logout() {
-        // Get the external context from the current FacesContext
-        ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
+        FacesContext facesContext = FacesContext.getCurrentInstance();
+        if (facesContext != null) {
+            ExternalContext externalContext = facesContext.getExternalContext();
+            HttpSession session = (HttpSession) externalContext.getSession(false);
 
-        // Retrieve the current HTTP session
-        HttpSession session = (HttpSession) externalContext.getSession(false);
+            if (session != null) {
+                session.invalidate();
+                System.out.println("Session invalidated successfully.");
+            }
 
-        // Check if the session exists
-        if (session != null) {
-            session.invalidate(); // Invalidate the session to log out the user
-            System.out.println("Session invalidated successfully.");
+            try {
+                externalContext.redirect(externalContext.getRequestContextPath() + "/Login.xhtml");
+                facesContext.responseComplete();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
-
-        // Optionally display a message indicating the user has been logged out
-        FacesContext.getCurrentInstance().addMessage(null,
-                new FacesMessage(FacesMessage.SEVERITY_INFO, "You have been logged out.", null));
-
-        // Redirect to the login page
-        return "/LoginPagel?faces-redirect=true";
+        return null; // Return null to prevent further navigation processing
     }
 
     // Getters and Setters

@@ -19,17 +19,13 @@ import javax.ws.rs.core.Response;
  */
 @Path("/app")
 public class JakartaEE8Resource {
-//    @GET
-//    @Path(value="/hello")
-//    public String hello(){return "hello world";}
+
     @EJB
     private UserRegistrationTableFacadeLocal userFacade;
-
 
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-
     public Response login(UserRegistrationTable loginData) {
         UserRegistrationTable user = userFacade.findByEmailAndPassword(loginData.getEmail(), loginData.getPassword());
         if (user != null) {
@@ -44,8 +40,7 @@ public class JakartaEE8Resource {
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     public Response signup(UserRegistrationTable user) {
-
-//        UserRegistrationTable newUsers=UserRegistrationTableFacade.signup(user);
+        // UserRegistrationTableFacade.signup(user);
         UserRegistrationTable newUsers = userFacade.signup(user);
 
         return Response.status(Response.Status.CREATED).entity(newUsers).build();

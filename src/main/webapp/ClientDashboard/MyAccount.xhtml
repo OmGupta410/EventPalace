@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+
+<head>
+    <title>My Account</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
+</head>
+
+<h:body class="bg-gray-100 min-h-screen flex flex-col items-center">
+    <!-- Header -->
+    <header class="bg-blue-600 w-full p-4 text-white text-center">
+        <h1 class="text-2xl font-bold">My Account</h1>
+    </header>
+
+    <!-- Account Details -->
+    <main class="w-full  bg-white mt-6 p-10 rounded-lg shadow-md">
+        <!-- Display Mode -->
+        <div id="display-mode">
+            <h2 class="text-xl font-semibold mb-4">Account Details</h2>
+            <p><strong>Name:</strong> <span id="display-name">John Doe</span></p>
+            <p><strong>Email:</strong> <span id="display-email">johndoe@example.com</span></p>
+            <p><strong>Phone:</strong> <span id="display-phone">+123456789</span></p>
+            <button type="button" onclick="toggleEditMode()" 
+                class="mt-4 bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-700">
+                Edit Profile
+            </button>
+        </div>
+
+        <!-- Edit Mode -->
+        <div id="edit-mode" class="hidden">
+            <h2 class="text-xl font-semibold mb-4">Edit Profile</h2>
+            <form id="edit-form" onsubmit="return false;"> <!-- Prevent default form submission -->
+                <div class="mb-4">
+                    <label for="name" class="block text-gray-700">Name</label>
+                    <input id="edit-name" type="text" class="w-full px-4 py-2 border rounded" value="John Doe" />
+                </div>
+                <div class="mb-4">
+                    <label for="email" class="block text-gray-700">Email</label>
+                    <input id="edit-email" type="email" class="w-full px-4 py-2 border rounded" value="johndoe@example.com" />
+                </div>
+                <div class="mb-4">
+                    <label for="phone" class="block text-gray-700">Phone</label>
+                    <input id="edit-phone" type="text" class="w-full px-4 py-2 border rounded" value="+123456789" />
+                </div>
+                <div class="flex space-x-4">
+                    <button type="button" onclick="saveProfile()" 
+                        class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-700">
+                        Save
+                    </button>
+                    <button type="button" onclick="toggleEditMode()" 
+                        class="bg-gray-500 text-white px-4 py-2 rounded hover:bg-gray-700">
+                        Cancel
+                    </button>
+                </div>
+            </form>
+        </div>
+    </main>
+
+    <!-- JavaScript -->
+    <script>
+        function toggleEditMode() {
+            // Toggle visibility of edit and display sections
+            const displayMode = document.getElementById('display-mode');
+            const editMode = document.getElementById('edit-mode');
+
+            displayMode.classList.toggle('hidden');
+            editMode.classList.toggle('hidden');
+        }
+
+        function saveProfile() {
+            // Get updated values from the form
+            const name = document.getElementById('edit-name').value;
+            const email = document.getElementById('edit-email').value;
+            const phone = document.getElementById('edit-phone').value;
+
+            // Debug: Log updated values
+            console.log("Saving profile: ", { name, email, phone });
+
+            // Update the display values
+            document.getElementById('display-name').textContent = name;
+            document.getElementById('display-email').textContent = email;
+            document.getElementById('display-phone').textContent = phone;
+
+            // Switch back to display mode
+            toggleEditMode();
+        }
+    </script>
+</h:body>
+
+</html>
