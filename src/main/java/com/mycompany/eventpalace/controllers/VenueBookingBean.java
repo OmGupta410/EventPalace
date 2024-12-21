@@ -1,10 +1,13 @@
 package com.mycompany.eventpalace.controllers;
 
+import com.mycompany.entity.PaymentTable;
 import com.mycompany.entity.UserBookingTable;
 import com.mycompany.entity.UserRegistrationTable;
 import com.mycompany.entity.VenueTable;
+import com.mycompany.sessionBeans.PaymentTableFacadeLocal;
 import com.mycompany.sessionBeans.UserBookingTableFacadeLocal;
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.Date;
 import java.util.Map;
 import javax.ejb.EJB;
@@ -12,6 +15,8 @@ import javax.enterprise.context.RequestScoped;
 import javax.faces.context.FacesContext;
 import javax.inject.Named;
 import javax.servlet.http.HttpSession;
+import javax.validation.ConstraintViolation;
+import javax.validation.ConstraintViolationException;
 
 @Named(value = "venueBookingBean")
 //@SessionScoped
@@ -30,14 +35,14 @@ public class VenueBookingBean implements Serializable {
     @EJB
     private UserBookingTableFacadeLocal bookingFacade;
 
+    @EJB
+    private PaymentTableFacadeLocal paymentTableFacade;
+
     public VenueBookingBean() {
         initialize();
     }
-     FacesContext context = FacesContext.getCurrentInstance();
-     HttpSession session = (HttpSession) context.getExternalContext().getSession(false);
-//     
-//     // Retrieve the generated bookingId (if applicable)
-//Integer bookingId = UserBookingTable.getBookingId();
+    FacesContext context = FacesContext.getCurrentInstance();
+    HttpSession session = (HttpSession) context.getExternalContext().getSession(false);
 
     private void initialize() {
         FacesContext context = FacesContext.getCurrentInstance();
@@ -103,20 +108,57 @@ public class VenueBookingBean implements Serializable {
 
             bookingFacade.create(booking);
             System.out.println("Booking successfully created.");
-            
+
             // Store booking details in the session
             session.setAttribute("currentBooking", booking);
-           
 
-        // Redirect to the payment page
-        return "payment.xhtml?faces-redirect=true";
-        } catch (Exception e) {
+            // Fetch advance payment from the venue
+            BigDecimal advancePayment = venue.getBookingadvanceprice();
+            if (advancePayment == null) {
+                advancePayment = BigDecimal.ZERO; // Or handle appropriately
+            }
+            if (booking == null || venue == null) {
+                throw new IllegalArgumentException("Booking or Venue cannot be null");
+            }
+            System.out.println("Advance Payment: " + advancePayment);
+
+            // Create a new payment record
+            PaymentTable payment = new PaymentTable();
+            payment.setBookingId(booking);
+            payment.setVenueId(venue);
+            payment.setAdvancepayment(advancePayment);
+            payment.setPaymentstatus("Pending");
+            payment.setDatetime(new Date());
+
+
+//            //test data
+//            PaymentTable payment = new PaymentTable();
+//            payment.setAdvancepayment(new BigDecimal("100.00")); // Test value
+//            payment.setPaymentstatus("Pending");
+//            payment.setDatetime(new Date());
+
+            // Save payment to the database
+            paymentTableFacade.create(payment);
+            System.out.println("Payment record successfully created.");
+
+            // Store payment and booking details in the session
+            session.setAttribute("paymentId", payment.getPaymentId());
+            session.setAttribute("bookingId", booking.getBookingid());
+
+            System.out.println("Session Booking ID: " + session.getAttribute("bookingId"));
+            System.out.println("Session Payment ID: " + session.getAttribute("paymentId"));
+
+            // Redirect to the payment page
+            return "payment.xhtml?faces-redirect=true";
+        } catch (ConstraintViolationException e) {
             System.err.println("Error while creating booking: " + e.getMessage());
             e.printStackTrace();
+            for (ConstraintViolation<?> violation : e.getConstraintViolations()) {
+                System.out.println("Constraint Violation: " + violation.getMessage());
+                System.out.println("Invalid Value: " + violation.getInvalidValue());
+            }
             return "error"; // Redirect to an error page
         }
-      
-        
     }
 
     // Utility to convert eventDate to SQL Date
@@ -125,7 +167,6 @@ public class VenueBookingBean implements Serializable {
     }
 
     // Getters and Setters
-
     public Date getBookingDate() {
         return bookingDate;
     }
@@ -197,5 +238,29 @@ public class VenueBookingBean implements Serializable {
     public void setBookingFacade(UserBookingTableFacadeLocal bookingFacade) {
         this.bookingFacade = bookingFacade;
     }
-   
+
+    public PaymentTableFacadeLocal getPaymentTableFacade() {
+        return paymentTableFacade;
+    }
+
+    public void setPaymentTableFacade(PaymentTableFacadeLocal paymentTableFacade) {
+        this.paymentTableFacade = paymentTableFacade;
+    }
+
+    public FacesContext getContext() {
+        return context;
+    }
+
+    public void setContext(FacesContext context) {
+        this.context = context;
+    }
+
+    public HttpSession getSession() {
+        return session;
+    }
+
+    public void setSession(HttpSession session) {
+        this.session = session;
+    }
+
 }

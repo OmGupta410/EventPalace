@@ -5,13 +5,19 @@ import com.mycompany.entity.UserBookingTable;
 import com.mycompany.entity.VenueTable;
 import com.mycompany.sessionBeans.PaymentTableFacadeLocal;
 import com.mycompany.sessionBeans.VenueTableFacadeLocal;
+import java.io.Serializable;
 import javax.faces.context.FacesContext;
 import java.util.Date;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
+import javax.enterprise.context.SessionScoped;
+import javax.inject.Named;
 import javax.servlet.http.HttpSession;
 
-public class PaymentBean {
+@Named(value = "PaymentBean")
+@SessionScoped
+
+public class PaymentBean implements Serializable{
     private PaymentTable selectedPayment;
 
    @EJB
@@ -29,6 +35,7 @@ public void init() {
         Object paymentId = session.getAttribute("paymentId");
         if (paymentId != null) {
             try {
+              
                 selectedPayment = paymentTableFacade.findPaymentById(Integer.parseInt(paymentId.toString()));
             } catch (NumberFormatException e) {
                 System.err.println("Error parsing paymentId: " + e.getMessage());
@@ -120,11 +127,34 @@ public void init() {
 
             // Save updated payment to the database
             paymentTableFacade.savePayment(selectedPayment);
+             System.out.println("Payment processed successfully.");
         } else {
             throw new RuntimeException("No payment selected for processing");
         }
     }
+    
+    private HttpSession getSession() {
+        FacesContext context = FacesContext.getCurrentInstance();
+        return (HttpSession) context.getExternalContext().getSession(false);
+    }
+
 
     // Getters and Setters
+
+    public VenueTableFacadeLocal getVenuetablefacade() {
+        return venuetablefacade;
+    }
+
+    public void setVenuetablefacade(VenueTableFacadeLocal venuetablefacade) {
+        this.venuetablefacade = venuetablefacade;
+    }
+
+    public PaymentTableFacadeLocal getPaymentTableFacade() {
+        return paymentTableFacade;
+    }
+
+    public void setPaymentTableFacade(PaymentTableFacadeLocal paymentTableFacade) {
+        this.paymentTableFacade = paymentTableFacade;
+    }
 
 }
