@@ -11,7 +11,7 @@ import java.math.BigDecimal;
 import java.util.Date;
 import java.util.Map;
 import javax.ejb.EJB;
-import javax.enterprise.context.RequestScoped;
+import javax.enterprise.context.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.inject.Named;
 import javax.servlet.http.HttpSession;
@@ -19,8 +19,8 @@ import javax.validation.ConstraintViolation;
 import javax.validation.ConstraintViolationException;
 
 @Named(value = "venueBookingBean")
-//@SessionScoped
-@RequestScoped
+@SessionScoped
+//@RequestScoped
 public class VenueBookingBean implements Serializable {
 
     private Date bookingDate; // Current date
@@ -109,6 +109,9 @@ public class VenueBookingBean implements Serializable {
             bookingFacade.create(booking);
             System.out.println("Booking successfully created.");
 
+            //  first remove old data from session
+            session.removeAttribute("currentBooking");
+
             // Store booking details in the session
             session.setAttribute("currentBooking", booking);
 
@@ -130,23 +133,31 @@ public class VenueBookingBean implements Serializable {
             payment.setPaymentstatus("Pending");
             payment.setDatetime(new Date());
 
-
 //            //test data
 //            PaymentTable payment = new PaymentTable();
 //            payment.setAdvancepayment(new BigDecimal("100.00")); // Test value
 //            payment.setPaymentstatus("Pending");
 //            payment.setDatetime(new Date());
-
             // Save payment to the database
             paymentTableFacade.create(payment);
             System.out.println("Payment record successfully created.");
 
+            // Clear old session attributes
+            session.removeAttribute("paymentId");
+            session.removeAttribute("bookingId");
+
             // Store payment and booking details in the session
             session.setAttribute("paymentId", payment.getPaymentId());
             session.setAttribute("bookingId", booking.getBookingid());
+//            session.setAttribute("currentBooking", booking);
 
             System.out.println("Session Booking ID: " + session.getAttribute("bookingId"));
             System.out.println("Session Payment ID: " + session.getAttribute("paymentId"));
+
+            System.out.println("New Payment ID: " + payment.getPaymentId());
+            System.out.println("New Booking ID: " + booking.getBookingid());
+            System.out.println("Session Payment ID: " + session.getAttribute("paymentId"));
+            System.out.println("Session Booking ID: " + session.getAttribute("bookingId"));
 
             // Redirect to the payment page
             return "payment.xhtml?faces-redirect=true";

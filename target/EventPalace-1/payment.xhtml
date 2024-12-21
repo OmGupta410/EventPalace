@@ -15,7 +15,7 @@
                 <p class="mb-2"><strong>Payment ID:</strong> #{PaymentBean.selectedPayment.paymentId}</p>
                 <p class="mb-2"><strong>Booking ID:</strong> #{PaymentBean.selectedPayment.bookingId.bookingid != null ? PaymentBean.selectedPayment.bookingId.bookingid : 'N/A'}</p>
                 <p class="mb-2"><strong>Venue ID:</strong>  #{PaymentBean.selectedPayment.venueId != null ? PaymentBean.selectedPayment.venueId.venueId : 'N/A'}</p>
-                <p class="mb-2"><strong>Advance Payment:</strong> #{PaymentBean.selectedPayment.advancepayment != null ? PaymentBean.selectedPayment.advancepayment : 'N/A'}</p>
+                <p class="mb-2"><strong>Advance Payment:</strong> #{PaymentBean.selectedPayment.venueId.bookingadvanceprice}</p>
                 <p class="mb-2"><strong>Status:</strong>#{PaymentBean.selectedPayment.paymentstatus}</p>
                 <p class="mb-2"><strong>Date:</strong> #{PaymentBean.selectedPayment.datetime != null ? PaymentBean.selectedPayment.datetime : 'N/A'}</p>
             </div>
@@ -53,7 +53,7 @@
                     <!-- Cardholder Name -->
                     <div class="mb-3">
                         <label class="font-bold text-sm mb-2 ml-1">Name on Card</label>
-                        <h:inputText id="cardName" class="w-full px-3 py-2 mb-1 border-2 border-gray-200 rounded-md focus:outline-none focus:border-indigo-500 transition-colors" pt:placeholder="John Smith" required="true" />
+                        <h:inputText id="cardName" value="#{PaymentBean.selectedPayment.bookingId.userId.name}" class="w-full px-3 py-2 mb-1 border-2 border-gray-200 rounded-md focus:outline-none focus:border-indigo-500 transition-colors" pt:placeholder="John Smith" required="true" />
                     </div>
 
                     <!-- Card Number -->
