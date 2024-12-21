@@ -72,7 +72,7 @@ public class VenueTableFacade extends AbstractFacade<VenueTable> implements Venu
     }
     
     public VenueTable findVenueById(int venueId) {
-        return em.find(VenueTable.class, venueId);
+        return em.find(VenueTable.class, venueId)   ;
     }
 
     

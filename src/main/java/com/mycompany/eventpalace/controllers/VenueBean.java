@@ -65,19 +65,19 @@ public class VenueBean implements Serializable {
     
 //    new store venueid in session
     
-    private Integer selectedVenueId;
-
-    public Integer getSelectedVenueId() {
-        return selectedVenueId;
-    }
-
-    public void setSelectedVenueId(Integer selectedVenueId) {
-        this.selectedVenueId = selectedVenueId;
-    }
-
-    public String selectVenue(Integer venueId) {
-        this.selectedVenueId = venueId;
-        return "venuDetail.xhtml?faces-redirect=true";
-    }
+//    private Integer selectedVenueId;
+//
+//    public Integer getSelectedVenueId() {
+//        return selectedVenueId;
+//    }
+//
+//    public void setSelectedVenueId(Integer selectedVenueId) {
+//        this.selectedVenueId = selectedVenueId;
+//    }
+//
+//    public String selectVenue(Integer venueId) {
+//        this.selectedVenueId = venueId;
+//        return "venuDetail.xhtml?faces-redirect=true";
+//    }
     
 }

@@ -6,6 +6,7 @@ com\mycompany\sessionBeans\VenueTableFacadeLocal.class
 com\mycompany\eventpalace\controllers\VenueDetailController.class
 com\mycompany\sessionBeans\PaymentMethodFacadeLocal.class
 com\mycompany\eventpalace\JakartaRestConfiguration.class
+com\mycompany\eventpalace\controllers\PaymentBean.class
 com\mycompany\eventpalace\controllers\RegistrationBean.class
 com\mycompany\entity\UserBookingTable.class
 com\mycompany\entity\UserRegistrationTable.class

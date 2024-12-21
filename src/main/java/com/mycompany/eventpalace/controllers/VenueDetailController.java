@@ -107,15 +107,11 @@ public void init() {
     }
     
     
-     private void loadVenueDetails() {
-    System.out.println("Loading venue details for ID: " + venueId);
-    this.venue = venueFacade.findVenueById(venueId);
-    if (this.venue == null) {
-        System.out.println("No venue found for ID: " + venueId);
-    } else {
-        System.out.println("Venue loaded: " + venue.getVenuename());
-    }
+public String loadVenueDetails(Integer newVenueId) {
+    this.venueId = newVenueId; // Update the venueId
+    return "venueDetail.xhtml?faces-redirect=true&venueId=" + newVenueId; // Redirect with updated venueId
 }
+
 
 
 }

@@ -29,4 +29,8 @@ public interface PaymentTableFacadeLocal {
 
     int count();
     
+    public void savePayment(PaymentTable payment);
+    
+    PaymentTable findPaymentById(int paymentId);
 }
+
