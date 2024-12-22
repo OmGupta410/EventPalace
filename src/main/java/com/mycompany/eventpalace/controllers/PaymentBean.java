@@ -1,8 +1,10 @@
 package com.mycompany.eventpalace.controllers;
 
+import com.mycompany.entity.PaymentMethod;
 import com.mycompany.entity.PaymentTable;
 import com.mycompany.entity.UserBookingTable;
 import com.mycompany.entity.VenueTable;
+import com.mycompany.sessionBeans.PaymentMethodFacadeLocal;
 import com.mycompany.sessionBeans.PaymentTableFacadeLocal;
 import com.mycompany.sessionBeans.VenueTableFacadeLocal;
 import java.io.Serializable;
@@ -12,12 +14,20 @@ import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
+import javax.persistence.Entity;
 import javax.servlet.http.HttpSession;
 
 @Named(value = "PaymentBean")
 @SessionScoped
 
 public class PaymentBean implements Serializable{
+
+    @EJB
+    private PaymentMethodFacadeLocal paymentMethodFacade;
+     private String cardHolderName;
+    private String cardNumber;
+    private String expMonth;
+    private String expYear;
     private PaymentTable selectedPayment;
 
    @EJB
@@ -25,6 +35,8 @@ public class PaymentBean implements Serializable{
 
     @EJB
     private PaymentTableFacadeLocal paymentTableFacade;
+    
+    
     
  @PostConstruct
 public void init() {
@@ -51,6 +63,8 @@ public void init() {
 
 
     public PaymentTable getSelectedPayment() {
+        
+        
     if (selectedPayment == null) {
         selectedPayment = new PaymentTable();
 
@@ -115,22 +129,62 @@ public void init() {
         // Set default values for payment status and date-time
         selectedPayment.setPaymentstatus("Pending");
         selectedPayment.setDatetime(new Date());
+        
+         System.out.println("Selected Payment: " + selectedPayment);
     }
 
     return selectedPayment;
 }
 
-    public void processPayment() {
+    public String processPayment() {
+        System.out.println("payment processing ............");
+       
+ System.out.println("Selected Payment: " + selectedPayment);
         if (selectedPayment != null) {
-            selectedPayment.setPaymentstatus("Completed");
-            selectedPayment.setDatetime(new Date());
+            try{
 
             // Save updated payment to the database
-            paymentTableFacade.savePayment(selectedPayment);
+            paymentTableFacade.savePaymentt(selectedPayment);
+            
+            if (cardNumber != null && !cardNumber.isEmpty()) {
+                PaymentMethod paymentMethod = new PaymentMethod();
+                paymentMethod.setCardholdername(cardHolderName);
+                paymentMethod.setCardnumber(cardNumber);
+                paymentMethod.setExpirationmonth(expMonth);
+                paymentMethod.setExpirationyear(expYear);
+                paymentMethod.setPaymentId(selectedPayment);
+                paymentMethodFacade.savePaymentmethod(paymentMethod);
+            }
+//            
              System.out.println("Payment processed successfully.");
+             
+              paymentTableFacade.savePaymentt(selectedPayment);
+              
+            System.out.println("status changes to completed");
+             
+             return "bookingSuccess.xhtml?faces-redirect=true";
+             
+            }catch(Exception e){
+            System.err.println("Error processing payment: " + e.getMessage());
+                e.printStackTrace();
+                throw new RuntimeException("Failed to process payment.");
+            }
         } else {
+            
             throw new RuntimeException("No payment selected for processing");
         }
+        
+//            selectedPayment.setDatetime(new Date());
+// Save updated payment to the database
+           
+            
+            
+          
+            
+                
+            
+            
+        
     }
     
     private HttpSession getSession() {
@@ -156,5 +210,38 @@ public void init() {
     public void setPaymentTableFacade(PaymentTableFacadeLocal paymentTableFacade) {
         this.paymentTableFacade = paymentTableFacade;
     }
+
+    public String getCardHolderName() {
+        return cardHolderName;
+    }
+
+    public void setCardHolderName(String cardHolderName) {
+        this.cardHolderName = cardHolderName;
+    }
+
+    public String getCardNumber() {
+        return cardNumber;
+    }
+
+    public void setCardNumber(String cardNumber) {
+        this.cardNumber = cardNumber;
+    }
+
+    public String getExpMonth() {
+        return expMonth;
+    }
+
+    public void setExpMonth(String expMonth) {
+        this.expMonth = expMonth;
+    }
+
+    public String getExpYear() {
+        return expYear;
+    }
+
+    public void setExpYear(String expYear) {
+        this.expYear = expYear;
+    }
+    
 
 }

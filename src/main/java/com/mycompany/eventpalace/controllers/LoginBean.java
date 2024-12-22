@@ -102,6 +102,9 @@ public class LoginBean {
         if (session == null) {
             throw new IllegalStateException("Unable to create session");
         }
+
+        System.out.println("Current session attributes: userId=" + session.getAttribute("userId") + ", role=" + session.getAttribute("role"));
+
         System.out.println("Checking userFacade: " + (userFacade != null));
         System.out.println("Checking request: " + (request != null));
 
@@ -113,6 +116,7 @@ public class LoginBean {
         System.out.println("User ID set in session: " + session.getAttribute("userId"));
         System.out.println("userId is: " + session.getAttribute("userId"));
         System.out.println("role is: " + session.getAttribute("role"));
+
 //    String id =  session.getAttribute("id"); // Navigate to the appropriate page based on role
         switch (role.toLowerCase()) {
             case "admin":
@@ -135,9 +139,16 @@ public class LoginBean {
         // Redirect to login page if session or userRole attribute is missing, and user is not already on login page
         if (!currentPage.equals("/Login.xhtml")) {
             HttpSession session = (HttpSession) externalContext.getSession(false);
-            if (session == null || session.getAttribute("userRole") == null) {
+            if (session == null || session.getAttribute("role   ") == null) {
                 try {
                     externalContext.redirect("Login.xhtml");
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+            if (session != null && session.getAttribute("role") != null) {
+                try {
+                    externalContext.redirect("HomePage.xhtml");
                 } catch (IOException e) {
                     e.printStackTrace();
                 }

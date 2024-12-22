@@ -1,12 +1,16 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:pt="http://xmlns.jcp.org/jsf/passthrough">
+      xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
     <head>
         <title>Payment Page</title>
         <script src="https://cdn.tailwindcss.com"></script>
     </head>
     <body class="bg-gray-100 p-10">
+        
+        <!-- Including Navbar -->
+  <ui:include src="Navbar.xhtml" />
         <div class="max-w-xl mx-auto bg-white shadow-lg rounded-lg p-6">
             <h1 class="text-2xl font-bold mb-4">Payment Details</h1>
 
@@ -15,7 +19,7 @@
                 <p class="mb-2"><strong>Payment ID:</strong> #{PaymentBean.selectedPayment.paymentId}</p>
                 <p class="mb-2"><strong>Booking ID:</strong> #{PaymentBean.selectedPayment.bookingId.bookingid != null ? PaymentBean.selectedPayment.bookingId.bookingid : 'N/A'}</p>
                 <p class="mb-2"><strong>Venue ID:</strong>  #{PaymentBean.selectedPayment.venueId != null ? PaymentBean.selectedPayment.venueId.venueId : 'N/A'}</p>
-                <p class="mb-2"><strong>Advance Payment:</strong> #{PaymentBean.selectedPayment.venueId.bookingadvanceprice}</p>
+                <p class="mb-2"><strong>Advance Payment:</strong> #{PaymentBean.selectedPayment.advancepayment}</p>
                 <p class="mb-2"><strong>Status:</strong>#{PaymentBean.selectedPayment.paymentstatus}</p>
                 <p class="mb-2"><strong>Date:</strong> #{PaymentBean.selectedPayment.datetime != null ? PaymentBean.selectedPayment.datetime : 'N/A'}</p>
             </div>
@@ -27,46 +31,52 @@
 
 
             <!-- Payment Form -->
-            <div id="paymentForm" class="bg-gray-200 flex items-center justify-center p-5 mt-6 hidden">
-                <div class="w-full mx-auto rounded-lg bg-white shadow-lg p-5 text-gray-700" style="max-width: 600px">
+            <h:form >
 
-                    <div class="mb-10">
-                        <h1 class="text-center font-bold text-xl uppercase">Secure Payment Info</h1>
-                    </div>
+                <div id="paymentForm" class="bg-gray-200 flex items-center justify-center p-5 mt-6 hidden">
+                    <div class="w-full mx-auto rounded-lg bg-white shadow-lg p-5 text-gray-700" style="max-width: 600px">
 
-                    <!-- Payment Method Selection -->
-                    <div class="mb-3 flex -mx-2">
-                        <div class="px-2">
-                            <label for="type1" class="flex items-center cursor-pointer">
-                                <h:selectOneRadio id="paymentType" value="type1" class="form-radio h-5 w-5 text-indigo-500" />
-                                <img src="https://leadershipmemphis.org/wp-content/uploads/2020/08/780370.png" class="h-8 ml-3" alt="Credit Card" />
-                            </label>
+                        <div class="mb-10">
+                            <h1 class="text-center font-bold text-xl uppercase">Secure Payment Info</h1>
                         </div>
-                        <div class="px-2">
-                            <label for="type2" class="flex items-center cursor-pointer">
-                                <h:selectOneRadio id="paymentType" value="type2" class="form-radio h-5 w-5 text-indigo-500" />
-                                <img src="https://www.sketchappsources.com/resources/source-image/PayPalCard.png" class="h-8 ml-3" alt="PayPal" />
-                            </label>
+
+                        <!-- Payment Method Selection -->
+                        <div class="mb-3 flex -mx-2">
+                            <div class="px-2">
+                                <label for="type1" class="flex items-center cursor-pointer">
+                                    <h:selectOneRadio id="paymentType1"  class="form-radio h-5 w-5 text-indigo-500">
+                                        <f:selectItem itemValue="type1" itemLabel="Credit Card" />
+                                    </h:selectOneRadio>
+                                    <img src="https://leadershipmemphis.org/wp-content/uploads/2020/08/780370.png" class="h-8 ml-3" alt="Credit Card" />
+                                </label>
+                            </div>
+                            <div class="px-2">
+                                <label for="type2" class="flex items-center cursor-pointer">
+                                    <h:selectOneRadio id="paymentType2"  class="form-radio h-5 w-5 text-indigo-500">
+                                        <f:selectItem itemValue="type2" itemLabel="PayPal" />
+                                    </h:selectOneRadio>
+                                    <img src="https://www.sketchappsources.com/resources/source-image/PayPalCard.png" class="h-8 ml-3" alt="PayPal" />
+                                </label>
+                            </div>
                         </div>
-                    </div>
 
-                    <!-- Cardholder Name -->
-                    <div class="mb-3">
-                        <label class="font-bold text-sm mb-2 ml-1">Name on Card</label>
-                        <h:inputText id="cardName" value="#{PaymentBean.selectedPayment.bookingId.userId.name}" class="w-full px-3 py-2 mb-1 border-2 border-gray-200 rounded-md focus:outline-none focus:border-indigo-500 transition-colors" pt:placeholder="John Smith" required="true" />
-                    </div>
+                        <!-- Cardholder Name -->
+                        <div class="mb-3">
+                            <label class="font-bold text-sm mb-2 ml-1">Name on Card</label>
+                            <h:inputText id="cardName" value="#{PaymentBean.cardHolderName}" class="w-full px-3 py-2 mb-1 border-2 border-gray-200 rounded-md focus:outline-none focus:border-indigo-500 transition-colors" pt:placeholder="John Smith" required="true" />
+                        </div>
 
-                    <!-- Card Number -->
-                    <div class="mb-3">
-                        <label class="font-bold text-sm mb-2 ml-1">Card Number</label>
-                        <h:inputText id="cardNumber" class="w-full px-3 py-2 mb-1 border-2 border-gray-200 rounded-md focus:outline-none focus:border-indigo-500 transition-colors" pt:placeholder="0000 0000 0000 0000" required="true" />
-                    </div>
+                        <!-- Card Number -->
+                        <div class="mb-3">
+                            <label class="font-bold text-sm mb-2 ml-1">Card Number</label>
+                            <h:inputText id="cardNumber" value="#{PaymentBean.cardNumber}" class="w-full px-3 py-2 mb-1 border-2 border-gray-200 rounded-md focus:outline-none focus:border-indigo-500 transition-colors" pt:placeholder="0000 0000 0000 0000" required="true" />
+                        </div>
 
-                    <!-- Expiration Date -->
+                        <!-- Expiration Date -->
                         <div class="mb-3 -mx-2 flex items-end">
                             <div class="px-2 w-1/2">
                                 <label class="font-bold text-sm mb-2 ml-1">Expiration Month</label>
-                                <h:selectOneMenu id="expMonth" class="form-select w-full px-3 py-2 mb-1 border-2 border-gray-200 rounded-md focus:outline-none focus:border-indigo-500 transition-colors cursor-pointer" required="true">
+                                <h:selectOneMenu id="expMonth" value="#{PaymentBean.expMonth}" class="form-select w-full px-3 py-2 mb-1 border-2 border-gray-200 rounded-md focus:outline-none focus:border-indigo-500 transition-colors cursor-pointer" required="true">
                                     <f:selectItem itemValue="01" itemLabel="01 - January" />
                                     <f:selectItem itemValue="02" itemLabel="02 - February" />
                                     <f:selectItem itemValue="03" itemLabel="03 - March" />
@@ -83,7 +93,7 @@
                             </div>
                             <div class="px-2 w-1/2">
                                 <label class="font-bold text-sm mb-2 ml-1">Expiration Year</label>
-                                <h:selectOneMenu id="expYear" class="form-select w-full px-3 py-2 mb-1 border-2 border-gray-200 rounded-md focus:outline-none focus:border-indigo-500 transition-colors cursor-pointer" required="true">
+                                <h:selectOneMenu id="expYear" value="#{PaymentBean.expYear}" class="form-select w-full px-3 py-2 mb-1 border-2 border-gray-200 rounded-md focus:outline-none focus:border-indigo-500 transition-colors cursor-pointer" required="true">
                                     <f:selectItem itemValue="2024" itemLabel="2024" />
                                     <f:selectItem itemValue="2025" itemLabel="2025" />
                                     <f:selectItem itemValue="2026" itemLabel="2026" />
@@ -94,19 +104,25 @@
                             </div>
                         </div>
 
-                    <!-- Security Code -->
-                    <div class="mb-10">
-                        <label class="font-bold text-sm mb-2 ml-1">Security Code</label>
-                        <h:inputText id="securityCode" class="w-32 px-3 py-2 mb-1 border-2 border-gray-200 rounded-md focus:outline-none focus:border-indigo-500 transition-colors" pt:placeholder="000" required="true" />
-                    </div>
+                        <!-- Security Code -->
+                        <div class="mb-10">
+                            <label class="font-bold text-sm mb-2 ml-1">Security Code</label>
+                            <h:inputText id="securityCode" class="w-32 px-3 py-2 mb-1 border-2 border-gray-200 rounded-md focus:outline-none focus:border-indigo-500 transition-colors" pt:placeholder="000" required="true" />
+                        </div>
 
-                    <!-- Submit Button -->
-                    <div>
-                        <h:commandButton value="Pay Now" action="#{paymentBean.processPayment}" class="block w-full max-w-xs mx-auto bg-indigo-500 hover:bg-indigo-700 focus:bg-indigo-700 text-white rounded-lg px-3 py-3 font-semibold" />
-                    </div>
+                        <!-- Submit Button -->
+                        <div>
+                            <h:commandButton value="Pay Now" action="#{PaymentBean.processPayment}" class="block w-full max-w-xs mx-auto bg-indigo-500 hover:bg-indigo-700 focus:bg-indigo-700 text-white rounded-lg px-3 py-3 font-semibold" />
+                        </div>
 
+
+
+                    </div>
                 </div>
-            </div>
+            </h:form>
         </div>
+  
+    <!-- Including Footer -->
+  <ui:include src="footer.xhtml" />
     </body>
 </html>

@@ -29,7 +29,7 @@ public interface PaymentTableFacadeLocal {
 
     int count();
     
-    public void savePayment(PaymentTable payment);
+    public void savePaymentt(PaymentTable payment);
     
     PaymentTable findPaymentById(int paymentId);
 }

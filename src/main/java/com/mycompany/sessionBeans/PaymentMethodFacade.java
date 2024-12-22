@@ -28,4 +28,11 @@ public class PaymentMethodFacade extends AbstractFacade<PaymentMethod> implement
         super(PaymentMethod.class);
     }
     
+    public void savePaymentmethod(PaymentMethod paymentmethod){
+         if (paymentmethod.getCardId() == null) {
+            em.persist(paymentmethod); // Save a new record
+        } else {
+            em.merge(paymentmethod);  // Update an existing record
+        }
+    }
 }

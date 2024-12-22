@@ -39,12 +39,6 @@ import javax.validation.constraints.Size;
     @NamedQuery(name = "UserBookingTable.findByEventtype", query = "SELECT u FROM UserBookingTable u WHERE u.eventtype = :eventtype")})
 public class UserBookingTable implements Serializable {
 
-    private static final long serialVersionUID = 1L;
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Basic(optional = false)
-    @Column(name = "Booking_id")
-    private Integer bookingid;
     @Basic(optional = false)
     @NotNull
     @Column(name = "Booking_date")
@@ -65,11 +59,18 @@ public class UserBookingTable implements Serializable {
     @Size(min = 1, max = 100)
     @Column(name = "Event_type")
     private String eventtype;
+
+    private static final long serialVersionUID = 1L;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Basic(optional = false)
+    @Column(name = "Booking_id")
+    private Integer bookingid;
     @JoinColumn(name = "UserId", referencedColumnName = "User_id")
     @ManyToOne
     private UserRegistrationTable userId;
     @JoinColumn(name = "VenueId", referencedColumnName = "VenueId")
-    @ManyToOne  
+    @ManyToOne
     private VenueTable venueId;
     @OneToMany(mappedBy = "bookingId")
     private Collection<PaymentTable> paymentTableCollection;
@@ -111,14 +112,6 @@ public class UserBookingTable implements Serializable {
 
     public void setEventdate(Date eventdate) {
         this.eventdate = eventdate;
-    }
-
-    public String getShift() {
-        return shift;
-    }
-
-    public void setShift(String shift) {
-        this.shift = shift;
     }
 
     public String getEventtype() {
@@ -177,5 +170,13 @@ public class UserBookingTable implements Serializable {
     public String toString() {
         return "com.mycompany.entity.UserBookingTable[ bookingid=" + bookingid + " ]";
     }
-    
+
+    public String getShift() {
+        return shift;
+    }
+
+    public void setShift(String shift) {
+        this.shift = shift;
+    }
+
 }

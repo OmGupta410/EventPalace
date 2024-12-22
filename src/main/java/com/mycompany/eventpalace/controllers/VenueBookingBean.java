@@ -6,6 +6,7 @@ import com.mycompany.entity.UserRegistrationTable;
 import com.mycompany.entity.VenueTable;
 import com.mycompany.sessionBeans.PaymentTableFacadeLocal;
 import com.mycompany.sessionBeans.UserBookingTableFacadeLocal;
+import com.mycompany.sessionBeans.VenueTableFacadeLocal;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
@@ -37,6 +38,9 @@ public class VenueBookingBean implements Serializable {
 
     @EJB
     private PaymentTableFacadeLocal paymentTableFacade;
+
+    @EJB
+    private VenueTableFacadeLocal venueFacade;
 
     public VenueBookingBean() {
         initialize();
@@ -114,6 +118,12 @@ public class VenueBookingBean implements Serializable {
 
             // Store booking details in the session
             session.setAttribute("currentBooking", booking);
+
+            venue = venueFacade.findVenueById(venueId);
+            if (venue == null) {
+                System.out.println("Venue not found with ID: " + venueId);
+                return "error.xhtml"; // Redirect to an error page
+            }
 
             // Fetch advance payment from the venue
             BigDecimal advancePayment = venue.getBookingadvanceprice();

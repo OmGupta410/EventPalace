@@ -5,7 +5,6 @@
 package com.mycompany.entity;
 
 import java.io.Serializable;
-import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -17,8 +16,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -33,7 +30,8 @@ import javax.validation.constraints.Size;
     @NamedQuery(name = "PaymentMethod.findByCardId", query = "SELECT p FROM PaymentMethod p WHERE p.cardId = :cardId"),
     @NamedQuery(name = "PaymentMethod.findByCardholdername", query = "SELECT p FROM PaymentMethod p WHERE p.cardholdername = :cardholdername"),
     @NamedQuery(name = "PaymentMethod.findByCardnumber", query = "SELECT p FROM PaymentMethod p WHERE p.cardnumber = :cardnumber"),
-    @NamedQuery(name = "PaymentMethod.findByExpiredate", query = "SELECT p FROM PaymentMethod p WHERE p.expiredate = :expiredate")})
+    @NamedQuery(name = "PaymentMethod.findByExpirationmonth", query = "SELECT p FROM PaymentMethod p WHERE p.expirationmonth = :expirationmonth"),
+    @NamedQuery(name = "PaymentMethod.findByExpirationyear", query = "SELECT p FROM PaymentMethod p WHERE p.expirationyear = :expirationyear")})
 public class PaymentMethod implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -54,9 +52,14 @@ public class PaymentMethod implements Serializable {
     private String cardnumber;
     @Basic(optional = false)
     @NotNull
-    @Column(name = "Expire_date")
-    @Temporal(TemporalType.DATE)
-    private Date expiredate;
+    @Size(min = 1, max = 20)
+    @Column(name = "Expiration_month")
+    private String expirationmonth;
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 20)
+    @Column(name = "Expiration_year")
+    private String expirationyear;
     @JoinColumn(name = "PaymentId", referencedColumnName = "PaymentId")
     @ManyToOne
     private PaymentTable paymentId;
@@ -68,11 +71,12 @@ public class PaymentMethod implements Serializable {
         this.cardId = cardId;
     }
 
-    public PaymentMethod(Integer cardId, String cardholdername, String cardnumber, Date expiredate) {
+    public PaymentMethod(Integer cardId, String cardholdername, String cardnumber, String expirationmonth, String expirationyear) {
         this.cardId = cardId;
         this.cardholdername = cardholdername;
         this.cardnumber = cardnumber;
-        this.expiredate = expiredate;
+        this.expirationmonth = expirationmonth;
+        this.expirationyear = expirationyear;
     }
 
     public Integer getCardId() {
@@ -99,12 +103,20 @@ public class PaymentMethod implements Serializable {
         this.cardnumber = cardnumber;
     }
 
-    public Date getExpiredate() {
-        return expiredate;
+    public String getExpirationmonth() {
+        return expirationmonth;
     }
 
-    public void setExpiredate(Date expiredate) {
-        this.expiredate = expiredate;
+    public void setExpirationmonth(String expirationmonth) {
+        this.expirationmonth = expirationmonth;
+    }
+
+    public String getExpirationyear() {
+        return expirationyear;
+    }
+
+    public void setExpirationyear(String expirationyear) {
+        this.expirationyear = expirationyear;
     }
 
     public PaymentTable getPaymentId() {

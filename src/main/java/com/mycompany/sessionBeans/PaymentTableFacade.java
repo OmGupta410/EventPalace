@@ -28,7 +28,7 @@ public class PaymentTableFacade extends AbstractFacade<PaymentTable> implements 
         super(PaymentTable.class);
     }
     
-    public void savePayment(PaymentTable payment) {
+    public void savePaymentt(PaymentTable payment) {
         if (payment.getPaymentId() == null) {
             em.persist(payment); // Save a new record
         } else {

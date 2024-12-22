@@ -40,44 +40,46 @@ import javax.validation.constraints.Size;
     @NamedQuery(name = "VenueTable.findByCapacity", query = "SELECT v FROM VenueTable v WHERE v.capacity = :capacity")})
 public class VenueTable implements Serializable {
 
-    private static final long serialVersionUID = 1L;
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Basic(optional = false)
-    @Column(name = "VenueId")
-    private Integer venueId;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 255)
     @Column(name = "Venue_name")
     private String venuename;
     @Basic(optional = false)
-    @NotNull
+    @NotNull()
     @Size(min = 1, max = 255)
     @Column(name = "Location")
     private String location;
     @Basic(optional = false)
     @NotNull
-    @Lob
+    @Lob()
     @Size(min = 1, max = 65535)
     @Column(name = "Description")
     private String description;
-    @Lob
+    @Lob()
     @Column(name = "Image")
     private byte[] image;
+    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Basic(optional = false)
     @NotNull
     @Column(name = "Final_price")
     private BigDecimal finalprice;
     @Basic(optional = false)
-    @NotNull
+    @NotNull()
     @Column(name = "Booking_advance_price")
     private BigDecimal bookingadvanceprice;
+    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Basic(optional = false)
     @NotNull
     @Column(name = "Capacity")
     private int capacity;
+    private static final long serialVersionUID = 1L;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Basic(optional = false)
+    @Column(name = "VenueId")
+    private Integer venueId;
     @ManyToMany(mappedBy = "venueTableCollection")
     private Collection<UserRegistrationTable> userRegistrationTableCollection;
     @OneToMany(mappedBy = "venueId")
@@ -127,29 +129,6 @@ public class VenueTable implements Serializable {
         this.venuename = venuename;
     }
 
-    public String getLocation() {
-        return location;
-    }
-
-    public void setLocation(String location) {
-        this.location = location;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public byte[] getImage() {
-        return image;
-    }
-
-    public void setImage(byte[] image) {
-        this.image = image;
-    }
 
     public BigDecimal getFinalprice() {
         return finalprice;
@@ -167,13 +146,6 @@ public class VenueTable implements Serializable {
         this.bookingadvanceprice = bookingadvanceprice;
     }
 
-    public int getCapacity() {
-        return capacity;
-    }
-
-    public void setCapacity(int capacity) {
-        this.capacity = capacity;
-    }
 
     public Collection<UserRegistrationTable> getUserRegistrationTableCollection() {
         return userRegistrationTableCollection;
@@ -254,6 +226,53 @@ public class VenueTable implements Serializable {
     @Override
     public String toString() {
         return "com.mycompany.entity.VenueTable[ venueId=" + venueId + " ]";
+    }
+
+//    public String getVenuename() {
+//        return venuename;
+//    }
+//
+//    public void setVenuename(String venuename) {
+//        this.venuename = venuename;
+//    }
+
+ 
+
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+
+
+    public byte[] getImage() {
+        return image;
+    }
+
+    public void setImage(byte[] image) {
+        this.image = image;
+    }
+
+   
+  
+
+    public int getCapacity() {
+        return capacity;
+    }
+
+    public void setCapacity(int capacity) {
+        this.capacity = capacity;
     }
     
 }

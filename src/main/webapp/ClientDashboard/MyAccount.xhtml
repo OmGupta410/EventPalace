@@ -1,91 +1,131 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
-
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
 <head>
-    <title>My Account</title>
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
+    <title>Profile Dashboard</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet"/>
 </head>
-
-<h:body class="bg-gray-100 min-h-screen flex flex-col items-center">
-    <!-- Header -->
-    <header class="bg-blue-600 w-full p-4 text-white text-center">
-        <h1 class="text-2xl font-bold">My Account</h1>
-    </header>
-
-    <!-- Account Details -->
-    <main class="w-full  bg-white mt-6 p-10 rounded-lg shadow-md">
-        <!-- Display Mode -->
-        <div id="display-mode">
-            <h2 class="text-xl font-semibold mb-4">Account Details</h2>
-            <p><strong>Name:</strong> <span id="display-name">John Doe</span></p>
-            <p><strong>Email:</strong> <span id="display-email">johndoe@example.com</span></p>
-            <p><strong>Phone:</strong> <span id="display-phone">+123456789</span></p>
-            <button type="button" onclick="toggleEditMode()" 
-                class="mt-4 bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-700">
-                Edit Profile
-            </button>
+<body class="bg-gray-100 rounded ">
+    <div class="max-w-6xl mx-auto bg-white ">
+        <!-- Top Stats -->
+        <div class="grid grid-cols-2 md:grid-cols-3 gap-4 mb-6 p-4 text-center">
+            <div>
+                <p class="text-lg font-semibold">Bookings made</p>
+                <p class="text-2xl font-bold text-green-500">24</p>
+                <p class="text-sm text-gray-500">vs 20 last 3 months</p>
+            </div>
+            <div>
+                <p class="text-lg font-semibold">Reviews added</p>
+                <p class="text-2xl font-bold text-green-500">16</p>
+                <p class="text-sm text-gray-500">vs 14 last 3 months</p>
+            </div>
+            <div>
+                <p class="text-lg font-semibold">Favorite Venues added</p>
+                <p class="text-2xl font-bold text-red-500">8</p>
+                <p class="text-sm text-gray-500">vs 10 last 3 months</p>
+            </div>
+        </div>
+        <hr/>
+        <!-- Profile Info -->
+        <div id="display-mode" class="flex items-center mb-6 p-6">
+            <img src="../resource/images/2.jpg" alt="Profile Image" class="w-24 h-24 rounded-full mr-6"/>
+            <div>
+                <h1 id="display-name" class="text-2xl font-bold">Helene Engels</h1>
+                <p id="display-email" class="text-gray-700">helene@example.com</p>
+                <p id="display-phone" class="text-gray-700">+1234 567 890</p>
+                <button type="button" onclick="toggleEditMode()" class="mt-4 bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-700"><i class="fa-solid fa-pen-to-square"></i> Edit Profile</button>
+            </div>
         </div>
 
         <!-- Edit Mode -->
         <div id="edit-mode" class="hidden">
             <h2 class="text-xl font-semibold mb-4">Edit Profile</h2>
-            <form id="edit-form" onsubmit="return false;"> <!-- Prevent default form submission -->
+            <form id="edit-form" onsubmit="return false;">
                 <div class="mb-4">
-                    <label for="name" class="block text-gray-700">Name</label>
-                    <input id="edit-name" type="text" class="w-full px-4 py-2 border rounded" value="John Doe" />
+                    <label for="edit-name" class="block text-gray-700">Name</label>
+                    <input id="edit-name" type="text" class="w-full px-4 py-2 border rounded" value="Helene Engels"/>
                 </div>
                 <div class="mb-4">
-                    <label for="email" class="block text-gray-700">Email</label>
-                    <input id="edit-email" type="email" class="w-full px-4 py-2 border rounded" value="johndoe@example.com" />
+                    <label for="edit-email" class="block text-gray-700">Email</label>
+                    <input id="edit-email" type="email" class="w-full px-4 py-2 border rounded" value="helene@example.com"/>
                 </div>
                 <div class="mb-4">
-                    <label for="phone" class="block text-gray-700">Phone</label>
-                    <input id="edit-phone" type="text" class="w-full px-4 py-2 border rounded" value="+123456789" />
+                    <label for="edit-phone" class="block text-gray-700">Phone</label>
+                    <input id="edit-phone" type="text" class="w-full px-4 py-2 border rounded" value="+1234 567 890"/>
                 </div>
                 <div class="flex space-x-4">
-                    <button type="button" onclick="saveProfile()" 
-                        class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-700">
-                        Save
-                    </button>
-                    <button type="button" onclick="toggleEditMode()" 
-                        class="bg-gray-500 text-white px-4 py-2 rounded hover:bg-gray-700">
-                        Cancel
-                    </button>
+                    <button type="button" onclick="saveProfile()" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-700">Save</button>
+                    <button type="button" onclick="toggleEditMode()" class="bg-gray-500 text-white px-4 py-2 rounded hover:bg-gray-700">Cancel</button>
                 </div>
             </form>
         </div>
-    </main>
+
+        <!-- Latest Orders -->
+        <h2 class="text-xl font-bold mt-6 mb-4 p-4" >Latest orders</h2>
+        <div class="overflow-x-auto">
+            <table class="table-auto w-full text-left text-sm">
+                <thead>
+                    <tr class="bg-gray-200">
+                        <th class="px-4 py-2">Order ID</th>
+                        <th class="px-4 py-2">Date</th>
+                        <th class="px-4 py-2">Price</th>
+                        <th class="px-4 py-2">Status</th>
+                        <th class="px-4 py-2">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="px-4 py-2">FWB12546798</td>
+                        <td class="px-4 py-2">11.12.2023</td>
+                        <td class="px-4 py-2">$499</td>
+                        <td class="px-4 py-2 text-yellow-500">In transit</td>
+                        <td class="px-4 py-2"><button class="text-blue-500 underline">Actions</button></td>
+                    </tr>
+                    <tr class="bg-gray-100">
+                        <td class="px-4 py-2">FWB12546777</td>
+                        <td class="px-4 py-2">10.11.2024</td>
+                        <td class="px-4 py-2">$3,287</td>
+                        <td class="px-4 py-2 text-red-500">Cancelled</td>
+                        <td class="px-4 py-2"><button class="text-blue-500 underline">Actions</button></td>
+                    </tr>
+                    <tr>
+                        <td class="px-4 py-2">FWB12546846</td>
+                        <td class="px-4 py-2">07.11.2024</td>
+                        <td class="px-4 py-2">$111</td>
+                        <td class="px-4 py-2 text-green-500">Completed</td>
+                        <td class="px-4 py-2"><button class="text-blue-500 underline">Actions</button></td>
+                    </tr>
+                    <tr class="bg-gray-100">
+                        <td class="px-4 py-2">FWB12546212</td>
+                        <td class="px-4 py-2">18.10.2024</td>
+                        <td class="px-4 py-2">$756</td>
+                        <td class="px-4 py-2 text-green-500">Completed</td>
+                        <td class="px-4 py-2"><button class="text-blue-500 underline">Actions</button></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
 
     <!-- JavaScript -->
     <script>
         function toggleEditMode() {
-            // Toggle visibility of edit and display sections
             const displayMode = document.getElementById('display-mode');
             const editMode = document.getElementById('edit-mode');
-
             displayMode.classList.toggle('hidden');
             editMode.classList.toggle('hidden');
         }
 
         function saveProfile() {
-            // Get updated values from the form
             const name = document.getElementById('edit-name').value;
             const email = document.getElementById('edit-email').value;
             const phone = document.getElementById('edit-phone').value;
 
-            // Debug: Log updated values
-            console.log("Saving profile: ", { name, email, phone });
-
-            // Update the display values
             document.getElementById('display-name').textContent = name;
             document.getElementById('display-email').textContent = email;
             document.getElementById('display-phone').textContent = phone;
 
-            // Switch back to display mode
             toggleEditMode();
         }
     </script>
-</h:body>
-
+</body>
 </html>
