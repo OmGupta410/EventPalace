@@ -37,7 +37,10 @@ public class VenueBean implements Serializable {
     // Select a venue and navigate to its detail page
     public String selectVenue(VenueTable venue) {
         selectedVenue = venue; // Set the selected venue
-        return "VenueDetail.xhtml?faces-redirect=true"; // Navigate to venueDetail page
+//        return "venueDetail.xhtml?faces-redirect=true&venueId=" + venue.getVenueId();
+        // Navigate to venueDetail page
+         return "venuDetail.xhtml?faces-redirect=true";
+
     }
 
 
@@ -79,5 +82,10 @@ public class VenueBean implements Serializable {
 //        this.selectedVenueId = venueId;
 //        return "venuDetail.xhtml?faces-redirect=true";
 //    }
+
+//    public void setVenues(List<VenueTable> venues) {
+//        this.venues = venues;
+//    }
+    
     
 }

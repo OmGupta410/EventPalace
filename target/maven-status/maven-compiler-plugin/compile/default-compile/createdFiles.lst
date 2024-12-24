@@ -5,6 +5,7 @@ com\mycompany\sessionBeans\UserRegistrationTableFacadeLocal.class
 com\mycompany\sessionBeans\VenueTableFacadeLocal.class
 com\mycompany\eventpalace\controllers\VenueDetailController.class
 com\mycompany\sessionBeans\PaymentMethodFacadeLocal.class
+com\mycompany\eventpalace\controllers\BookingSuccessBean.class
 com\mycompany\eventpalace\JakartaRestConfiguration.class
 com\mycompany\eventpalace\controllers\PaymentBean.class
 com\mycompany\eventpalace\controllers\RegistrationBean.class
@@ -37,3 +38,4 @@ com\mycompany\entity\RoleTable.class
 com\mycompany\entity\VenueFacility.class
 com\mycompany\sessionBeans\ReviewTableFacade.class
 com\mycompany\eventpalace\controllers\VenueBookingBean.class
+show\CustomerCont.class

@@ -7,35 +7,95 @@
         <title>Booking Success</title>
         <script src="https://cdn.tailwindcss.com"></script>
     </h:head>
-    <h:body class="bg-green-50 min-h-screen flex flex-col">
+    <h:body class=" min-h-screen flex flex-col">
         <!-- Including Navbar -->
         <ui:include src="Navbar.xhtml" />
-        
+
         <!-- Main Content -->
-        <main class="flex-grow flex justify-center items-center">
-            <div class="w-1/3 mx-auto bg-white rounded-lg shadow-lg p-6 text-center">
+        <main class="flex-grow  flex justify-center items-center">
+            <div class="w-1/3 mx-auto bg-green-100 rounded-lg shadow-lg p-6 text-center m-6">
                 <h1 class="text-2xl font-bold text-green-600">Booking Confirmed!</h1>
-                <p class="text-gray-700 mt-2">Thank you for booking with us.</p>
                 <p class="text-gray-600 text-sm mt-4">Your booking details are as follows:</p>
 
-                <div class="bg-gray-100 p-4 rounded-lg mt-4">
-                    <p class="text-gray-700"><strong>Booking ID:</strong> #{venueBean.selectedVenue.venueId}</p>
-                    <p class="text-gray-700"><strong>Venue:</strong> #{venueBean.selectedVenue.venuename}</p>
-                    <p class="text-gray-700"><strong>Date:</strong> #{bookingBean.bookingDate}</p>
-                    <p class="text-gray-700"><strong>Amount Paid:</strong> $#{bookingBean.amountPaid}</p>
+                <section class="bg-white  py-8 antialiased dark:bg-gray-900 md:py-16">
+                    <div class="mx-auto  max-w-2xl px-4 2xl:px-0">
+                        <h2 class="text-xl font-semibold text-gray-900 dark:text-white sm:text-2xl mb-2">Thanks for Booking With us !!!</h2>
+                        <div class="space-y-4 bg-green-50 sm:space-y-2 rounded-lg border border-gray-100 bg-gray-50 p-6 dark:border-gray-700 dark:bg-gray-800 mb-6 md:mb-8">
+
+                            <dl class="sm:flex items-center justify-between gap-4">
+                                <dt class="font-normal mb-1 sm:mb-0 text-gray-500 dark:text-gray-400">Booking ID</dt>
+                                <dd class="font-medium text-gray-900 dark:text-white sm:text-end"><i>#</i>#{bookingSuccessBean.currentBooking.bookingid} </dd>
+                            </dl>
+                            <dl class="sm:flex items-center justify-between gap-4">
+                                <dt class="font-normal mb-1 sm:mb-0 text-gray-500 dark:text-gray-400">Venue Name</dt>
+                                <dd class="font-medium text-gray-900 dark:text-white sm:text-end"><b>#{bookingSuccessBean.venueName.toUpperCase()}</b></dd>
+                            </dl>
+                            <dl class="sm:flex items-center justify-between gap-4">
+                                <dt class="font-normal mb-1 sm:mb-0 text-gray-500 dark:text-gray-400">Date</dt>
+                                <dd class="font-medium text-gray-900 dark:text-white sm:text-end">#{bookingSuccessBean.currentBooking.bookingdate} </dd>
+                            </dl>
+                            <dl class="sm:flex items-center justify-between gap-4">
+                                <dt class="font-normal mb-1 sm:mb-0 text-gray-500 dark:text-gray-400">Payment Method</dt>
+                                <dd class="font-medium text-gray-900 dark:text-white sm:text-end">Sandard Card Payment</dd>
+                            </dl>
+                            <dl class="sm:flex items-center justify-between gap-4">
+                                <dt class="font-normal mb-1 sm:mb-0 text-gray-500 dark:text-gray-400">Phone</dt>
+                                <dd class="font-medium text-gray-900 dark:text-white sm:text-end">9785257890</dd>
+                            </dl>
+                        </div>
+                        <div class="mt-6">
+                    <a href="ClientDashboard/ClientDashboard.xhtml">
+                        <h:commandButton value="View My Bookings" 
+
+                                         styleClass="bg-orange-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg transition inline-block" /></a>
+                    <a href="index.xhtml">
+                        <h:commandButton value="Go to Home" action="index.xhtml" 
+                                         styleClass="bg-gray-300 hover:bg-gray-400 text-black px-4 py-2 rounded-lg transition inline-block ml-2" /></a>
                 </div>
 
-                <div class="mt-6">
-                    <a href="ClientDashboard/ClientDashboard.xhtml">
-                    <h:commandButton value="View My Bookings" 
-                                     
-                                     styleClass="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg transition inline-block" /></a>
-                    <h:commandButton value="Go to Home" action="home" 
-                                     styleClass="bg-gray-300 hover:bg-gray-400 text-black px-4 py-2 rounded-lg transition inline-block ml-2" />
-                </div>
+                    </div>
+                </section>
+
+                
             </div>
         </main>
-        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         <!-- Including Footer -->
         <ui:include src="footer.xhtml" />
     </h:body>

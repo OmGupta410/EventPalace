@@ -24,21 +24,24 @@
         <navigation-case>
             <from-outcome>adminDashboard</from-outcome>
             <to-view-id>/AdminDashboard/index.xhtml</to-view-id>
+            <redirect />
         </navigation-case>
         <navigation-case>
             <from-outcome>ownerDashboard</from-outcome>
             <to-view-id>/OwnerDashboard/OwnerDashboard.xhtml</to-view-id>
+            <redirect />
         </navigation-case>
         <navigation-case>
             <from-outcome>clientDashboard</from-outcome>
             <to-view-id>/ClientDashboard/ClientDashboard.xhtml</to-view-id>
+            <redirect />
         </navigation-case>
     </navigation-rule>
 
     <navigation-rule>
         <from-view-id>*</from-view-id>
         <navigation-case>
-            <from-outcome>Login</from-outcome>
+            <from-outcome>login</from-outcome>
             <to-view-id>/Login.xhtml</to-view-id>
             <redirect />
         </navigation-case>
@@ -49,6 +52,7 @@
         <navigation-case>
             <from-outcome>venueDetail</from-outcome>
             <to-view-id>/VenueDetail.xhtml</to-view-id>
+            <redirect />
         </navigation-case>
     </navigation-rule>
 
@@ -57,6 +61,7 @@
         <navigation-case>
             <from-outcome>venueDetail</from-outcome>
             <to-view-id>/VenueDetail.xhtml</to-view-id>
+            <redirect />
         </navigation-case>
     </navigation-rule>
 
@@ -66,6 +71,7 @@
         <navigation-case>
             <from-outcome>LoginPage</from-outcome>
             <to-view-id>/Login.xhtml</to-view-id>
+            <redirect />
         </navigation-case>
     </navigation-rule>
 

@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" 
+      xmlns:h="http://xmlns.jcp.org/jsf/html" 
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets" 
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:pt="http://xmlns.jcp.org/jsf/passthrough">
+    <h:head>
+        <title>Venue Management</title>
+        <script src="https://cdn.tailwindcss.com"></script>
+
+    </h:head>
+    <h:body>
+         <!-- Edit Modal -->
+        <div  classflex items-center justify-center">
+            <div class="bg-white p-8 rounded shadow-md w-1/2">
+                <h2 class="text-xl font-bold mb-4">Edit Venue</h2>
+                <h:form>
+                    <h:panelGroup >
+                        <!-- Venue Name -->
+                        <div class="mb-4">
+                            <label class="block text-gray-700">Name</label>
+                            <h:inputText value="#{showVenue.venuetable.venuename}" 
+                                         styleClass="border p-2 rounded w-full" />
+                        </div>
+                        <!-- Venue Location -->
+                        <div class="mb-4">
+                            <label class="block text-gray-700">Location</label>
+                            <h:inputText value="#{showVenue.venuetable.location}" 
+                                         styleClass="border p-2 rounded w-full" />
+                        </div>
+                        <!-- Venue Price -->
+                        <div class="mb-4">
+                            <label class="block text-gray-700">Price</label>
+                            <h:inputText value="#{showVenue.venuetable.finalprice}" 
+                                         styleClass="border p-2 rounded w-full" />
+                        </div>
+                        <!-- Venue Price -->
+                        <div class="mb-4">
+                            <label class="block text-gray-700">Advance Price</label>
+                            <h:inputText value="#{showVenue.venuetable.bookingadvanceprice}" 
+                                         styleClass="border p-2 rounded w-full" />
+                        </div>
+                        <!-- Venue Desc -->
+                        <div class="mb-4">
+                            <label class="block text-gray-700">Desc</label>
+                            <h:inputTextarea value="#{showVenue.venuetable.description}" 
+                                             styleClass="border p-2 rounded w-full" />
+                        </div>
+                        <!-- Venue capacity -->
+                        <div class="mb-4">
+                            <label class="block text-gray-700">Capacity</label>
+                            <h:inputText value="#{showVenue.venuetable.capacity}" 
+                                         styleClass="border p-2 rounded w-full" />
+                        </div>
+                    </h:panelGroup>
+                    <!-- Modal Actions -->
+                    <div class="flex justify-end">
+                        <button type="button" class="bg-gray-500 text-white px-4 py-2 rounded mr-4" 
+                                >Cancel</button>
+                        <h:commandButton value="update" action="#{showVenue.updateVenue()}" 
+                                         styleClass="bg-orange-500 text-white px-4 py-2 rounded">
+                            <f:ajax execute="@form" render="@reload"  />
+                        </h:commandButton>
+                    </div>
+                </h:form>
+            </div>
+        </div>
+    </h:body>
+</html>

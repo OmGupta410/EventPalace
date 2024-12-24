@@ -25,55 +25,19 @@ public class LoginBean {
     private String password;
     private String role;
 
-//    HttpServletRequest request;
+    // HttpServletRequest request;
     @EJB
     private UserRegistrationTableFacadeLocal userFacade;
-//method-1
-//    public String login() {
-//        System.out.println(email);
-//        System.out.println(role);
-//        System.out.println(password);
-//
-//        // Check if email and password are not empty
-//        if (email == null || email.trim().isEmpty() || password == null || password.trim().isEmpty()) {
-//            return "login?faces-redirect=true&error=emptyFields"; // Optional error handling
-//        }
-//
-//        // Authenticate user based on email and password
-//        UserRegistrationTable user = userFacade.findByEmailAndPassword(email, password);
-//
-//        if (user == null) {
-//            return "login?faces-redirect=true&error=invalidCredentials"; // Handle invalid login credentials
-//        }
-//
-//        // Retrieve the user's role from the RoleTable
-//        if (user.getRoleid() == null) {
-//            return "login?faces-redirect=true&error=noRoleAssigned"; // Handle missing role error
-//        }
-//
-//        this.role = user.getRoleid().getRolename(); // Assuming `RoleTable` has a `roleName` field
-//
-//        // Check user role and navigate to the appropriate page
-//        if ("admin".equalsIgnoreCase(role)) {
-//            return "adminDashboard"; // Matches faces-config.xml navigation case
-//        } else if ("owner".equalsIgnoreCase(role)) {
-//            return "ownerDashboard  ";
-//        } else if ("user".equalsIgnoreCase(role)) {
-//            return "clientDashboard";
-//        } else {
-//            return "login?faces-redirect=true&error=invalidCredentials";
-//        }
-//
-//    }
 
-//    method-2
+    // method-2
     public String login(HttpServletRequest request) {
         System.out.println("Email: " + email);
         System.out.println("Role: " + role);
         System.out.println("Password: " + password);
 
         // Check if email, password, or role is empty
-        if (email == null || email.trim().isEmpty() || password == null || password.trim().isEmpty() || role == null || role.trim().isEmpty()) {
+        if (email == null || email.trim().isEmpty() || password == null || password.trim().isEmpty() || role == null
+                || role.trim().isEmpty()) {
             return "login?faces-redirect=true&error=emptyFields"; // Optional error handling
         }
 
@@ -89,7 +53,8 @@ public class LoginBean {
         }
 
         // Check if the user's role matches the selected role
-        if (user.getRoleid() == null || user.getRoleid().getRolename() == null || !role.equalsIgnoreCase(user.getRoleid().getRolename())) {
+        if (user.getRoleid() == null || user.getRoleid().getRolename() == null
+                || !role.equalsIgnoreCase(user.getRoleid().getRolename())) {
             return "login?faces-redirect=true&error=roleMismatch"; // Handle role mismatch
         }
 
@@ -103,21 +68,23 @@ public class LoginBean {
             throw new IllegalStateException("Unable to create session");
         }
 
-        System.out.println("Current session attributes: userId=" + session.getAttribute("userId") + ", role=" + session.getAttribute("role"));
-
+        // System.out.println("Current session attributes: userId=" +
+        // session.getAttribute("userId") + ", role=" + session.getAttribute("role"));
         System.out.println("Checking userFacade: " + (userFacade != null));
         System.out.println("Checking request: " + (request != null));
 
         // Set attributes in the session
         session.setAttribute("userId", user.getUserid());
-//        session.setAttribute("venueid", Venue);
+        // session.setAttribute("venueid", Venue);
         session.setAttribute("role", user.getRoleid());
         System.out.println("Session ID after login: " + session.getId());
         System.out.println("User ID set in session: " + session.getAttribute("userId"));
         System.out.println("userId is: " + session.getAttribute("userId"));
         System.out.println("role is: " + session.getAttribute("role"));
+        FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("userId", session.getId());
 
-//    String id =  session.getAttribute("id"); // Navigate to the appropriate page based on role
+        // String id = session.getAttribute("id"); // Navigate to the appropriate page
+        // based on role
         switch (role.toLowerCase()) {
             case "admin":
                 return "adminDashboard";
@@ -136,10 +103,11 @@ public class LoginBean {
         ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
         String currentPage = externalContext.getRequestServletPath();
 
-        // Redirect to login page if session or userRole attribute is missing, and user is not already on login page
+        // Redirect to login page if session or userRole attribute is missing, and user
+        // is not already on login page
         if (!currentPage.equals("/Login.xhtml")) {
             HttpSession session = (HttpSession) externalContext.getSession(false);
-            if (session == null || session.getAttribute("role   ") == null) {
+            if (session == null || session.getAttribute("role") == null) {
                 try {
                     externalContext.redirect("Login.xhtml");
                 } catch (IOException e) {
@@ -148,7 +116,7 @@ public class LoginBean {
             }
             if (session != null && session.getAttribute("role") != null) {
                 try {
-                    externalContext.redirect("HomePage.xhtml");
+                    externalContext.redirect("index.xhtml");
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -156,34 +124,31 @@ public class LoginBean {
         }
     }
 
-//    public String logout() {
-//        ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
-//        HttpSession session = (HttpSession) externalContext.getSession(false);
-//        if (session != null) {
-//            session.invalidate(); // This invalidates the session
-//            FacesContext.getCurrentInstance().addMessage(null,
-//                    new FacesMessage("Session invalidated successfully"));
-//            System.out.println("Session invalidated successfully.");
-//        }
-//        return "/Login.xhtml";  // Redirect to login page
-////        return "/Login.xhtml";
-//    }
     public String logout() {
+        System.out.println("logging out....");
         FacesContext facesContext = FacesContext.getCurrentInstance();
         if (facesContext != null) {
             ExternalContext externalContext = facesContext.getExternalContext();
-            HttpSession session = (HttpSession) externalContext.getSession(false);
-
-            if (session != null) {
-                session.invalidate();
-                System.out.println("Session invalidated successfully.");
-            }
+            
 
             try {
+                 if (externalContext.getSession(false) == null) {
+                                     System.out.println("No active session found.");
+
+                 }
+                
+                // Invalidate session
+                if (externalContext.getSession(false) != null) {
+//                    externalContext.invalidateSession();
+                    System.out.println("Session invalidated successfully.");
+                } 
+
+                // Redirect to login page
                 externalContext.redirect(externalContext.getRequestContextPath() + "/Login.xhtml");
-                facesContext.responseComplete();
+                facesContext.responseComplete(); // Mark the response as complete
             } catch (IOException e) {
                 e.printStackTrace();
+                System.out.println("Error while redirecting to login page: " + e.getMessage());
             }
         }
         return null; // Return null to prevent further navigation processing

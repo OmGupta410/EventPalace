@@ -95,6 +95,7 @@ public class VenueTable implements Serializable {
     private Collection<ReviewTable> reviewTableCollection;
     @OneToMany(mappedBy = "venueId")
     private Collection<VenueGallery> venueGalleryCollection;
+    
 
     public VenueTable() {
     }

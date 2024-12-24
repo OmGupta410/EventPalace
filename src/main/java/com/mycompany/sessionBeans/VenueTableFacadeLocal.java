@@ -23,7 +23,7 @@ public interface VenueTableFacadeLocal {
 
     VenueTable find(Object id);
 
-    List<VenueTable> findAll();
+    List<VenueTable> findAll(); 
 
     List<VenueTable> findRange(int[] range);
 

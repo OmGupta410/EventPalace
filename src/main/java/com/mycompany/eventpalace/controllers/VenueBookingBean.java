@@ -12,7 +12,7 @@ import java.math.BigDecimal;
 import java.util.Date;
 import java.util.Map;
 import javax.ejb.EJB;
-import javax.enterprise.context.SessionScoped;
+import javax.enterprise.context.RequestScoped;
 import javax.faces.context.FacesContext;
 import javax.inject.Named;
 import javax.servlet.http.HttpSession;
@@ -20,8 +20,8 @@ import javax.validation.ConstraintViolation;
 import javax.validation.ConstraintViolationException;
 
 @Named(value = "venueBookingBean")
-@SessionScoped
-//@RequestScoped
+//@SessionScoped
+@RequestScoped
 public class VenueBookingBean implements Serializable {
 
     private Date bookingDate; // Current date
@@ -50,6 +50,7 @@ public class VenueBookingBean implements Serializable {
 
     private void initialize() {
         FacesContext context = FacesContext.getCurrentInstance();
+
         if (context == null) {
             System.out.println("FacesContext is not available.");
             return;
@@ -58,7 +59,7 @@ public class VenueBookingBean implements Serializable {
         HttpSession session = (HttpSession) context.getExternalContext().getSession(false);
         if (session != null) {
             userId = (Integer) session.getAttribute("userId");
-            System.out.println("User ID from session: " + userId);
+            System.out.println("User ID from session in venuebookingbean: " + userId);
         } else {
             System.out.println("No session found. User might not be logged in.");
         }
@@ -66,10 +67,11 @@ public class VenueBookingBean implements Serializable {
         // Retrieve venueId from URL parameters
         Map<String, String> params = context.getExternalContext().getRequestParameterMap();
         String venueIdParam = params.get("venueId");
+
         if (venueIdParam != null) {
             try {
                 venueId = Integer.valueOf(venueIdParam);
-                System.out.println("Venue ID from URL: " + venueId);
+                System.out.println("Venue ID from URL in venuebookingbean: " + venueId);
             } catch (NumberFormatException e) {
                 System.out.println("Invalid Venue ID: " + venueIdParam);
             }
@@ -79,12 +81,12 @@ public class VenueBookingBean implements Serializable {
     public String clickBookVenue() {
         if (userId == null) {
             System.out.println("User is not logged in.");
-            return "login.xhtml"; // Redirect to login page
+            return "login"; // Redirect to login page
         }
 
         if (venueId == null) {
             System.out.println("Venue ID is missing.");
-            return "error.xhtml"; // Redirect to an error page
+            return "error"; // Redirect to an error page
         }
 
         // Check venue availability
@@ -93,8 +95,8 @@ public class VenueBookingBean implements Serializable {
             return "notAvailable"; // Redirect to an error page
         }
 
-        // Create and persist booking
         try {
+            // Create and persist booking
             UserBookingTable booking = new UserBookingTable();
             booking.setBookingdate(new Date()); // Set current date
             booking.setEventdate(getSqlEventDate());
@@ -124,6 +126,11 @@ public class VenueBookingBean implements Serializable {
                 System.out.println("Venue not found with ID: " + venueId);
                 return "error.xhtml"; // Redirect to an error page
             }
+            String venueName = venue.getVenuename(); // Assuming getVenueName() exists
+            BigDecimal venueAPrice = venue.getBookingadvanceprice(); // Assuming getPrice() exists
+
+            System.out.println("Venue Name in vbb: " + venueName);
+            System.out.println("Venue A Price vbb: " + venueAPrice);
 
             // Fetch advance payment from the venue
             BigDecimal advancePayment = venue.getBookingadvanceprice();
@@ -143,11 +150,6 @@ public class VenueBookingBean implements Serializable {
             payment.setPaymentstatus("Pending");
             payment.setDatetime(new Date());
 
-//            //test data
-//            PaymentTable payment = new PaymentTable();
-//            payment.setAdvancepayment(new BigDecimal("100.00")); // Test value
-//            payment.setPaymentstatus("Pending");
-//            payment.setDatetime(new Date());
             // Save payment to the database
             paymentTableFacade.create(payment);
             System.out.println("Payment record successfully created.");
@@ -155,19 +157,20 @@ public class VenueBookingBean implements Serializable {
             // Clear old session attributes
             session.removeAttribute("paymentId");
             session.removeAttribute("bookingId");
+            
 
             // Store payment and booking details in the session
             session.setAttribute("paymentId", payment.getPaymentId());
             session.setAttribute("bookingId", booking.getBookingid());
-//            session.setAttribute("currentBooking", booking);
+            session.setAttribute("venueName", venueName);
+            session.setAttribute("venuePrice", venueAPrice);
+            session.setAttribute("currentBooking", booking);
 
             System.out.println("Session Booking ID: " + session.getAttribute("bookingId"));
             System.out.println("Session Payment ID: " + session.getAttribute("paymentId"));
 
             System.out.println("New Payment ID: " + payment.getPaymentId());
             System.out.println("New Booking ID: " + booking.getBookingid());
-            System.out.println("Session Payment ID: " + session.getAttribute("paymentId"));
-            System.out.println("Session Booking ID: " + session.getAttribute("bookingId"));
 
             // Redirect to the payment page
             return "payment.xhtml?faces-redirect=true";
@@ -283,5 +286,16 @@ public class VenueBookingBean implements Serializable {
     public void setSession(HttpSession session) {
         this.session = session;
     }
+
+    public VenueTableFacadeLocal getVenueFacade() {
+        return venueFacade;
+    }
+
+    public void setVenueFacade(VenueTableFacadeLocal venueFacade) {
+        this.venueFacade = venueFacade;
+    }
+    
+    
+    
 
 }

@@ -75,6 +75,9 @@ public class VenueTableFacade extends AbstractFacade<VenueTable> implements Venu
         return em.find(VenueTable.class, venueId)   ;
     }
 
+    public void saveVenue(VenueTable venue) {
+        em.persist(venue);
+    }
     
 
 }

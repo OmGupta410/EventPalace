@@ -2,6 +2,7 @@ package com.mycompany.eventpalace.controllers;
 
 import com.mycompany.entity.VenueTable;
 import com.mycompany.sessionBeans.VenueTableFacadeLocal;
+import java.io.Serializable;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
@@ -13,25 +14,25 @@ import javax.servlet.http.HttpSession;
 
 @Named
 @RequestScoped
-public class VenueDetailController {
+
+//
+//@ManagedBean
+//@ViewScoped
+public class VenueDetailController implements Serializable {
 
     @EJB
     private VenueTableFacadeLocal venueFacade;
 
-    private int venueId;
+    private Integer venueId;
     private VenueTable venue;
     private List<VenueTable> venues;
-  private Integer userId;
+    private Integer userId;
 
-   
-    
-    
     public VenueTable getVenue() {
         if (venue == null) {
             String venueId = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("venueId");
             if (venueId != null) {
                 try {
-                    
                     int id = Integer.parseInt(venueId); // Assuming venueId is an integer
                     venue = venueFacade.find(id);  // Retrieve the venue by id from the database
                 } catch (NumberFormatException e) {
@@ -42,21 +43,34 @@ public class VenueDetailController {
         }
         return venue;
     }
-    
-@PostConstruct
-public void init() {
-     FacesContext context = FacesContext.getCurrentInstance();
-        HttpSession session = (HttpSession) context.getExternalContext().getSession(false);
-        userId = (Integer) session.getAttribute("userId"); // Assuming userId is stored in the session
-        System.out.println(userId);
-    System.out.println("Venue ID: " + venueId);
-    System.out.println("init in venueDetailController");
-    
-//     venue = new VenueTable();
-//    venue.setVenuename("Test Venue");
-//    venue.setDescription("This is a test venue.");
-}
 
+    @PostConstruct
+    public void init() {
+
+        System.out.println("VenueDetailController init method called start.");
+
+        FacesContext context = FacesContext.getCurrentInstance();
+        HttpSession session = (HttpSession) context.getExternalContext().getSession(false);
+//
+            if (session != null) {
+             Object userId = (Integer) session.getAttribute("userId"); // Assuming userId is stored in the session
+                if (userId instanceof String) {
+                    userId = Integer.parseInt((String) userId);
+                } else if (userId instanceof Integer) {
+                    userId = (Integer) userId;
+                } else {    
+                    System.out.println("Invalid userId format in session.");
+                }
+                 System.out.println("user ID in venuedetail controller : " + userId);
+        System.out.println("Venue ID in venuedetail controller : " + venueId);
+        System.out.println("init in venueDetailController end");
+//
+            } else {
+                System.out.println("No session found. Ensure the user is logged in.");
+            }
+//      
+
+    }
 
     public void setVenue(VenueTable venue) {
         this.venue = venue;
@@ -87,7 +101,6 @@ public void init() {
 //    public void setVenue(VenueTable venue) {
 //        this.venue = venue;
 //    }
-
     public List<VenueTable> getVenues() {
         return venues;
     }
@@ -105,13 +118,10 @@ public void init() {
     public void setVenueId(int venueId) {
         this.venueId = venueId;
     }
-    
-    
-public String loadVenueDetails(Integer newVenueId) {
-    this.venueId = newVenueId; // Update the venueId
-    return "venueDetail.xhtml?faces-redirect=true&venueId=" + newVenueId; // Redirect with updated venueId
-}
 
-
+    public String loadVenueDetails(Integer newVenueId) {
+        this.venueId = newVenueId; // Update the venueId
+        return "venuDetail.xhtml?faces-redirect=true&venueId=" + newVenueId; // Redirect with updated venueId
+    }
 
 }
