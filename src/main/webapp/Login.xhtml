@@ -5,6 +5,8 @@
       xmlns:p="http://xmlns.jcp.org/jsf/passthrough">
     <h:head>
         <title>Role-Based Login</title>
+         <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://cdn.jsdelivr.net/npm/flowbite@2.5.2/dist/flowbite.min.css" rel="stylesheet" />
     </h:head>
     <h:body>
         <ui:include src="Navbar.xhtml" />
@@ -20,13 +22,15 @@
                                 <!-- Role Selection Dropdown -->
                                 <div>
                                     <label class="text-sm font-medium text-gray-900 dark:text-gray-300" for="role">Role:</label>
-                                    <h:selectOneMenu id="role" value="#{loginBean.role}">
+                                    <h:selectOneMenu id="role" value="#{loginBean.role}" styleClass="block w-full border bg-gray-50 border-gray-300 text-gray-900 focus:border-cyan-500 focus:ring-cyan-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white p-2.5 text-sm rounded-lg" >
                                         <f:selectItem itemValue="Admin" itemLabel="Admin" />
                                         <f:selectItem itemValue="Owner" itemLabel="Owner" />
                                         <f:selectItem itemValue="User" itemLabel="User" />
+                                       
                                     </h:selectOneMenu>
 
                                     <h:message for="role" styleClass="text-red-500 text-sm" />
+                                     <i class="fa-solid fa-caret-down"></i>
                                 </div>
 
                                 <!-- Email -->

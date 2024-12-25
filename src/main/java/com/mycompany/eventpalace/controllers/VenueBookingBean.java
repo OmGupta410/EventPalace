@@ -190,7 +190,7 @@ public class VenueBookingBean implements Serializable {
         return eventDate != null ? new java.sql.Date(eventDate.getTime()) : null;
     }
 
-    // Getters and Setters
+    // Getters and Setters  
     public Date getBookingDate() {
         return bookingDate;
     }

@@ -3,65 +3,152 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets" xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
 
-<head>
-    <title>EventPalece Dashboard</title>
-   
-</head>
+    <head>
+        <title>EventPalece Dashboard</title>
 
-<h:body class="bg-gray-100">
-    <h:form>
-        <div class="container mx-auto p-4">
-            <!--Search and Button Controls--> 
-            <div class="flex justify-between items-center mb-4">
-               
+    </head>
 
+    <h:body class="bg-gray-100">
 
+        <!-- Add Booking Modal -->
+        <div id="addVenueModal" class="flex bg-orange-200 w-full justify-center items-center">
+            <div class="bg-white p-8 rounded shadow-md w-full">
+                <h2 class="text-2xl font-bold mb-6 text-center">Add Booking manually</h2>
+                <h:form>
+                    <h:panelGroup id="addModalContent">
+                        <!-- Row 1: Venue Name, Location, and Price -->
+                        <div class="flex mb-6 space-x-4">
+                            <div class="w-1/3">
+                                <label class="block text-gray-700 mb-1">Venue Name</label>
+                                <h:inputText value="#{bookings.userBookingtable.venueId.venuename}" 
+                                             styleClass="border p-2 rounded w-full" />
+                            </div>
 
+                            <div class="w-1/3">
+                                <label class="block text-gray-700 mb-1">Event Date</label>
+                                <h:inputText value="#{bookings.userBookingtable.eventdate}" 
+                                             styleClass="border p-2 rounded w-full" />
+                            </div>
+                            <div class="w-1/3">
+                                <label class="block text-gray-700 mb-1">Shift</label>
+                                <h:inputText value="#{bookings.userBookingtable.shift}" 
+                                             styleClass="border p-2 rounded w-full" />
+                            </div>
 
-                <!--Table--> 
-                <h:dataTable value="#{showVenue.findAll()}" var="item" 
-                             styleClass="min-w-full table-auto border-collapse" 
-                             headerClass="bg-orange-100" 
-                             rowClasses="hover:bg-gray-100">
-                    <h:column>
-                        <f:facet name="header">
-                            <h:outputText value="Venuename" />
-                        </f:facet>
-                        <h:outputText value="#{item.venuename}"/>
-                    </h:column>
-                    <h:column>
-                        <f:facet name="header">
-                            <h:outputText value="Location" />
-                        </f:facet>
-                        <h:outputText value="#{item.location}" />
-                    </h:column>
-                    <h:column>
-                        <f:facet name="header">
-                            <h:outputText value="Capacity" />
-                        </f:facet>
-                        <h:outputText value="#{item.capacity}" />
-                    </h:column>
-                    <h:column>
-                        <f:facet name="header">
-                            <h:outputText value="Price" />
-                        </f:facet>
-                        <h:outputText value="#{item.finalprice}" />
-                    </h:column>
-                    <h:column>
-                        <f:facet name="header">
-                            <h:outputText value="Actions" />
-                        </f:facet>
-                        <h:commandButton value="Edit" 
-                                         styleClass="bg-orange-500 text-black px-4 py-1 rounded  " />
-                        <h:commandButton value="Delete" 
-                                         styleClass="bg-gray-100 text-gray-600 px-4 py-1 rounded ml-10" />
-                    </h:column>
-                </h:dataTable>
+                        </div>
+
+                        <!-- Row 2: Advance Price, UserId, and Image -->
+                        <div class="flex mb-6 space-x-4">
+                            <div class="w-1/3">
+                                <label class="block text-gray-700 mb-1">Advance Price</label>
+                                <h:inputText value="#{showVenue.venuetable.bookingadvanceprice}" 
+                                             styleClass="border p-2 rounded w-full" />
+                            </div>
+                            <div class="w-1/3">
+                                <label class="block text-gray-700 mb-1">UserId</label>
+                                <h:inputText value="#{showVenue.venuetable.userId}" 
+                                             styleClass="border p-2 rounded w-full" />
+                            </div>
+                            <div class="w-1/3">
+                                <label class="block text-gray-700 mb-1">Event description</label>
+                                <h:inputText
+                                    styleClass="border p-2 rounded w-full" />
+                            </div>
+                        </div>
+
+                    </h:panelGroup>
+
+                    <!-- Modal Actions -->
+                    <div class="flex justify-end mt-4">
+                        <button type="button" class="bg-gray-500 text-white px-4 py-2 rounded mr-4">Cancel</button>
+                        <h:commandButton value="Save" action="#{bookings.insertVenue()}" 
+                                         styleClass="bg-orange-500 text-white px-4 py-2 rounded">
+                        </h:commandButton>
+                    </div>
+                </h:form>
             </div>
         </div>
-    </h:form>
 
-</h:body>
+
+
+
+
+
+        <h:form>
+            <div class="container mx-auto p-4">
+                <!--Search and Button Controls--> 
+                <div class="flex justify-between items-center mb-4">
+                    <f:view>
+
+
+                        <h:form>
+                            <h:dataTable value="#{bookings.findAll()}" var="item" styleClass="min-w-full table-auto border border-collapse"
+                                         headerClass="bg-orange-100" rowClasses="hover:bg-gray-100 border" >
+                                <h:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="Bookingid"/>
+                                    </f:facet>
+                                    <h:outputText value="#{item.bookingid}"/>
+                                </h:column>
+                                <h:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="Bookingdate"/>
+                                    </f:facet>
+                                    <h:outputText value="#{item.bookingdate}">
+                                        <f:convertDateTime pattern="MM/dd/yyyy" />
+                                    </h:outputText>
+                                </h:column>
+                                <h:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="Eventdate"/>
+                                    </f:facet>
+                                    <h:outputText value="#{item.eventdate}">
+                                        <f:convertDateTime pattern="MM/dd/yyyy" />
+                                    </h:outputText>
+                                </h:column>
+                                <h:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="Eventtype"/>
+                                    </f:facet>
+                                    <h:outputText value="#{item.eventtype}"/>
+                                </h:column>
+                                <h:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="UserId"/>
+                                    </f:facet>
+                                    <h:outputText value="#{item.userId.userid}"/>
+                                </h:column>
+                                <h:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="VenueId"/>
+                                    </f:facet>
+                                    <h:outputText value="#{item.venueId.venueId}"/>
+                                </h:column>
+                                <h:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="Shift"/>
+                                    </f:facet>
+                                    <h:outputText value="#{item.shift}"/>
+                                </h:column>
+                                <h:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="Actions" />
+                                    </f:facet>
+                                    <h:commandButton value="Edit" 
+                                                     styleClass="bg-orange-500 text-black px-4 py-1 rounded  " action="#{bookings.updateVenue(item)}" />
+                                    <h:commandButton value="Delete" 
+                                                     styleClass="bg-gray-100 text-gray-600 px-4 py-1 rounded ml-10" action="#{bookings.deleteVenue(item)}" />
+                                </h:column>
+                            </h:dataTable>
+                        </h:form>
+                    </f:view>
+
+                </div>
+            </div>
+        </h:form>
+
+
+    </h:body>
 
 
 

@@ -12,50 +12,67 @@
 </head>
 
 <h:body class="bg-gray-100">
+
+ 
     <f:view>
         <h:form>
-            <h:dataTable value="" var="item"  styleClass="min-w-full table-auto border border-collapse" 
+            <h:dataTable value="#{customerCont.findAll()}" var="item"  styleClass="min-w-full table-auto border border-collapse" 
                          headerClass="bg-orange-100" 
                          rowClasses="hover:bg-gray-100 border" >
                 
                     <h:column>
                     <f:facet name="header">
-                        <h:outputText value="ID" />
+                        <h:outputText value="Userid"/>
                     </f:facet>
-                    <h:outputText value="id here" />
+                    <h:outputText value="#{item.userid}"/>
                 </h:column>
-                  <h:column>
+                <h:column>
                     <f:facet name="header">
-                        <h:outputText value="name" />
+                        <h:outputText value="Roleid"/>
                     </f:facet>
-                    <h:outputText value="name here" />
+                    <h:outputText value="#{item.roleid.rolename}"/>
                 </h:column>
-                  <h:column>
+                <h:column>
                     <f:facet name="header">
-                        <h:outputText value="email" />
+                        <h:outputText value="Name"/>
                     </f:facet>
-                    <h:outputText value="email here" />
+                    <h:outputText value="#{item.name}"/>
                 </h:column>
-                  <h:column>
+                <h:column>
                     <f:facet name="header">
-                        <h:outputText value="dob" />
+                        <h:outputText value="Email"/>
                     </f:facet>
-                    <h:outputText value="contact" />
+                    <h:outputText value="#{item.email}"/>
                 </h:column>
-                  <h:column>
+                <h:column>
                     <f:facet name="header">
-                        <h:outputText value="city" />
+                        <h:outputText value="Password"/>
                     </f:facet>
-                    <h:outputText value="city" />
+                    <h:outputText value="#{item.password}"/>
                 </h:column>
+                <h:column>
+                    <f:facet name="header">
+                        <h:outputText value="ContactNo"/>
+                    </f:facet>
+                    <h:outputText value="#{item.contactNo}"/>
+                </h:column>
+                <h:column>
+                    <f:facet name="header">
+                        <h:outputText value="Status"/>
+                    </f:facet>
+                    <h:outputText value="#{item.status}"/>
+                </h:column>
+                
+                
+                   
                   <h:column>
                     <f:facet name="header">
                         <h:outputText value="Actions" />
                     </f:facet>
                     <h:commandButton value="Edit" 
-                                     styleClass="bg-orange-500 text-black px-4 py-1 rounded  " />
+                                     styleClass="bg-orange-500 text-black px-4 py-1 rounded  " action="#{customerCont.updateuser(item)}" />
                     <h:commandButton value="Delete" 
-                                     styleClass="bg-gray-100 text-gray-600 px-4 py-1 rounded ml-10" />
+                                     styleClass="bg-gray-100 text-gray-600 px-4 py-1 rounded ml-10" action="#{customerCont.deleteusers(item)}" />
                 </h:column>
             </h:dataTable>
         </h:form>

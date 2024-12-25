@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" 
+      xmlns:h="http://xmlns.jcp.org/jsf/html" 
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets" 
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:pt="http://xmlns.jcp.org/jsf/passthrough">
+    <h:head>
+        <title>Venue Management</title>
+        <script src="https://cdn.tailwindcss.com"></script>
+
+    </h:head>   
+    <h:body >
+
+        <!-- Add Venue Modal -->
+        <div id="addVenueModal" class="flex bg-orange-200 w-full justify-center items-center">
+            <div class="bg-white p-8 rounded shadow-md w-full">
+                <h2 class="text-2xl font-bold mb-6 text-center">Owner Add Venue</h2>
+                <h:form>
+                    <h:panelGroup id="addModalContent">
+                        <!-- Row 1: Venue Name, Location, and Price -->
+                        <div class="flex mb-6 space-x-4">
+                            <div class="w-1/3">
+                                <label class="block text-gray-700 mb-1">Name</label>
+                                <h:inputText value="#{showVenue.venuetable.venuename}" 
+                                             styleClass="border p-2 rounded w-full" />
+                            </div>
+                            <div class="w-1/3">
+                                <label class="block text-gray-700 mb-1">Location</label>
+                                <h:inputText value="#{showVenue.venuetable.location}" 
+                                             styleClass="border p-2 rounded w-full" />
+                            </div>
+                            <div class="w-1/3">
+                                <label class="block text-gray-700 mb-1">Price</label>
+                                <h:inputText value="#{showVenue.venuetable.finalprice}" 
+                                             styleClass="border p-2 rounded w-full" />
+                            </div>
+                        </div>
+
+                        <!-- Row 2: Advance Price, UserId, and Image -->
+                        <div class="flex mb-6 space-x-4">
+                            <div class="w-1/3">
+                                <label class="block text-gray-700 mb-1">Advance Price</label>
+                                <h:inputText value="#{showVenue.venuetable.bookingadvanceprice}" 
+                                             styleClass="border p-2 rounded w-full" />
+                            </div>
+                            <div class="w-1/3">
+                                <label class="block text-gray-700 mb-1">UserId</label>
+                                <h:inputText value="#{showVenue.venuetable.userId}" 
+                                             styleClass="border p-2 rounded w-full" />
+                            </div>
+                            <!--                    <div class="w-1/3">
+                                                    <label class="block text-gray-700 mb-1">Image</label>
+                                                    <h:inputText value="" 
+                                                                 styleClass="border p-2 rounded w-full" />
+                                                     <h:inputFile id="imageUpload" value="#{showVenue.venuetable.image}" />
+                                                </div>-->
+                        </div>
+
+                        <!-- Row 3: Capacity and Description -->
+                        <div class="flex mb-6 space-x-4">
+                            <div class="w-1/3">
+                                <label class="block text-gray-700 mb-1">Capacity</label>
+                                <h:inputText value="#{showVenue.venuetable.capacity}" 
+                                             styleClass="border p-2 rounded w-full" />
+                            </div>
+                            <div class="w-2/3">
+                                <label class="block text-gray-700 mb-1">Description</label>
+                                <h:inputTextarea value="#{showVenue.venuetable.description}" 
+                                                 styleClass="border p-2 rounded w-full" rows="3" />
+                            </div>
+                        </div>
+                    </h:panelGroup>
+
+                    <!-- Modal Actions -->
+                    <div class="flex justify-end mt-4">
+                        <button type="button" class="bg-gray-500 text-white px-4 py-2 rounded mr-4" 
+                                onclick="closeAddVenueModal()">Cancel</button>
+                        <h:commandButton value="Save" action="#{showVenue.insertVenue()}" 
+                                         styleClass="bg-orange-500 text-white px-4 py-2 rounded">
+                        </h:commandButton>
+                    </div>
+                </h:form>
+            </div>
+        </div>
+
+
+
+
+
+
+        <h:form>
+            <h:panelGroup id="venueList">
+                <div class="container mx-auto p-4">
+                    <!-- Search and Button Controls -->
+                    <div class="flex justify-between items-center mb-4">
+                        <h:inputText value="#{dashboardBean.searchQuery}"
+                                     pt:placeholder="Enter Search Value"
+                                     styleClass="border p-2 rounded w-1/4" />
+
+
+                        <!--                        <div>
+                                                    <a >
+                                                        <h:commandButton value="Add Venue" 
+                                                                         onclick="openAddVenueModal(); return false;" 
+                                                                         styleClass="bg-orange-500 text-black px-4 py-2 rounded" />
+                                                    </a>
+                                                </div>-->
+                    </div>
+
+                    <!-- Table -->
+                    <h:dataTable value="#{showVenue.findAll()}" var="item"
+                                 styleClass="min-w-full table-auto border-collapse"
+                                 headerClass="bg-orange-100" rowClasses="hover:bg-gray-100">
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="Name" />
+                            </f:facet>
+                            <h:outputText value="#{item.venuename}" />
+                        </h:column>
+
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="Image" />
+                            </f:facet>
+                            <h:panelGroup>
+                                <c:if test="#{item.image.startsWith('http')}">
+                                    <h:graphicImage value="#{item.image}" style="max-width: 100px; max-height: 100px;" />
+                                </c:if>
+                                <c:if test="#{!item.image.startsWith('http')}">
+                                    <h:graphicImage value="../resources/images/#{item.image}" style="max-width: 100px; max-height: 100px;" />
+                                </c:if>
+                            </h:panelGroup>
+                        </h:column>
+
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="Location" />
+                            </f:facet>
+                            <h:outputText value="#{item.location}" />
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="Capacity" />
+                            </f:facet>
+                            <h:outputText value="#{item.capacity}" />
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="Price" />
+                            </f:facet>
+                            <h:outputText value="#{item.finalprice}" />
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="Edit" />
+                            </f:facet>
+                            <h:commandButton value="Edit"
+                                             styleClass="bg-orange-500 text-black px-4 py-1 rounded"
+                                             action="#{showVenue.updateVenue(item)}">
+                            </h:commandButton>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="Delete" />
+                            </f:facet>
+                            <h:commandButton value="Delete"
+                                             styleClass="bg-orange-500 text-black px-4 py-1 rounded"
+                                             action="#{showVenue.deleteVenue(item)}" 
+                                             onclick="return confirm('Are you sure to delete (Y/N)?')">
+                                <!--<f:ajax render="venueList" />-->   
+                            </h:commandButton>
+
+                        </h:column>
+                    </h:dataTable>
+
+                </div>
+            </h:panelGroup>
+        </h:form>
+
+    </h:body>
+</html>

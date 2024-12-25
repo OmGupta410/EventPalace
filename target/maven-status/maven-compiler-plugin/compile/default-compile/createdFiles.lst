@@ -6,6 +6,7 @@ com\mycompany\sessionBeans\VenueTableFacadeLocal.class
 com\mycompany\eventpalace\controllers\VenueDetailController.class
 com\mycompany\sessionBeans\PaymentMethodFacadeLocal.class
 com\mycompany\eventpalace\controllers\BookingSuccessBean.class
+show\Bookings.class
 com\mycompany\eventpalace\JakartaRestConfiguration.class
 com\mycompany\eventpalace\controllers\PaymentBean.class
 com\mycompany\eventpalace\controllers\RegistrationBean.class
@@ -13,6 +14,7 @@ com\mycompany\entity\UserBookingTable.class
 com\mycompany\entity\UserRegistrationTable.class
 com\mycompany\entity\VenueGallery.class
 com\mycompany\sessionBeans\VenueFacilityFacadeLocal.class
+show\adminData.class
 com\mycompany\eventpalace\controllers\LocalDateConverter.class
 com\mycompany\sessionBeans\VenueGalleryFacade.class
 com\mycompany\sessionBeans\PaymentTableFacadeLocal.class
@@ -28,6 +30,7 @@ com\mycompany\sessionBeans\ReviewTableFacadeLocal.class
 com\mycompany\entity\PaymentMethod.class
 com\mycompany\entity\VenueTable.class
 com\mycompany\sessionBeans\VenueGalleryFacadeLocal.class
+show\Review.class
 com\mycompany\entity\ReviewTable.class
 com\mycompany\sessionBeans\RoleTableFacade.class
 com\mycompany\eventpalace\resources\ApplicationConfig.class

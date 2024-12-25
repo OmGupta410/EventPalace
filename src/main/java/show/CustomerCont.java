@@ -4,9 +4,15 @@
  */
 package show;
 
+import com.mycompany.entity.UserRegistrationTable;
+import com.mycompany.entity.VenueTable;
+import com.mycompany.sessionBeans.UserRegistrationTableFacade;
+import com.mycompany.sessionBeans.UserRegistrationTableFacadeLocal;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
+import java.util.List;
+import javax.ejb.EJB;
 
 /**
  *
@@ -16,10 +22,64 @@ import java.io.Serializable;
 @SessionScoped
 public class CustomerCont implements Serializable {
 
-    /**
-     * Creates a new instance of CustomerCont
-     */
+    @EJB
+    private UserRegistrationTableFacadeLocal userRegistrationTableFacade;
+
+   
+    
+    private UserRegistrationTable user= new UserRegistrationTable();
     public CustomerCont() {
     }
+    
+    
+//    crud
+    
+     // cRUD on venue table
+    public List<UserRegistrationTable> findAll() {
+        return this.userRegistrationTableFacade.findAll();
+    }
+
+    public String insertuser() {
+        this.userRegistrationTableFacade.create(user);
+        this.user = new UserRegistrationTable();
+        return "Customers";
+
+    }
+
+    public String updateuser(UserRegistrationTable user) {
+        this.user = user; // Ensure venuetable is the correct reference
+        return "updateuser"; // Navigate to edit page
+    }
+
+    public String updateuser() {
+        this.userRegistrationTableFacade.edit(user);
+        this.user = user;
+        return "Customers";
+    }
+
+    public void deleteusers(UserRegistrationTable ven) {
+        this.userRegistrationTableFacade.remove(user);
+    }
+
+    public UserRegistrationTableFacadeLocal getUserRegistrationTableFacade() {
+        return userRegistrationTableFacade;
+    }
+
+    public void setUserRegistrationTableFacade(UserRegistrationTableFacadeLocal userRegistrationTableFacade) {
+        this.userRegistrationTableFacade = userRegistrationTableFacade;
+    }
+
+    public UserRegistrationTable getUser() {
+        return user;
+    }
+
+    public void setUser(UserRegistrationTable user) {
+        this.user = user;
+    }
+    
+    
+    
+    
+    
     
 }

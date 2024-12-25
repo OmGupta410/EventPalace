@@ -38,7 +38,7 @@
                                     <div class="flex w-full rounded-lg pt-1">
                                         <div class="relative w-full">
                                             <!-- Dropdown for selecting role -->
-                                            <h:selectOneMenu id="role" value="#{RegistrationBean.role}">
+                                            <h:selectOneMenu id="role" value="#{RegistrationBean.role}" styleClass="block w-full border bg-gray-50 border-gray-300 text-gray-900 focus:border-cyan-500 focus:ring-cyan-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white p-2.5 text-sm rounded-lg">
                                                 <f:selectItem itemValue="user" itemLabel="User" />
                                                 <f:selectItem itemValue="owner" itemLabel="Venue Owner" />
                                               
@@ -127,7 +127,7 @@
                                     </div>
                                     <div class="flex w-full rounded-lg pt-1">
                                         <div class="relative w-full">
-                                            <h:selectOneMenu id="status" value="#{RegistrationBean.status}">
+                                            <h:selectOneMenu id="status" value="#{RegistrationBean.status}" styleClass="block w-full border bg-gray-50 border-gray-300 text-gray-900 focus:border-cyan-500 focus:ring-cyan-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white p-2.5 text-sm rounded-lg">
                                                 <f:selectItem itemValue="0" itemLabel="0" />
                                                 <f:selectItem itemValue="1" itemLabel="1" />
                                             </h:selectOneMenu>

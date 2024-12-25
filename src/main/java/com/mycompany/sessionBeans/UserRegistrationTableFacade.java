@@ -61,4 +61,6 @@ public class UserRegistrationTableFacade extends AbstractFacade<UserRegistration
             throw new EJBException("Error during user signup: " + e.getMessage(), e);
         }
     }
+    
+    
 }
