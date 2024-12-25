@@ -35,7 +35,8 @@
     <h:body>
         <!-- Navbar -->
         <ui:include src="Navbar.xhtml" />
-
+        
+        
         <section class="bg-white p-6 max-w-6xl mx-auto space-y-6">
             <!-- Venue Details -->
             <div class="flex flex-col lg:flex-row gap-6">
@@ -45,9 +46,6 @@
                     <h:link value="View Details" outcome="venueDetail">
                         <f:param name="venueId" value="#{venue.venueId}" />
                     </h:link>
-<!--                    <a href="venuDetail.xhtml?venueId=#{venue.venueId}">
-                        <h2 class="text-2xl font-semibold">#{venue.venuename}</h2>
-                    </a>-->
 
 
 
@@ -63,7 +61,7 @@
                     </div>
                     <!-- Image Section -->
                     <div class="relative mt-4">
-                        <img src="./resource/images/2.jpg" alt="Venue Image" class="rounded-lg shadow-md w-full" />
+                        <img src="resource/Event/#{venueDetailController.venue.image}" alt="Venue Image" class="rounded-lg shadow-md w-full" />
                         <div class="absolute top-4 left-4 bg-red-600 text-white px-4 py-1 rounded-md font-semibold text-sm">
                             Package per person starts from ₹675
                         </div>
@@ -88,7 +86,7 @@
 
                         <div>
                             <h:outputLabel for="venueId" value="VenueId:" class="text-sm text-gray-600" />
-                            <h:inputText id="venueId" value="#{venueBookingBean.venueId}" styleClass="w-full border border-gray-300 rounded-md p-2 text-sm"/>
+                            <h:inputText id="venueId" value="#{venueBookingBean.venueId}" styleClass="w-full border border-gray-300 rounded-md p-2 text-sm" />
                         </div>
 
 
@@ -116,6 +114,9 @@
                             <h:inputText id="eventdate" value="#{venueBookingBean.eventDate}">
                                 <f:convertDateTime pattern="yyyy-MM-dd" />
                             </h:inputText>
+                            
+                            
+                            <!--<input type="date"  name="eventdate"/>-->
 
 
                         </div>

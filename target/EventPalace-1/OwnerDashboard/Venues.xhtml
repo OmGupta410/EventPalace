@@ -13,7 +13,7 @@
     <h:body >
 
         <!-- Add Venue Modal -->
-        <div id="addVenueModal" class="flex bg-orange-200 w-full justify-center items-center">
+        <div id="addVenueModal" class="flex bg-orange-200 w-full justify-center items-center ">
             <div class="bg-white p-8 rounded shadow-md w-full">
                 <h2 class="text-2xl font-bold mb-6 text-center">Owner Add Venue</h2>
                 <h:form>
@@ -110,7 +110,7 @@
 
                     <!-- Table -->
                     <h:dataTable value="#{showVenue.findAll()}" var="item"
-                                 styleClass="min-w-full table-auto border-collapse"
+                                 styleClass="min-w-full table-auto border-collapse text-center"
                                  headerClass="bg-orange-100" rowClasses="hover:bg-gray-100">
                         <h:column>
                             <f:facet name="header">

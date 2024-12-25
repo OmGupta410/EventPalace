@@ -28,7 +28,7 @@ public class VenueTableFacade extends AbstractFacade<VenueTable> implements Venu
     public VenueTableFacade() {
         super(VenueTable.class);
     }
-
+    
     public VenueTable findByVenueId(Integer venueId) {
         try {
             return em.createNamedQuery("VenueTable.findByVenueId", VenueTable.class)
@@ -80,4 +80,5 @@ public class VenueTableFacade extends AbstractFacade<VenueTable> implements Venu
     }
     
 
+    
 }

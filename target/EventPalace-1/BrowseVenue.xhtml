@@ -29,6 +29,7 @@
                 }
 
                 .relative.lg :hidden.show {
+                    
                     display: flex;
                     /* Show when 'show' class is added */
                 }
@@ -47,12 +48,11 @@
             </div>
 
             <ui:repeat value="#{venueBean.venues}" var="venue">
-                <h:outputText value="#{venue.venueId}" />
+                <!--<h:outputText value="#{venue.venueId}" />-->
                 <div class="container mx-auto p-4 space-y-4">
                     <div class="border rounded-lg shadow-lg flex p-4">
                         <!-- Venue Image -->
-                        <img class="w-1/4 h-48 border object-cover rounded-lg" src="#{venue.image}" alt="Venue Image" />  
-
+                        <img class="w-1/4 h-48 border object-cover rounded-lg" src="resource/Event/#{venue.image}" width="25%" alt="Venue Image" /> 
 
                         <!-- Venue Details -->
 
@@ -66,21 +66,21 @@
                                 <i class="fas fa-map-marker-alt mr-1"></i> #{venue.location}
                             </p>
 
-<!--                             Rating 
+                             <!--Rating--> 
                             <div class="flex items-center space-x-1 mt-2">
                                 <span class="text-orange-500"><i class="fas fa-star"></i></span>
                                 <span>#{venue.reviewTableCollection} / 5 Rated</span>
-                            </div>-->
+                            </div>
 
-                            <!-- Guest Count and Inquiries -->
-<!--                            <div class="flex items-center space-x-4 mt-2 text-gray-700">
+                             <!--Guest Count and Inquiries--> 
+                            <div class="flex items-center space-x-4 mt-2 text-gray-700">
                                 <p class="flex items-center">
                                     <i class="fas fa-users mr-1"></i> #{venue.capacity} People
                                 </p>
                                 <p class="text-green-600 mt-2 font-medium">
                                     #{venue.venueFacilityCollection} People enquired this venue
                                 </p>
-                            </div>-->
+                            </div>
                         </div>
 
                         <!-- Price and Availability Button -->

@@ -29,8 +29,8 @@ public interface UserRegistrationTableFacadeLocal {
 
     int count();
 
-        UserRegistrationTable findByEmailAndPassword(String email, String password);
-    
-         public UserRegistrationTable signup(UserRegistrationTable user);
-    
+    UserRegistrationTable findByEmailAndPassword(String email, String password);
+
+    public UserRegistrationTable signup(UserRegistrationTable user);
+
 }

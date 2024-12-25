@@ -11,8 +11,7 @@
 
 
             <h:form>
-                <h1><h:outputText value="List"/></h1>
-                <h:dataTable value="#{review.findAll()}" var="item"  styleClass="min-w-full table-auto border border-collapse"
+                <h:dataTable value="#{review.findAll()}" var="item"  styleClass="min-w-full table-auto border border-collapse text-center"
                                          headerClass="bg-orange-100" rowClasses="hover:bg-gray-100 border" >
                     <h:column>
                         <f:facet name="header">
@@ -34,13 +33,19 @@
                     </h:column>
                     <h:column>
                         <f:facet name="header">
-                            <h:outputText value="UserId"/>
+                            <h:outputText value="User Name"/>
                         </f:facet>
                         <h:outputText value="#{item.userId.name}"/>
                     </h:column>
                     <h:column>
                         <f:facet name="header">
-                            <h:outputText value="VenueId"/>
+                            <h:outputText value="user contact"/>
+                        </f:facet>
+                        <h:outputText value="#{item.userId.email}"/>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="Venue name"/>
                         </f:facet>
                         <h:outputText value="#{item.venueId.venuename}"/>
                     </h:column>

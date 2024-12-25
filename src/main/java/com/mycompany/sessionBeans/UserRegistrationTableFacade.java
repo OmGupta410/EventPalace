@@ -31,7 +31,7 @@ public class UserRegistrationTableFacade extends AbstractFacade<UserRegistration
     }
     
     
-      @Override
+       @Override
     public UserRegistrationTable findByEmailAndPassword(String email, String password) {
         try {
             TypedQuery<UserRegistrationTable> query = em.createQuery(
@@ -61,6 +61,5 @@ public class UserRegistrationTableFacade extends AbstractFacade<UserRegistration
             throw new EJBException("Error during user signup: " + e.getMessage(), e);
         }
     }
-    
     
 }

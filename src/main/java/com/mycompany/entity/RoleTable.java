@@ -31,18 +31,17 @@ import javax.validation.constraints.Size;
     @NamedQuery(name = "RoleTable.findByRolename", query = "SELECT r FROM RoleTable r WHERE r.rolename = :rolename")})
 public class RoleTable implements Serializable {
 
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 255)
-    @Column(name = "Role_name")
-    private String rolename;
-
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "Role_Id")
     private Integer roleId;
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 255)
+    @Column(name = "Role_name")
+    private String rolename;
     @OneToMany(mappedBy = "roleid")
     private Collection<UserRegistrationTable> userRegistrationTableCollection;
 
@@ -106,7 +105,5 @@ public class RoleTable implements Serializable {
     public String toString() {
         return "com.mycompany.entity.RoleTable[ roleId=" + roleId + " ]";
     }
-
-
     
 }

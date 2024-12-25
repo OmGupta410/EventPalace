@@ -5,7 +5,6 @@
 package com.mycompany.sessionBeans;
 
 import com.mycompany.entity.UserBookingTable;
-import java.time.LocalDate;
 import java.util.Date;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -30,8 +29,7 @@ public class UserBookingTableFacade extends AbstractFacade<UserBookingTable> imp
         super(UserBookingTable.class);
     }
     
-    
-    @Override
+      @Override
     public boolean isVenueAvailable(Integer venueId, Date eventDate, String shift) {
 //        String query = "SELECT COUNT(u) FROM UserBookingTable u WHERE u.venueId.id = :venueId AND u.eventdate = :eventDate AND u.shift = :shift";
         String query = "SELECT COUNT(u) FROM UserBookingTable u WHERE u.venueId.venueId = :venueId AND u.eventdate = :eventDate AND u.shift = :shift";
@@ -42,4 +40,5 @@ public class UserBookingTableFacade extends AbstractFacade<UserBookingTable> imp
                        .getSingleResult();
         return count == 0; // True if no booking exists
     }
+    
 }

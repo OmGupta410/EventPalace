@@ -28,9 +28,8 @@ public interface PaymentTableFacadeLocal {
     List<PaymentTable> findRange(int[] range);
 
     int count();
-    
-    public void savePaymentt(PaymentTable payment);
+     public void savePaymentt(PaymentTable payment);
     
     PaymentTable findPaymentById(int paymentId);
+    
 }
-

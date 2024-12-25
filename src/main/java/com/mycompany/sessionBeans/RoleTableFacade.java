@@ -29,7 +29,7 @@ public class RoleTableFacade extends AbstractFacade<RoleTable> implements RoleTa
         super(RoleTable.class);
     }
     
-     public RoleTable findByUsernameAndPassword(String username, String password) {
+         public RoleTable findByUsernameAndPassword(String username, String password) {
         TypedQuery<RoleTable> query = em.createQuery(
                 "SELECT r FROM RoleTable r WHERE r.username = :username AND r.password = :password", RoleTable.class);
         query.setParameter("username", username);
@@ -42,4 +42,6 @@ public class RoleTableFacade extends AbstractFacade<RoleTable> implements RoleTa
             return null; // No result found
         }
     }
+
+    
 }

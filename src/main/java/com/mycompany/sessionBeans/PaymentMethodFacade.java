@@ -35,4 +35,5 @@ public class PaymentMethodFacade extends AbstractFacade<PaymentMethod> implement
             em.merge(paymentmethod);  // Update an existing record
         }
     }
+    
 }

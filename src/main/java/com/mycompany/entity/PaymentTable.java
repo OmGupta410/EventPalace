@@ -39,7 +39,12 @@ import javax.validation.constraints.Size;
     @NamedQuery(name = "PaymentTable.findByDatetime", query = "SELECT p FROM PaymentTable p WHERE p.datetime = :datetime")})
 public class PaymentTable implements Serializable {
 
-    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
+    private static final long serialVersionUID = 1L;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Basic(optional = false)
+    @Column(name = "PaymentId")
+    private Integer paymentId;
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Basic(optional = false)
     @NotNull
@@ -48,13 +53,6 @@ public class PaymentTable implements Serializable {
     @Size(max = 50)
     @Column(name = "Payment_status")
     private String paymentstatus;
-
-    private static final long serialVersionUID = 1L;
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Basic(optional = false)
-    @Column(name = "PaymentId")
-    private Integer paymentId;
     @Column(name = "Date_time")
     @Temporal(TemporalType.TIMESTAMP)
     private Date datetime;
@@ -89,7 +87,7 @@ public class PaymentTable implements Serializable {
 
     public BigDecimal getAdvancepayment() {
         return advancepayment;
-        }
+    }
 
     public void setAdvancepayment(BigDecimal advancepayment) {
         this.advancepayment = advancepayment;
@@ -159,6 +157,5 @@ public class PaymentTable implements Serializable {
     public String toString() {
         return "com.mycompany.entity.PaymentTable[ paymentId=" + paymentId + " ]";
     }
-
     
 }

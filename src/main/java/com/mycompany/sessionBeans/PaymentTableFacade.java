@@ -40,4 +40,5 @@ public class PaymentTableFacade extends AbstractFacade<PaymentTable> implements 
         return em.find(PaymentTable.class, paymentId);
 
     }
+    
 }
