@@ -81,7 +81,8 @@ public class LoginBean {
         System.out.println("User ID set in session: " + session.getAttribute("userId"));
         System.out.println("userId is: " + session.getAttribute("userId"));
         System.out.println("role is: " + session.getAttribute("role"));
-        FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("userId", session.getId());
+
+        FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("userId", user.getUserid());
 
         // String id = session.getAttribute("id"); // Navigate to the appropriate page
         // based on role
@@ -129,19 +130,18 @@ public class LoginBean {
         FacesContext facesContext = FacesContext.getCurrentInstance();
         if (facesContext != null) {
             ExternalContext externalContext = facesContext.getExternalContext();
-            
 
             try {
-                 if (externalContext.getSession(false) == null) {
-                                     System.out.println("No active session found.");
+                if (externalContext.getSession(false) == null) {
+                    System.out.println("No active session found.");
 
-                 }
-                
+                }
+
                 // Invalidate session
                 if (externalContext.getSession(false) != null) {
-//                    externalContext.invalidateSession();
+                    // externalContext.invalidateSession();
                     System.out.println("Session invalidated successfully.");
-                } 
+                }
 
                 // Redirect to login page
                 externalContext.redirect(externalContext.getRequestContextPath() + "/Login.xhtml");
