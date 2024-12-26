@@ -35,8 +35,8 @@
     <h:body>
         <!-- Navbar -->
         <ui:include src="Navbar.xhtml" />
-        
-        
+
+
         <section class="bg-white p-6 max-w-6xl mx-auto space-y-6">
             <!-- Venue Details -->
             <div class="flex flex-col lg:flex-row gap-6">
@@ -99,8 +99,18 @@
                                 <f:selectItem itemValue="" itemLabel="Select Event Type" noSelectionOption="true" />
                                 <f:selectItem itemValue="Birthday" itemLabel="Birthday" />
                                 <f:selectItem itemValue="Wedding" itemLabel="Wedding" />
+                                <f:selectItem itemValue="Conference" itemLabel="Conference" />
+                                <f:selectItem itemValue="Corporate Event" itemLabel="Corporate Event" />
+                                <f:selectItem itemValue="Workshop" itemLabel="Workshop" />
+                                <f:selectItem itemValue="Seminar" itemLabel="Seminar" />
+                                <f:selectItem itemValue="Concert" itemLabel="Concert" />
+                                <f:selectItem itemValue="Festival" itemLabel="Festival" />
+                                <f:selectItem itemValue="Exhibition" itemLabel="Exhibition" />
+                                <f:selectItem itemValue="Sports Event" itemLabel="Sports Event" />
+                                <f:selectItem itemValue="Others" itemLabel="Others" />
                             </h:selectOneMenu>
                         </div>
+
 
 
 
@@ -114,8 +124,8 @@
                             <h:inputText id="eventdate" value="#{venueBookingBean.eventDate}">
                                 <f:convertDateTime pattern="yyyy-MM-dd" />
                             </h:inputText>
-                            
-                            
+
+
                             <!--<input type="date"  name="eventdate"/>-->
 
 

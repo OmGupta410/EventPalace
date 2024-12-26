@@ -24,25 +24,29 @@
                              <span class="text-2xl font-semibold text-gray-800"><img src="../resource/assets/EventPalace-Logo-2.png" height="65" width="148" alt="EventPalace"/></span></a>
                     </div>
                     <ul id="navbar-menu" class="flex space-x-6 text-gray-700">
-                        <li id="btn1" onclick="showContent('content1', 'btn1')" class="cursor-pointer hover:text-gray-900">
-                            <span class="flex items-center space-x-2">
+                        <li id="btn1" class="cursor-pointer hover:text-gray-900">
+                            <a href="DashboardContent.xhtml"><span class="flex items-center space-x-2">
                                 <i class="fas fa-chart-line text-lg"></i><span>Dashboard</span>
                             </span>
+                                </a> 
                         </li>
-                        <li id="btn2" onclick="showContent('content2', 'btn2')" class="cursor-pointer hover:text-gray-900">
-                            <span class="flex items-center space-x-2">
+                        <li id="btn2" class="cursor-pointer hover:text-gray-900">
+                            <a href="Bookings.xhtml"><span class="flex items-center space-x-2">
                                 <i class="fas fa-calendar-check text-lg"></i><span>Bookings</span>
-                            </span>
+                                </span>
+                            </a>
                         </li>
-                        <li id="btn3" onclick="showContent('content3', 'btn3')" class="cursor-pointer hover:text-gray-900">
-                            <span class="flex items-center space-x-2">
+                        <li id="btn3" class="cursor-pointer hover:text-gray-900">
+                            <a href="Venues.xhtml">  <span class="flex items-center space-x-2">
                                 <i class="fas fa-building text-lg"></i><span>Venues</span>
                             </span>
+                            </a>
                         </li>
-                        <li id="btn4" onclick="showContent('content4', 'btn4')" class="cursor-pointer hover:text-gray-900">
-                            <span class="flex items-center space-x-2">
+                        <li id="btn4"  class="cursor-pointer hover:text-gray-900">
+                            <a href="Customers.xhtml"> <span class="flex items-center space-x-2">
                                 <i class="fas fa-users text-lg"></i><span>Customers</span>
                             </span>
+                            </a>
                         </li>
                     </ul>
                     <div class="flex items-center space-x-4">
@@ -54,33 +58,19 @@
                     </div>
                 </nav>
 
-                <!-- Content Area -->
+                 <!--Content Area--> 
                 <main class="p-8 bg-orange-300 bg-gray-100">
                     <header class="flex items-center  mb-8 p-4 bg-white shadow rounded-lg text-center">
                         <h1>Welcome to EventPalace Admin Dashboard</h1>
                     </header>
 
-
-                    <!-- Dashboard Sections -->
-                    <div id="content1" class="content h-full mb-10 p-6 bg-white rounded-lg shadow-lg">
-                        <ui:include src="./DashboardContent.xhtml"></ui:include>
-                    </div>
-                    <div id="content2" class="content h-full mb-10 p-6 bg-white rounded-lg shadow-lg hidden">
-                        <ui:include src="./Bookings.xhtml"></ui:include>
-                    </div>
-                    <div id="content3" class="content h-full mb-10 p-6 bg-white rounded-lg shadow-lg hidden">
-                        <ui:include src="./Venues.xhtml"></ui:include>
-                    </div>
-                    <div id="content4" class="content h-full mb-10 p-6 bg-white rounded-lg shadow-lg hidden">
-                        <ui:include src="./Customers.xhtml"></ui:include>
-                    </div>
                 </main>
             </div>
         </h:form>
     </h:body>
 
     <!-- JavaScript outside of h:body -->
-    <script>
+<!--    <script>
 
         function showContent(contentId, btnId) {
             // Hide all content sections
@@ -102,6 +92,6 @@
             const savedBtnId = localStorage.getItem('selectedBtnId') || 'btn1';
             showContent(savedContentId, savedBtnId);
         };
-    </script>
+//    </script>-->
 
 </html>
