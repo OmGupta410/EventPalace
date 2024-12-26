@@ -166,7 +166,7 @@ public class RegistrationBean implements Serializable {
         password = "";
         contactno = "";
         status = "";
-        return "Login";  // Redirecting to login page
+        return "login";  // Redirecting to login page
     } else {
         System.out.println("Error inserting user: " + response.getStatus());
         return null;  // Stay on the current page if there is an error

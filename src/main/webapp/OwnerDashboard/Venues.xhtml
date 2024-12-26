@@ -123,14 +123,8 @@
                             <f:facet name="header">
                                 <h:outputText value="Image" />
                             </f:facet>
-                            <h:panelGroup>
-                                <c:if test="#{item.image.startsWith('http')}">
-                                    <h:graphicImage value="#{item.image}" style="max-width: 100px; max-height: 100px;" />
-                                </c:if>
-                                <c:if test="#{!item.image.startsWith('http')}">
-                                    <h:graphicImage value="../resources/images/#{item.image}" style="max-width: 100px; max-height: 100px;" />
-                                </c:if>
-                            </h:panelGroup>
+                            <img class="border object-cover rounded-lg" src="../resource/Event/#{item.image}" height="90" width="100" alt="Venue Image"/>
+
                         </h:column>
 
                         <h:column>

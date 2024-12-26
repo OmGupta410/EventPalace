@@ -29,8 +29,10 @@ public interface UserBookingTableFacadeLocal {
     List<UserBookingTable> findRange(int[] range);
 
     int count();
-    
-     //maybe use timestamp 
+
+    //maybe use timestamp 
     boolean isVenueAvailable(Integer venueId, Date eventDate, String shift);
-    
+
+    List<UserBookingTable> findBookingsByUserId(Integer userId);
+
 }

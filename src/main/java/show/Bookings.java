@@ -26,6 +26,8 @@ public class Bookings implements Serializable {
     private UserBookingTableFacadeLocal userBookingTableFacade;
     
     private UserBookingTable userBookingtable= new UserBookingTable();
+    
+    private String date;
 
     /**
      * Creates a new instance of Bookings

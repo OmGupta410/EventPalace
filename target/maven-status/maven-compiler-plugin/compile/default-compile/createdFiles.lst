@@ -8,13 +8,13 @@ com\mycompany\sessionBeans\PaymentMethodFacadeLocal.class
 com\mycompany\eventpalace\controllers\BookingSuccessBean.class
 show\Bookings.class
 com\mycompany\eventpalace\JakartaRestConfiguration.class
+show\Userdata.class
 com\mycompany\eventpalace\controllers\PaymentBean.class
 com\mycompany\eventpalace\controllers\RegistrationBean.class
 com\mycompany\entity\UserBookingTable.class
 com\mycompany\entity\UserRegistrationTable.class
 com\mycompany\entity\VenueGallery.class
 com\mycompany\sessionBeans\VenueFacilityFacadeLocal.class
-show\adminData.class
 com\mycompany\eventpalace\controllers\LocalDateConverter.class
 com\mycompany\sessionBeans\VenueGalleryFacade.class
 com\mycompany\sessionBeans\PaymentTableFacadeLocal.class
@@ -41,4 +41,5 @@ com\mycompany\entity\RoleTable.class
 com\mycompany\entity\VenueFacility.class
 com\mycompany\sessionBeans\ReviewTableFacade.class
 com\mycompany\eventpalace\controllers\VenueBookingBean.class
+com\mycompany\eventpalace\controllers\UserBookingBean.class
 show\CustomerCont.class

@@ -91,6 +91,7 @@ public class showVenue implements Serializable {
         VenueTable newVenue = new VenueTable();
 
         // Set the properties from the form inputs
+//        newVenue.setUserId(venuetable.getUserId());
         newVenue.setVenuename(venuetable.getVenuename());
         newVenue.setLocation(venuetable.getLocation());
         newVenue.setFinalprice(venuetable.getFinalprice());
@@ -117,7 +118,7 @@ public class showVenue implements Serializable {
     try {
         venueTableFacade.edit(venue);
         System.out.println("Venue updated: " + venue.getVenuename());
-        return "Venues"; // Navigate back to the page
+        return "EditVenue"; // Navigate back to the page
     } catch (Exception e) {
         e.printStackTrace();
         return null;
@@ -125,8 +126,9 @@ public class showVenue implements Serializable {
 }
 
     public String updateVenue() {
-        this.venueTableFacade.edit(venuetable);
         this.venuetable = venuetable;
+
+        this.venueTableFacade.edit(venuetable);
         return "Venues";
     }
 

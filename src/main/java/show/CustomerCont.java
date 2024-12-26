@@ -25,16 +25,13 @@ public class CustomerCont implements Serializable {
     @EJB
     private UserRegistrationTableFacadeLocal userRegistrationTableFacade;
 
-   
-    
-    private UserRegistrationTable user= new UserRegistrationTable();
+    private UserRegistrationTable user = new UserRegistrationTable();
+
     public CustomerCont() {
     }
-    
-    
+
 //    crud
-    
-     // cRUD on venue table
+    // cRUD on venue table
     public List<UserRegistrationTable> findAll() {
         return this.userRegistrationTableFacade.findAll();
     }
@@ -57,9 +54,17 @@ public class CustomerCont implements Serializable {
         return "Customers";
     }
 
-    public void deleteusers(UserRegistrationTable ven) {
-        this.userRegistrationTableFacade.remove(user);
+    public void deleteUser(UserRegistrationTable ven) {
+        try {
+            userRegistrationTableFacade.remove(ven);
+            System.out.println("user deleted: " + ven.getName());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
+    
+    
+    
 
     public UserRegistrationTableFacadeLocal getUserRegistrationTableFacade() {
         return userRegistrationTableFacade;
@@ -76,10 +81,5 @@ public class CustomerCont implements Serializable {
     public void setUser(UserRegistrationTable user) {
         this.user = user;
     }
-    
-    
-    
-    
-    
-    
+
 }

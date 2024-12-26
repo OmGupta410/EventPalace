@@ -15,52 +15,56 @@
     <h:body class="bg-gray-100">
         <h:form>
             <!-- Dashboard Wrapper -->
-            <div class="min-h-screen flex flex-col antialiased">
+            <div class="min-h-24 flex flex-col antialiased">
 
                 <!-- Navbar -->
                 <nav class="flex justify-between items-center w-full bg-white shadow-lg px-8 py-4 fixed h-[10%]">
                     <div class="flex items-center space-x-4">
-                         <a href="../index.xhtml">
-                             <span class="text-2xl font-semibold text-gray-800"><img src="../resource/assets/EventPalace-Logo-2.png" height="65" width="148" alt="EventPalace"/></span></a>
+                        <a href="../index.xhtml">
+                            <span class="text-2xl font-semibold text-gray-800"><img src="../resource/assets/EventPalace-Logo-2.png" height="65" width="148" alt="EventPalace"/></span></a>
                     </div>
                     <ul id="navbar-menu" class="flex space-x-6 text-gray-700">
                         <li id="btn1" class="cursor-pointer hover:text-gray-900">
                             <a href="DashboardContent.xhtml"><span class="flex items-center space-x-2">
-                                <i class="fas fa-chart-line text-lg"></i><span>Dashboard</span>
-                            </span>
-                                </a> 
+                                    <i class="fas fa-chart-line text-lg"></i><span>Dashboard</span>
+                                </span>
+                            </a> 
                         </li>
                         <li id="btn2" class="cursor-pointer hover:text-gray-900">
                             <a href="Bookings.xhtml"><span class="flex items-center space-x-2">
-                                <i class="fas fa-calendar-check text-lg"></i><span>Bookings</span>
+                                    <i class="fas fa-calendar-check text-lg"></i><span>Bookings</span>
                                 </span>
                             </a>
                         </li>
                         <li id="btn3" class="cursor-pointer hover:text-gray-900">
                             <a href="Venues.xhtml">  <span class="flex items-center space-x-2">
-                                <i class="fas fa-building text-lg"></i><span>Venues</span>
-                            </span>
+                                    <i class="fas fa-building text-lg"></i><span>Venues</span>
+                                </span>
                             </a>
                         </li>
                         <li id="btn4"  class="cursor-pointer hover:text-gray-900">
                             <a href="Customers.xhtml"> <span class="flex items-center space-x-2">
-                                <i class="fas fa-users text-lg"></i><span>Customers</span>
-                            </span>
+                                    <i class="fas fa-users text-lg"></i><span>Customers</span>
+                                </span>
                             </a>
                         </li>
                     </ul>
                     <div class="flex items-center space-x-4">
                         <input type="text" placeholder="Search..."
                                class="hidden md:block p-2 rounded-lg bg-gray-200 text-gray-700 focus:outline-none" />
-                        <h:commandLink value="Logout" action="#{loginBean.logout}" class="hover:text-gray-500">
-                            <i class="ri-logout-circle-r-line text-xl"></i>
-                        </h:commandLink>
+                        <!--<a href="../Login.xhtml"  >-->
+                            <h:commandButton value="Logout" 
+                                             action="#{loginBean.logout()}"
+                                             class="hover:text-gray-500">
+                                <i class="ri-logout-circle-r-line text-xl"></i>
+                            </h:commandButton>
+                        <!--</a>-->
                     </div>
                 </nav>
 
-                 <!--Content Area--> 
-                <main class="p-8 bg-orange-300 bg-gray-100">
-                    <header class="flex items-center  mb-8 p-4 bg-white shadow rounded-lg text-center">
+                <!--Content Area--> 
+                <main >
+                    <header >
                         <h1>Welcome to EventPalace Admin Dashboard</h1>
                     </header>
 
@@ -68,30 +72,13 @@
             </div>
         </h:form>
     </h:body>
-
     <!-- JavaScript outside of h:body -->
-<!--    <script>
-
-        function showContent(contentId, btnId) {
-            // Hide all content sections
-            document.querySelectorAll('.content').forEach(content => content.classList.add('hidden'));
-            document.getElementById(contentId).classList.remove('hidden');
-
-            // Remove active color from all navbar items, then add it to the clicked item
-            document.querySelectorAll('#navbar-menu li').forEach(btn => btn.classList.remove('text-gray-900', 'font-semibold'));
-            document.getElementById(btnId).classList.add('text-gray-900', 'font-semibold');
-
-            // Save the current selection in localStorage
-            localStorage.setItem('selectedContentId', contentId);
-            localStorage.setItem('selectedBtnId', btnId);
+    <script>
+        function logoutClient() {
+            sessionStorage.clear();
+            window.location.href = "../Login.xhtml";
         }
 
-        // Restore the saved state on page load
-        window.onload = function () {
-            const savedContentId = localStorage.getItem('selectedContentId') || 'content1';
-            const savedBtnId = localStorage.getItem('selectedBtnId') || 'btn1';
-            showContent(savedContentId, savedBtnId);
-        };
-//    </script>-->
+//    </script>
 
 </html>

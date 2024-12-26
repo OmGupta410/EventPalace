@@ -5,32 +5,34 @@
       xmlns:p="http://xmlns.jcp.org/jsf/passthrough">
     <h:head>
         <title>Role-Based Login</title>
-         <script src="https://cdn.tailwindcss.com"></script>
-  <link href="https://cdn.jsdelivr.net/npm/flowbite@2.5.2/dist/flowbite.min.css" rel="stylesheet" />
+        <title>Home Page</title>
+        <script src="https://cdn.tailwindcss.com"></script>
+        <script src="https://cdn.jsdelivr.net/npm/flowbite@2.5.2/dist/flowbite.min.js"></script>
+        <link href="https://cdn.jsdelivr.net/npm/flowbite@2.5.2/dist/flowbite.min.css" rel="stylesheet" />
     </h:head>
     <h:body>
-        <ui:include src="Navbar.xhtml" />
+        <!--<ui:includesrc="Navbar.xhtml" />-->
 
         <div class="py-20">
             <div class="flex h-full items-center justify-center">
-                <div class="rounded-lg border border-gray-200 bg-white shadow-md dark:border-gray-700 dark:bg-gray-900 flex-col flex h-full items-center justify-center sm:px-4">
-                    <div class="flex h-full flex-col justify-center gap-4 p-6">
+                <div class="rounded-lg border border-gray-200 bg-white  shadow-md flex-col flex h-full items-center justify-center sm:px-4">
+                    <div class="flex h-full flex-col justify-center gap-4 bg-white">
                         <div class="left-0 right-0 inline-block border-gray-200 px-2 py-2.5 sm:px-4">
                             <h:form  class="flex flex-col gap-4 pb-4">
-                                <h1 class="mb-4 text-2xl font-bold text-center">Login</h1>
+                                <h1 class="mb-4 text-2xl font-bold text-center ">Login</h1>
 
                                 <!-- Role Selection Dropdown -->
                                 <div>
                                     <label class="text-sm font-medium text-gray-900 dark:text-gray-300" for="role">Role:</label>
-                                    <h:selectOneMenu id="role" value="#{loginBean.role}" styleClass="block w-full border bg-gray-50 border-gray-300 text-gray-900 focus:border-cyan-500 focus:ring-cyan-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white p-2.5 text-sm rounded-lg" >
+                                    <h:selectOneMenu id="role" value="#{loginBean.role}" styleClass="block w-full border border-gray-300 text-gray-900 focus:border-cyan-500 focus:ring-cyan-500 dark:border-gray-600 dark:bg-white-700 dark:text-grey p-2.5 text-sm rounded-lg" >
                                         <f:selectItem itemValue="Admin" itemLabel="Admin" />
                                         <f:selectItem itemValue="Owner" itemLabel="Owner" />
                                         <f:selectItem itemValue="User" itemLabel="User" />
-                                       
+
                                     </h:selectOneMenu>
 
                                     <h:message for="role" styleClass="text-red-500 text-sm" />
-                                     <i class="fa-solid fa-caret-down"></i>
+                                    <i class="fa-solid fa-caret-down"></i>
                                 </div>
 
                                 <!-- Email -->
@@ -39,7 +41,7 @@
                                     <h:inputText
                                         id="email"
                                         value="#{loginBean.email}"
-                                        styleClass="block w-full border bg-gray-50 border-gray-300 text-gray-900 focus:border-cyan-500 focus:ring-cyan-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white p-2.5 text-sm rounded-lg"
+                                        styleClass="block w-full border border-gray-300 text-gray-900 focus:border-cyan-500 focus:ring-cyan-500 dark:border-white-600 dark:bg-white-700 dark:text-grey p-2.5 text-sm rounded-lg"
                                         required="true"
                                         requiredMessage="Email is required"
                                         p:placeholder="email@example.com" />

@@ -73,13 +73,19 @@
                     </div>
 
                     <!-- User ID -->
-                    <div class="form-field">
+<!--                    <div class="form-field">
                         <h:outputText value="userId" class="block mb-2 font-medium">User ID:</h:outputText>
                         <h:selectOneMenu id="userId" value="#{showVenue.venuetable.userId}" title="UserId" class="border rounded w-full p-2">
                             <f:selectItem itemValue="" itemLabel="Select ID" noSelectionOption="true" />
                             <f:selectItem itemValue="4" itemLabel="4" />
                         </h:selectOneMenu>
-                    </div>
+                        
+                        <h:inputText id="userId" value="#{showVenue.venuetable.userId}" title="userId" 
+                                     required="true" requiredMessage="The userid field is required." class="border rounded w-full p-2"/>
+                    
+                        
+                        
+                    </div>-->
                 </div>
 
                 <!-- Submit Button -->
@@ -94,48 +100,9 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
         <h:form>
             <h:panelGroup id="venueList">
                 <div class="container mx-auto p-4">
-                    <!-- Search and Button Controls -->
-                    <div class="flex justify-between items-center mb-4">
-                        <h:inputText value="#{dashboardBean.searchQuery}"
-                                     pt:placeholder="Enter Search Value"
-                                     styleClass="border p-2 rounded w-1/4" />
-
-
-                        <!--                        <div>
-                                                    <a >
-                                                        <h:commandButton value="Add Venue" 
-                                                                         onclick="openAddVenueModal(); return false;" 
-                                                                         styleClass="bg-orange-500 text-black px-4 py-2 rounded" />
-                                                    </a>
-                                                </div>-->
-                    </div>
 
                     <!-- Table -->
                     <h:dataTable value="#{showVenue.findAll()}" var="item"
@@ -152,16 +119,9 @@
                             <f:facet name="header">
                                 <h:outputText value="Image" />
                             </f:facet>
-                            <h:panelGroup>
-                                <c:if test="#{item.image.startsWith('http')}">
-                                    <h:graphicImage value="#{item.image}" style="max-width: 100px; max-height: 100px;" />
-                                </c:if>
-                                <c:if test="#{!item.image.startsWith('http')}">
-                                    <h:graphicImage value="../resources/images/#{item.image}" style="max-width: 100px; max-height: 100px;" />
-                                </c:if>
-                            </h:panelGroup>
+                            <img class="border object-cover rounded-lg" src="../resource/Event/#{item.image}" height="90" width="100" alt="Venue Image"/>
                         </h:column>
-
+                      
                         <h:column>
                             <f:facet name="header">
                                 <h:outputText value="Location" />

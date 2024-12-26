@@ -12,7 +12,7 @@
 </head>
 
 <h:body class="bg-gray-100">
-
+ <ui:include src="index.xhtml"/>
  
     <f:view>
         <h:form>
@@ -72,7 +72,7 @@
                     <h:commandButton value="Edit" 
                                      styleClass="bg-orange-500 text-black px-4 py-1 rounded  " action="#{customerCont.updateuser(item)}" />
                     <h:commandButton value="Delete" 
-                                     styleClass="bg-gray-100 text-gray-600 px-4 py-1 rounded ml-10" action="#{customerCont.deleteusers(item)}" />
+                                     styleClass="bg-gray-100 text-gray-600 px-4 py-1 rounded ml-10" action="#{customerCont.deleteUser(item)}" />
                 </h:column>
             </h:dataTable>
         </h:form>

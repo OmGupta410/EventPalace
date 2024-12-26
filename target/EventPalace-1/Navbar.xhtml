@@ -53,10 +53,11 @@
                         </button>
 
                         <!--Dropdown Menu--> 
+                       
                         <div id="profile-dropdown" class="hidden absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg z-50 ">
                             <a href="./ClientDashboard/ClientDashboard.xhtml" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">Your Profile</a>
                             <a href="/settings.xhtml" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">Settings</a>
-                            <h:commandLink action="#{loginBean.logout()}" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">Sign out</h:commandLink>
+                            <h:commandLink  onclick="logoutClient()"  class="block px-4 py-2 text-gray-700 hover:bg-gray-100">Sign out</h:commandLink>
                         </div>
                     </div>
                 </h:panelGroup>
@@ -64,6 +65,13 @@
         </header>
         <!-- JavaScript -->
         <script src="toggleprofile.js" ></script>
+          <script>
+        function logoutClient() {
+            sessionStorage.clear();
+            window.location.href = "../Login.xhtml";
+        }
+
+//    </script>
 
     </h:body>
 </html>

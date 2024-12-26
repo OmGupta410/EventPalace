@@ -1,11 +1,13 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
 <head>
     <title>Profile Dashboard</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet"/>
 </head>
 <body class="bg-gray-100 rounded ">
-    <div class="max-w-6xl mx-auto bg-white ">
+    
         <!-- Top Stats -->
         <div class="grid grid-cols-2 md:grid-cols-3 gap-4 mb-6 p-4 text-center">
             <div>
@@ -27,12 +29,14 @@
         <hr/>
         <!-- Profile Info -->
         <div id="display-mode" class="flex items-center mb-6 p-6">
-            <img src="../resource/images/2.jpg" alt="Profile Image" class="w-24 h-24 rounded-full mr-6"/>
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQz68b1g8MSxSUqvFtuo44MvagkdFGoG7Z7DQ&amp;s" alt="Profile Image" class="w-24 h-24 rounded-full mr-6"/>
             <div>
-                <h1 id="display-name" class="text-2xl font-bold">Aditya Pathak</h1>
-                <p id="display-email" class="text-gray-700">adi@example.com</p>
-                <p id="display-email" class="text-gray-700">18</p>
-                <p id="display-phone" class="text-gray-700">7600307488</p>
+                <h1 id="display-name" class="text-2xl font-bold">#{userdata.fetchUserDetails()}</h1>
+
+                <h1 id="display-name" class="text-2xl font-bold">#{userdata.userDetails.name}</h1>
+                <p id="display-email" class="text-gray-700">#{userdata.userDetails.email}</p>
+                <p id="display-email" class="text-gray-700">#{userdata.userDetails.userid}</p>
+                <p id="display-phone" class="text-gray-700">#{userdata.userDetails.contactNo}</p>
                 <button type="button" onclick="toggleEditMode()" class="mt-4 bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-700"><i class="fa-solid fa-pen-to-square"></i> Edit Profile</button>
             </div>
         </div>
@@ -60,38 +64,40 @@
             </form>
         </div>
 
-        <!-- Latest Orders -->
-        <h2 class="text-xl font-bold mt-6 mb-4 p-4" >Latest orders</h2>
-        <div class="overflow-x-auto">
-            <table class="table-auto w-full text-left text-sm">
-                <thead>
-                    <tr class="bg-gray-200">
-                        <th class="px-4 py-2">Booking ID</th>
-                        <th class="px-4 py-2">Date</th>
-                        <th class="px-4 py-2">Price</th>
-                        <th class="px-4 py-2">Shift</th>
-                        <th class="px-4 py-2">Actions</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td class="px-4 py-2">71</td>
-                        <td class="px-4 py-2">2025-12-26</td>
-                        <td class="px-4 py-2">25000</td>
-                        <td class="px-4 py-2 text-yellow-500">Afternoon</td>
-                        <td class="px-4 py-2"><button class="text-blue-500 underline">Actions</button></td>
-                    </tr>
-                    <tr class="bg-gray-100">
-                        <td class="px-4 py-2">77</td>
-                        <td class="px-4 py-2">2025-12-24</td>
-                        <td class="px-4 py-2">10000</td>
-                        <td class="px-4 py-2 text-red-500">Morning</td>
-                        <td class="px-4 py-2"><button class="text-blue-500 underline">Actions</button></td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-    </div>
+       <!-- Latest Orders -->
+<h2 class="text-xl font-bold mt-6 mb-4 p-4">Latest Orders</h2>
+
+<div class="overflow-x-auto shadow-lg rounded-lg">
+
+            <h:form>
+                <h:dataTable value="#{bookings.findAll()}" var="item" border="1">
+                    <h:column>
+                        <h:outputText value="#{item.bookingid}" />
+                    </h:column>
+                    <h:column>
+                        <h:outputText value="#{item.bookingdate}">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:outputText>
+                    </h:column>
+                    <h:column>
+                        <h:outputText value="#{item.eventtype}" />
+                    </h:column>
+                    <h:column>
+                        <h:outputText value="#{item.shift}" />
+                    </h:column>
+                    <h:column>
+                        <h:outputText value="#{item.eventdate}">
+                            <f:convertDateTime pattern="yyyy/MM/dd" />
+                        </h:outputText>
+                    </h:column>
+                    <h:column>
+                        <h:outputText value="#{item.venueId.venueId}" />
+                    </h:column>
+                </h:dataTable>
+            </h:form>
+
+</div>
+
 
     <!-- JavaScript -->
     <script>
