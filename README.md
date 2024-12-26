@@ -1,3 +1,5 @@
 Welcome to Event Palace, your go-to platform for booking and managing event venues. Here, you can effortlessly arrange events, set advance pricing for venues, and oversee everything through your personalized dashboard. Venue owners are welcome to join and register their venues to get them listed on our platform.
 
 We plan to introduce advanced features like additional services for catering and videography/photography. To enhance security, we aim to implement robust measures using JAAS (Java Authentication and Authorization Service). Moreover, we will optimize the system by improving routing, enhancing REST client functionality, and updating the database with redundancy checks, normalization, and comprehensive validations.
+
+Most important JWT
