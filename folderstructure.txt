@@ -1,0 +1,13 @@
+DB connect using service me -.new connection> databse connect
+2>jndi pool>connection>jdbc>pool>jndi pool, connectjndi pool , and ping
+
+entitys>persistance>entity class from databasse>select datasource
+
+ejb>other>enterprise javabean>session bean from entity class>add all tables>
+
+CDI bean >jsf >cdi bean > cdi bean package>businnes login 
+
+jsf>pages
+
+
+

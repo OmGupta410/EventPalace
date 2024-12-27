@@ -1,0 +1,77 @@
+EventPalace
+├── Web Pages
+│   ├── AdminDashboard
+│   ├── WEB-INF
+│   │   ├── beans.xml
+│   │   ├── faces-config.xml
+│   │   └── web.xml
+│   └── resource
+│       ├── Aboutus.xhtml
+│       ├── BrowseVenue.xhtml
+│       ├── Contactus.xhtml
+│       ├── Login.xhtml
+│       ├── Navbar.xhtml
+│       ├── Registration.xhtml
+│       ├── Review.xhtml
+│       ├── changes.txt
+│       ├── footer.xhtml
+│       ├── gallery.xhtml
+│       ├── index.xhtml
+│       ├── showTest.xhtml
+│       ├── tailwind.config.js
+│       └── venuDetail.xhtml
+├── Remote Files
+├── RESTful Web Services
+└── Source Packages
+|    ├── com.mycompany.entity
+|    │   ├── PaymentMethod.java
+|    │   ├── PaymentTable.java
+|    │   ├── ReviewTable.java
+|    │   ├── RoleTable.java
+|    │   ├── UserBookingTable.java
+|    │   ├── UserRegistrationTable.java
+|    │   ├── VenueFacility.java
+|    │   ├── VenueGallery.java
+|    │   └── VenueTable.java
+|    ├── com.mycompany.eventpalace.controllers
+|    │   └── LoginBean.java
+|    └── com.mycompany.eventpalace.resources
+|    |    ├── ApplicationConfig.java
+|    |    └── JakartaEE8Resource.java
+|    |    └──LoginResource.java
+|    ├── com.mycompany.sessionBeans
+|    |   ├── AbstractFacade.java 
+|    │   ├── PaymentMethodFacade.java
+|    │   ├── PaymentMethodFacadeLocal.java
+|    │   ├── PaymentTableFacade.java  
+|    │   ├── PaymentTableFacadeLocal.java
+|    │   ├── ReviewTableFacade.java
+|    │   ├── ReviewTableFacadeLocal.java
+|    │   ├── RoleTableFacade.java   
+|    │   ├── RoleTableFacadeLocal.java
+|    │   ├── UserBookingTableFacade.java
+|    │   ├── UserBookingTableFacadeLocal.java
+|    │   ├── UserRegistrationTableFacade.java
+|    │   ├── UserRegistrationTableFacadeLocal.java
+|    │   ├── VenueFacilityFacade.java
+|    │   ├── VenueFacilityFacadeLocal.java
+|    │   ├── VenueGalleryFacade.java
+|    │   ├── VenueGalleryFacadeLocal.java
+|    │   └── VenueTableFacade.java
+|    │   ├── VenueTableFacadeLocal.java
+|     
+└── Test Packages
+└── Other Sources    
+|	|	
+|	└── Source Packages
+|		└── src/main/resources
+|			└── META-INF
+|				persistence.xml
+|
+|
+└── Dependencies
+└── java Dependencies
+└── Project Files                      
+                                   
+                
+              
